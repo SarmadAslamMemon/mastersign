@@ -1,0 +1,56 @@
+Create a professional, modern homepage for Master Signs using React and Tailwind CSS. The site should reflect a bold brand identity inspired by fastsigns.com, buildasign.com, and signarama.com. Master Signs is a faith-driven, family-owned signage company offering services like vehicle wraps, LED boards, and laser engraving. Design should feel innovative, local, and trustworthy.
+
+Design Goals:
+- Bold blues, black, and white color palette for clean, high-impact visuals
+- Crisp typography, high-contrast accessibility, and strong mobile responsiveness
+- Consistent, scalable layout with clear CTAs, soft animations, and generous spacing
+- ADA-compliant: alt tags, keyboard navigation, readable fonts, and high-contrast toggles
+
+Homepage Content Sections:
+- Dual navigation bars: top for contact/login, bottom for core links (20+ services)
+- Hero section with business tagline, location, and strong CTA buttons
+- Services section (6–8 cards) featuring laser engraving, LED signs, vehicle wraps, banners
+- About section with brand story, legacy, and mission
+- Quote request UI: minimal form fields with file upload
+- Testimonials slider
+- “Explore Design Now” preview with placeholder (canvas not required now)
+- Footer with site links, job opportunities, contact info, and social icons
+
+Functionality:
+- Search filters by sign type, usage, and material on product pages
+- Customer login placeholder with future intent for dashboard integration
+- Quote forms to be fully styled with validation (no backend connection needed now)
+- Image assets and file upload buttons for future file handling
+- Responsive navigation drawer for mobile
+- Sticky nav bar on scroll
+
+Preferred Libraries:
+- react-router-dom for routing
+- framer-motion for subtle animations and transitions
+- swiper for testimonial and services sliders
+- react-hook-form + yup for form validation
+- react-icons for scalable icons
+- clsx for dynamic class names
+- tailwind-scrollbar and tailwind-typography for enhanced styling
+
+Folder Structure:
+- src/
+  - assets/ (images, icons, logos)
+  - components/ (Navbar, Footer, Hero, ServicesGrid, AboutBlock, QuoteForm, TestimonialSlider)
+  - pages/
+    - Home.jsx
+    - Services.jsx
+    - Contact.jsx
+  - routes/ (index.jsx)
+  - styles/ (tailwind.config.js, global.css)
+  - utils/ (constants.js, helpers.js)
+  - App.jsx
+  - main.jsx
+
+Requirements:
+- Clean, scalable React + Tailwind project
+- Avoid hardcoded styles — use Tailwind for spacing, responsiveness, and layout
+- Use modular, reusable components
+- Do not build backend or design canvas now, just front-end placeholders
+
+Target completion: Rapid frontend MVP for visual demos and stakeholder review
