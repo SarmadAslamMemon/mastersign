@@ -173,6 +173,7 @@ export default function QuoteForm() {
                           <FormControl>
                             <Input 
                               {...field}
+                              value={field.value ?? ""}
                               type="tel"
                               placeholder="(555) 123-4567"
                               className="bg-white bg-opacity-10 border-white border-opacity-20 text-white placeholder-gray-400 focus:ring-2 focus:ring-[var(--master-blue)]"
@@ -192,6 +193,7 @@ export default function QuoteForm() {
                           <FormControl>
                             <Input 
                               {...field}
+                              value={field.value ?? ""}
                               placeholder="Your Company"
                               className="bg-white bg-opacity-10 border-white border-opacity-20 text-white placeholder-gray-400 focus:ring-2 focus:ring-[var(--master-blue)]"
                               data-testid="input-company"
@@ -240,7 +242,7 @@ export default function QuoteForm() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-white font-semibold">Project Timeline</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <Select onValueChange={field.onChange} defaultValue={field.value ?? ""}>
                             <FormControl>
                               <SelectTrigger 
                                 className="bg-white bg-opacity-10 border-white border-opacity-20 text-white focus:ring-2 focus:ring-[var(--master-blue)]"
@@ -267,7 +269,7 @@ export default function QuoteForm() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-white font-semibold">Budget Range</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <Select onValueChange={field.onChange} defaultValue={field.value ?? ""}>
                             <FormControl>
                               <SelectTrigger 
                                 className="bg-white bg-opacity-10 border-white border-opacity-20 text-white focus:ring-2 focus:ring-[var(--master-blue)]"
@@ -299,6 +301,7 @@ export default function QuoteForm() {
                         <FormControl>
                           <Textarea 
                             {...field}
+                            value={field.value ?? ""}
                             rows={4}
                             placeholder="Tell us about your project requirements, size, location, and any specific needs..."
                             className="bg-white bg-opacity-10 border-white border-opacity-20 text-white placeholder-gray-400 focus:ring-2 focus:ring-[var(--master-blue)] resize-none"

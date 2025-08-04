@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import Navigation from "@/components/navigation";
 import HeroSection from "@/components/hero-section";
+import ProductsSection from "@/components/products-section";
 import ServicesSection from "@/components/services-section";
+import PortfolioSection from "@/components/portfolio-section";
 import AboutSection from "@/components/about-section";
 import QuoteForm from "@/components/quote-form";
 import TestimonialsSection from "@/components/testimonials-section";
@@ -27,7 +29,9 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       <Navigation />
       <HeroSection />
+      <ProductsSection />
       <ServicesSection />
+      <PortfolioSection />
       <AboutSection />
       <QuoteForm />
       <TestimonialsSection />
