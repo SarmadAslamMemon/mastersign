@@ -7,7 +7,6 @@ import { fadeInUp, magneticHover } from "@/lib/animations";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -102,7 +101,7 @@ export default function Navigation() {
               <motion.div {...magneticHover}>
                 <Button 
                   onClick={() => scrollToSection('quote')}
-                  className="bg-[var(--master-blue)] text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300"
+                  className="btn-primary bg-[var(--master-blue)] text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300"
                   data-testid="button-get-quote"
                 >
                   Get Quote
@@ -126,9 +125,7 @@ export default function Navigation() {
             <div className="flex items-center justify-between py-3">
               <div className="flex items-center space-x-8">
                 <div 
-                  className="relative"
-                  onMouseEnter={() => setIsServicesOpen(true)}
-                  onMouseLeave={() => setIsServicesOpen(false)}
+                  className="relative group"
                 >
                   <button className="flex items-center space-x-1 text-gray-700 hover:text-[var(--master-blue)] font-medium transition-colors">
                     <span>Products</span>
@@ -136,26 +133,19 @@ export default function Navigation() {
                   </button>
                   
                   {/* Mega Menu */}
-                  {isServicesOpen && (
-                    <motion.div 
-                      className="absolute top-full left-0 w-96 bg-white shadow-2xl rounded-lg border mt-2 p-6 z-50"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <div className="grid grid-cols-2 gap-4">
-                        {mainServices.map((service, index) => (
-                          <button
-                            key={index}
-                            className="text-left text-sm text-gray-600 hover:text-[var(--master-blue)] py-1 transition-colors"
-                            data-testid={`service-${index}`}
-                          >
-                            {service}
-                          </button>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
+                  <div className="mega-menu absolute top-full left-0 w-96 bg-white shadow-2xl rounded-lg border mt-2 p-6 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none group-hover:pointer-events-auto">
+                    <div className="grid grid-cols-2 gap-4">
+                      {mainServices.map((service, index) => (
+                        <button
+                          key={index}
+                          className="text-left text-sm text-gray-600 hover:text-[var(--master-blue)] py-1 transition-colors"
+                          data-testid={`service-${index}`}
+                        >
+                          {service}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
                 
                 <button 

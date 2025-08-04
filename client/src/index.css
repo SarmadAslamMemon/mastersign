@@ -13,15 +13,15 @@
   --card-foreground: hsl(20, 14.3%, 4.1%);
   --border: hsl(20, 5.9%, 90%);
   --input: hsl(20, 5.9%, 90%);
-  --primary: hsl(207, 90%, 54%);
-  --primary-foreground: hsl(211, 100%, 99%);
+  --primary: hsl(207, 100%, 31%);
+  --primary-foreground: hsl(0, 0%, 100%);
   --secondary: hsl(60, 4.8%, 95.9%);
   --secondary-foreground: hsl(24, 9.8%, 10%);
   --accent: hsl(60, 4.8%, 95.9%);
   --accent-foreground: hsl(24, 9.8%, 10%);
   --destructive: hsl(0, 84.2%, 60.2%);
   --destructive-foreground: hsl(60, 9.1%, 97.8%);
-  --ring: hsl(20, 14.3%, 4.1%);
+  --ring: hsl(207, 100%, 31%);
   --radius: 0.5rem;
   
   /* Master Signs Brand Colors */
@@ -45,8 +45,8 @@
   --card-foreground: hsl(0, 0%, 98%);
   --border: hsl(240, 3.7%, 15.9%);
   --input: hsl(240, 3.7%, 15.9%);
-  --primary: hsl(207, 90%, 54%);
-  --primary-foreground: hsl(211, 100%, 99%);
+  --primary: hsl(207, 100%, 31%);
+  --primary-foreground: hsl(0, 0%, 100%);
   --secondary: hsl(240, 3.7%, 15.9%);
   --secondary-foreground: hsl(0, 0%, 98%);
   --accent: hsl(240, 3.7%, 15.9%);
@@ -128,6 +128,27 @@
   .ripple:hover::before {
     width: 300px;
     height: 300px;
+  }
+  
+  /* Button improvements */
+  .btn-primary {
+    background: var(--master-blue) !important;
+    color: white !important;
+    border: none !important;
+  }
+  
+  .btn-primary:hover {
+    background: hsl(207, 100%, 25%) !important;
+    color: white !important;
+  }
+  
+  /* Dropdown improvements */
+  .mega-menu {
+    pointer-events: none;
+  }
+  
+  .group:hover .mega-menu {
+    pointer-events: auto;
   }
 }
 

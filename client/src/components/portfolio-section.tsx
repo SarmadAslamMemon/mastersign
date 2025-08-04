@@ -183,7 +183,7 @@ export default function PortfolioSection() {
           <motion.div className="text-center mt-12" variants={fadeInUp}>
             <Button 
               size="lg"
-              className="bg-[var(--master-blue)] text-white hover:bg-blue-700 px-8 py-3"
+              className="btn-primary bg-[var(--master-blue)] text-white hover:bg-blue-700 px-8 py-3"
               data-testid="button-view-all-cases"
             >
               Read All Case Studies

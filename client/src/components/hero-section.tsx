@@ -93,7 +93,7 @@ export default function HeroSection() {
                 <Button 
                   onClick={scrollToQuote}
                   size="lg"
-                  className="bg-yellow-400 text-[var(--master-blue)] hover:bg-yellow-300 font-bold px-8 py-4 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-xl"
+                  className="btn-primary bg-yellow-400 text-[var(--master-blue)] hover:bg-yellow-300 font-bold px-8 py-4 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-xl"
                   data-testid="button-hero-quote"
                 >
                   Get Your Quote
