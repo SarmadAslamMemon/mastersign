@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, User, Search, ShoppingCart, Menu, X, ChevronDown } from "lucide-react";
+import { Phone, Mail, MapPin, User, Search, ShoppingCart, Menu, X, ChevronDown, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { fadeInUp, magneticHover } from "@/lib/animations";
+import { ProductCategory, PRODUCT_SUBCATEGORIES } from "@/types/products";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [hoveredCategory, setHoveredCategory] = useState<ProductCategory | null>(null);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -16,20 +18,116 @@ export default function Navigation() {
     setIsMobileMenuOpen(false);
   };
 
-  const mainServices = [
-    "LED Digital Signs", "Vehicle Wraps", "Laser Engraving", 
-    "Custom Banners", "Architectural Signs", "Installation & Service",
-    "Real Estate Signs", "Trade Show Displays", "Window Graphics",
-    "ADA Compliant Signs", "Monument Signs", "Channel Letters",
-    "Wayfinding Systems", "Safety Signs", "Promotional Products",
-    "Menu Boards", "Event Signage", "Magnetic Signs", "Decals & Stickers", "Yard Signs"
+  // Organize categories into rows
+  const topRowCategories = [
+    ProductCategory.EXPO_DISPLAY,
+    ProductCategory.LASER_ENGRAVING,
+    ProductCategory.DECALS_STICKERS,
+    ProductCategory.BANNERS_FLAGS,
+    ProductCategory.SIGNS,
+    ProductCategory.PRIVACY_SECURITY,
+    ProductCategory.MARKETING,
+    ProductCategory.PROMO
   ];
+
+  const bottomRowCategories = [
+    ProductCategory.ELECTRIC_SIGNS,
+    ProductCategory.VEHICLE_TRAILER,
+    ProductCategory.INDOOR_SIGNS,
+    ProductCategory.OUTDOOR_SIGNS,
+    ProductCategory.ACCESSORIES
+  ];
+
+  const handleCategoryHover = (category: ProductCategory) => {
+    setHoveredCategory(category);
+  };
+
+  const handleCategoryLeave = () => {
+    setHoveredCategory(null);
+  };
+
+  // Function to render dropdown content with multi-column layout
+  const renderDropdownContent = (category: ProductCategory) => {
+    const subCategories = PRODUCT_SUBCATEGORIES[category] || [];
+    const hasManyOptions = subCategories.length > 10;
+    
+    if (hasManyOptions) {
+      // Split into columns for better layout
+      const midPoint = Math.ceil(subCategories.length / 2);
+      const leftColumn = subCategories.slice(0, midPoint);
+      const rightColumn = subCategories.slice(midPoint);
+      
+      return (
+        <div className="p-4">
+          <h3 className="font-semibold text-gray-900 mb-3">{category}</h3>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              {leftColumn.map((subCategory, subIndex) => (
+                <a
+                  key={subIndex}
+                  href={`/products/${category.toLowerCase().replace(/\s+/g, '-')}/${subCategory.toLowerCase().replace(/\s+/g, '-')}`}
+                  className="text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 px-2 py-1 rounded transition-colors block"
+                >
+                  {subCategory}
+                </a>
+              ))}
+            </div>
+            <div className="space-y-2">
+              {rightColumn.map((subCategory, subIndex) => (
+                <a
+                  key={subIndex}
+                  href={`/products/${category.toLowerCase().replace(/\s+/g, '-')}/${subCategory.toLowerCase().replace(/\s+/g, '-')}`}
+                  className="text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 px-2 py-1 rounded transition-colors block"
+                >
+                  {subCategory}
+                </a>
+              ))}
+            </div>
+          </div>
+          <div className="mt-3 pt-3 border-t border-gray-200">
+            <a
+              href={`/products/${category.toLowerCase().replace(/\s+/g, '-')}`}
+              className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+            >
+              View All {category} →
+            </a>
+          </div>
+        </div>
+      );
+    } else {
+      // Single column for fewer options
+      return (
+        <div className="p-4">
+          <h3 className="font-semibold text-gray-900 mb-3">{category}</h3>
+          <div className="space-y-2">
+            {subCategories.map((subCategory, subIndex) => (
+              <a
+                key={subIndex}
+                href={`/products/${category.toLowerCase().replace(/\s+/g, '-')}/${subCategory.toLowerCase().replace(/\s+/g, '-')}`}
+                className="text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 px-2 py-1 rounded transition-colors block"
+              >
+                {subCategory}
+              </a>
+            ))}
+          </div>
+          <div className="mt-3 pt-3 border-t border-gray-200">
+            <a
+              href={`/products/${category.toLowerCase().replace(/\s+/g, '-')}`}
+              className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+            >
+              View All {category} →
+            </a>
+          </div>
+        </div>
+      );
+    }
+  };
 
   return (
     <>
       {/* Top Utility Bar */}
       <motion.div 
-        className="bg-[var(--master-blue)] text-white py-2 text-sm"
+        className="bg-blue-600 text-white py-2 text-sm"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4 }}
@@ -53,7 +151,7 @@ export default function Navigation() {
 
       {/* Main Navigation */}
       <motion.nav 
-        className="bg-white shadow-lg sticky top-0 z-50"
+        className="bg-white shadow-lg sticky top-0 z-[99999]"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.2 }}
@@ -65,14 +163,14 @@ export default function Navigation() {
               className="flex items-center space-x-3"
               {...fadeInUp}
             >
-              <div className="w-12 h-12 bg-[var(--master-blue)] rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
                 <svg className="h-6 w-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                 </svg>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-[var(--master-black)]">Master Signs</h1>
-                <p className="text-sm text-[var(--master-blue)]">Make Your Statement</p>
+                <h1 className="text-2xl font-bold text-black">Master Signs</h1>
+                <p className="text-sm text-blue-600">Make Your Statement</p>
               </div>
             </motion.div>
 
@@ -81,7 +179,7 @@ export default function Navigation() {
               <div className="relative w-full">
                 <Input 
                   placeholder="Search for signs, services, or products..."
-                  className="pl-10 pr-4 py-2 rounded-full border-2 border-gray-200 focus:border-[var(--master-blue)]"
+                  className="pl-10 pr-4 py-2 rounded-full border-2 border-gray-200 focus:border-blue-600"
                   data-testid="search-input"
                 />
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -91,7 +189,7 @@ export default function Navigation() {
             {/* Right Navigation */}
             <div className="flex items-center space-x-4">
               <button 
-                className="hidden md:flex items-center space-x-1 text-gray-600 hover:text-[var(--master-blue)] transition-colors"
+                className="hidden md:flex items-center space-x-1 text-gray-600 hover:text-blue-600 transition-colors"
                 data-testid="button-customer-login"
               >
                 <User className="h-5 w-5" />
@@ -100,11 +198,14 @@ export default function Navigation() {
               
               <motion.div {...magneticHover}>
                 <Button 
-                  onClick={() => scrollToSection('quote')}
-                  className="btn-primary bg-[var(--master-blue)] text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300"
-                  data-testid="button-get-quote"
+                  asChild
+                  className="btn-primary bg-blue-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300"
+                  data-testid="button-start-designing"
                 >
-                  Get Quote
+                  <a href="/editor">
+                    <Palette className="mr-2 h-4 w-4" />
+                    START DESIGNING
+                  </a>
                 </Button>
               </motion.div>
               
@@ -119,75 +220,93 @@ export default function Navigation() {
           </div>
         </div>
 
-        {/* Secondary Navigation */}
+        {/* Category Navigation - Two Rows */}
         <div className="bg-gray-50 border-t hidden lg:block">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="flex items-center justify-between py-3">
+            {/* Top Row */}
+            <div className="flex items-center justify-between py-3 border-b border-gray-200">
               <div className="flex items-center space-x-8">
+                {topRowCategories.map((category, index) => (
                 <div 
+                    key={index}
                   className="relative group"
-                >
-                  <button className="flex items-center space-x-1 text-gray-700 hover:text-[var(--master-blue)] font-medium transition-colors">
-                    <span>Products</span>
-                    <ChevronDown className="h-4 w-4" />
+                    onMouseEnter={() => handleCategoryHover(category)}
+                    onMouseLeave={handleCategoryLeave}
+                  >
+                    <button
+                      className="text-gray-700 hover:text-blue-600 font-medium text-sm transition-colors flex items-center space-x-1 py-3 px-2 rounded hover:bg-gray-100"
+                      data-testid={`nav-${category.toLowerCase().replace(/\s+/g, '-')}`}
+                    >
+                      <span>{category}</span>
+                      <ChevronDown className="h-3 w-3 transition-transform group-hover:rotate-180" />
                   </button>
                   
-                  {/* Mega Menu */}
-                  <div className="mega-menu absolute top-full left-0 w-96 bg-white shadow-2xl rounded-lg border mt-2 p-6 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none group-hover:pointer-events-auto">
-                    <div className="grid grid-cols-2 gap-4">
-                      {mainServices.map((service, index) => (
-                        <button
-                          key={index}
-                          className="text-left text-sm text-gray-600 hover:text-[var(--master-blue)] py-1 transition-colors"
-                          data-testid={`service-${index}`}
-                        >
-                          {service}
-                        </button>
-                      ))}
-                    </div>
+                    {/* Dropdown Menu */}
+                    {hoveredCategory === category && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute top-full left-0 mt-0 bg-white rounded-lg shadow-xl border border-gray-200 z-[999999] min-w-[320px] max-w-[600px]"
+                        onMouseEnter={() => handleCategoryHover(category)}
+                        onMouseLeave={handleCategoryLeave}
+                        style={{ zIndex: 999999 }}
+                      >
+                        {/* Invisible hover area to prevent gap */}
+                        <div className="absolute -top-2 left-0 right-0 h-2 bg-transparent"></div>
+                        
+                        {renderDropdownContent(category)}
+                      </motion.div>
+                    )}
+                  </div>
+                ))}
                   </div>
                 </div>
                 
+            {/* Bottom Row */}
+            <div className="flex items-center justify-between py-3">
+              <div className="flex items-center space-x-8">
+                {bottomRowCategories.map((category, index) => (
+                  <div
+                    key={index}
+                    className="relative group"
+                    onMouseEnter={() => handleCategoryHover(category)}
+                    onMouseLeave={handleCategoryLeave}
+                  >
                 <button 
-                  onClick={() => scrollToSection('services')}
-                  className="text-gray-700 hover:text-[var(--master-blue)] font-medium transition-colors"
-                  data-testid="link-services"
+                      className="text-gray-700 hover:text-blue-600 font-medium text-sm transition-colors flex items-center space-x-1 py-3 px-2 rounded hover:bg-gray-100"
+                      data-testid={`nav-${category.toLowerCase().replace(/\s+/g, '-')}`}
                 >
-                  Services
+                      <span>{category}</span>
+                      <ChevronDown className="h-3 w-3 transition-transform group-hover:rotate-180" />
                 </button>
-                <button 
-                  onClick={() => scrollToSection('about')}
-                  className="text-gray-700 hover:text-[var(--master-blue)] font-medium transition-colors"
-                  data-testid="link-about"
-                >
-                  About Us
-                </button>
-                <button 
-                  onClick={() => scrollToSection('portfolio')}
-                  className="text-gray-700 hover:text-[var(--master-blue)] font-medium transition-colors"
-                  data-testid="link-portfolio"
-                >
-                  Portfolio
-                </button>
-                <button 
-                  onClick={() => scrollToSection('testimonials')}
-                  className="text-gray-700 hover:text-[var(--master-blue)] font-medium transition-colors"
-                  data-testid="link-testimonials"
-                >
-                  Reviews
-                </button>
-                <button 
-                  onClick={() => scrollToSection('contact')}
-                  className="text-gray-700 hover:text-[var(--master-blue)] font-medium transition-colors"
-                  data-testid="link-contact"
-                >
-                  Contact
-                </button>
+                    
+                    {/* Dropdown Menu */}
+                    {hoveredCategory === category && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute top-full left-0 mt-0 bg-white rounded-lg shadow-xl border border-gray-200 z-[999999] min-w-[320px] max-w-[600px]"
+                        onMouseEnter={() => handleCategoryHover(category)}
+                        onMouseLeave={handleCategoryLeave}
+                        style={{ zIndex: 999999 }}
+                      >
+                        {/* Invisible hover area to prevent gap */}
+                        <div className="absolute -top-2 left-0 right-0 h-2 bg-transparent"></div>
+                        
+                        {renderDropdownContent(category)}
+                      </motion.div>
+                    )}
+                  </div>
+                ))}
               </div>
               
               <div className="flex items-center space-x-4 text-sm">
                 <span className="text-gray-600">Need help?</span>
-                <div className="flex items-center space-x-2 text-[var(--master-blue)] font-semibold">
+                <div className="flex items-center space-x-2 text-blue-600 font-semibold">
                   <Phone className="h-4 w-4" />
                   <span>(555) 123-SIGN</span>
                 </div>
@@ -213,41 +332,52 @@ export default function Navigation() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               </div>
               
+              {/* Mobile Categories */}
+              <div className="space-y-2">
+                <h3 className="font-semibold text-gray-800 mb-2">Categories</h3>
+                {[...topRowCategories, ...bottomRowCategories].map((category, index) => (
+                  <div key={index} className="space-y-1">
               <button 
-                onClick={() => scrollToSection('services')}
-                className="block w-full text-left text-gray-700 hover:text-[var(--master-blue)] font-medium py-2"
-                data-testid="mobile-link-services"
+                      className="block w-full text-left text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors"
+                      data-testid={`mobile-${category.toLowerCase().replace(/\s+/g, '-')}`}
               >
-                Products & Services
+                      {category}
               </button>
-              <button 
-                onClick={() => scrollToSection('about')}
-                className="block w-full text-left text-gray-700 hover:text-[var(--master-blue)] font-medium py-2"
-                data-testid="mobile-link-about"
-              >
-                About Us
-              </button>
-              <button 
-                onClick={() => scrollToSection('portfolio')}
-                className="block w-full text-left text-gray-700 hover:text-[var(--master-blue)] font-medium py-2"
-                data-testid="mobile-link-portfolio"
-              >
-                Portfolio
-              </button>
-              <button 
-                onClick={() => scrollToSection('testimonials')}
-                className="block w-full text-left text-gray-700 hover:text-[var(--master-blue)] font-medium py-2"
-                data-testid="mobile-link-testimonials"
-              >
-                Reviews
-              </button>
-              <button 
-                onClick={() => scrollToSection('contact')}
-                className="block w-full text-left text-gray-700 hover:text-[var(--master-blue)] font-medium py-2"
-                data-testid="mobile-link-contact"
-              >
-                Contact
-              </button>
+                    {/* Mobile Sub-categories */}
+                    <div className="pl-4 space-y-1">
+                      {PRODUCT_SUBCATEGORIES[category]?.slice(0, 3).map((subCategory, subIndex) => (
+                        <a
+                          key={subIndex}
+                          href={`/products/${category.toLowerCase().replace(/\s+/g, '-')}/${subCategory.toLowerCase().replace(/\s+/g, '-')}`}
+                          className="block text-sm text-gray-500 hover:text-blue-600 py-1 transition-colors"
+                        >
+                          {subCategory}
+                        </a>
+                      ))}
+                      {PRODUCT_SUBCATEGORIES[category]?.length > 3 && (
+                        <a
+                          href={`/products/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                          className="block text-sm text-blue-600 hover:text-blue-700 py-1 font-medium"
+                        >
+                          View All →
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="pt-4 border-t border-gray-200">
+                <Button 
+                  asChild
+                  className="w-full bg-blue-600 text-white hover:bg-blue-700 font-semibold py-3 rounded-lg transition-colors"
+                >
+                  <a href="/editor">
+                    <Palette className="mr-2 h-4 w-4" />
+                    START DESIGNING
+                  </a>
+                </Button>
+              </div>
             </div>
           </motion.div>
         )}

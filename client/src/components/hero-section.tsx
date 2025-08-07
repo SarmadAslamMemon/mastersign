@@ -19,7 +19,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-[var(--master-blue)] via-blue-600 to-blue-800 min-h-screen flex items-center pt-32">
+    <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 min-h-screen flex items-center pt-32">
       {/* Background Image Overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
@@ -29,7 +29,7 @@ export default function HeroSection() {
       />
       
       {/* Overlay */}
-      <div className="absolute inset-0 bg-[var(--master-blue)] bg-opacity-90"></div>
+      <div className="absolute inset-0 bg-blue-600 bg-opacity-90"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -40,12 +40,13 @@ export default function HeroSection() {
             animate="animate"
             variants={staggerContainer}
           >
+            {/* Promotional Badge */}
             <motion.div 
-              className="inline-flex items-center space-x-2 bg-white bg-opacity-20 rounded-full px-4 py-2 mb-6"
+              className="inline-flex items-center space-x-2 bg-yellow-400 text-black rounded-full px-4 py-2 mb-6"
               variants={fadeInUp}
             >
-              <Star className="h-4 w-4 text-yellow-400 fill-current" />
-              <span className="text-sm font-medium">Top-Rated Custom Signs Near You</span>
+              <Star className="h-4 w-4 text-black fill-current" />
+              <span className="text-sm font-bold">🔥 LIMITED TIME OFFER</span>
             </motion.div>
 
             <motion.h1 
@@ -65,6 +66,23 @@ export default function HeroSection() {
               and project management.
             </motion.p>
 
+            {/* Promotional Offer */}
+            <motion.div 
+              className="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 mb-8 border border-white border-opacity-20"
+              variants={fadeInUp}
+            >
+              <div className="flex items-center space-x-3 mb-3">
+                <Zap className="h-6 w-6 text-yellow-400" />
+                <h3 className="text-lg font-bold text-white">Special Promotion</h3>
+              </div>
+              <p className="text-blue-100 mb-3">
+                <span className="text-yellow-400 font-bold">50% OFF</span> on all custom signs this month!
+              </p>
+              <p className="text-sm text-blue-200">
+                Plus, get a <span className="font-bold">FREE design consultation</span> worth $200
+              </p>
+            </motion.div>
+
             {/* Key Benefits */}
             <motion.div className="space-y-3 mb-8" variants={staggerContainer}>
               {[
@@ -78,7 +96,7 @@ export default function HeroSection() {
                   className="flex items-center space-x-3"
                   variants={fadeInUp}
                 >
-                  <CheckCircle className="h-5 w-5 text-green-400 flex-shrink-0" />
+                  <CheckCircle className="h-5 w-5 text-yellow-400 flex-shrink-0" />
                   <span className="text-blue-100">{benefit}</span>
                 </motion.div>
               ))}
@@ -93,7 +111,7 @@ export default function HeroSection() {
                 <Button 
                   onClick={scrollToQuote}
                   size="lg"
-                  className="btn-primary bg-yellow-400 text-[var(--master-blue)] hover:bg-yellow-300 font-bold px-8 py-4 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-xl"
+                  className="btn-primary bg-yellow-400 text-black hover:bg-yellow-300 font-bold px-8 py-4 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-xl"
                   data-testid="button-hero-quote"
                 >
                   Get Your Quote
@@ -102,14 +120,16 @@ export default function HeroSection() {
               </motion.div>
               <motion.div variants={magneticHover}>
                 <Button 
-                  onClick={scrollToServices}
+                  asChild
                   variant="outline"
                   size="lg"
-                  className="border-2 border-white text-white hover:bg-white hover:text-[var(--master-blue)] font-semibold px-8 py-4 rounded-xl text-lg transition-all duration-300"
-                  data-testid="button-hero-services"
+                  className="border-2 border-white text-blue-600 hover:bg-white hover:text-blue-600 font-semibold px-8 py-4 rounded-xl text-lg transition-all duration-300 shadow-lg"
+                  data-testid="button-hero-editor"
                 >
-                  <Play className="mr-2 h-5 w-5" />
-                  Explore Our Products
+                  <a href="/editor">
+                    <Palette className="mr-2 h-5 w-5" />
+                    Start Designing
+                  </a>
                 </Button>
               </motion.div>
             </motion.div>
@@ -138,12 +158,12 @@ export default function HeroSection() {
               >
                 <div className="flex items-center space-x-4">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-[var(--master-blue)]">500+</div>
+                    <div className="text-2xl font-bold text-blue-600">500+</div>
                     <div className="text-sm text-gray-600">Happy Clients</div>
                   </div>
                   <div className="w-px h-12 bg-gray-200"></div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-[var(--master-blue)]">4.9★</div>
+                    <div className="text-2xl font-bold text-blue-600">4.9★</div>
                     <div className="text-sm text-gray-600">Rating</div>
                   </div>
                 </div>
@@ -152,7 +172,8 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Services Preview Bar */}
+
+
         <motion.div 
           className="mt-16 bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8"
           initial={{ opacity: 0, y: 50 }}

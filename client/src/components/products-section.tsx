@@ -1,64 +1,101 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, Star, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
+import { ProductCategory, PRODUCT_SUBCATEGORIES } from "@/types/products";
 
 export default function ProductsSection() {
-  const mainProducts = [
+  // All parent categories with their featured sub-categories
+  const allCategories = [
     {
-      id: 1,
+      category: ProductCategory.EXPO_DISPLAY,
+      title: "Expo/Display",
+      featuredSubCategories: ["Trade Show Displays", "Banner Stands", "Custom Table Covers"],
+      image: "/assets/expo-display.jpg",
+      popular: true
+    },
+    {
+      category: ProductCategory.LASER_ENGRAVING,
+      title: "Laser Engraving",
+      featuredSubCategories: ["Engraved Signs", "Laser Engraved Plaques", "Custom Promotional Products"],
+      image: "/assets/laser-engraving.jpg",
+      popular: false
+    },
+    {
+      category: ProductCategory.DECALS_STICKERS,
+      title: "Decals/Stickers",
+      featuredSubCategories: ["Custom Stickers", "Wall Decals", "Vehicle Magnets"],
+      image: "/assets/decals-stickers.jpg",
+      popular: true
+    },
+    {
+      category: ProductCategory.BANNERS_FLAGS,
+      title: "Banners/Flags",
+      featuredSubCategories: ["Vinyl Banners", "Custom Flags", "Event Banners"],
+      image: "/assets/banners-flags.jpg",
+      popular: true
+    },
+    {
+      category: ProductCategory.SIGNS,
       title: "Signs",
-      description: "Custom indoor and outdoor signs for any business need",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+      featuredSubCategories: ["Channel Letters", "Monument Signs", "Custom Signs"],
+      image: "/assets/signs.jpg",
       popular: true
     },
     {
-      id: 2,
-      title: "Real Estate Signs",
-      description: "Professional yard signs and directional displays",
-      image: "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+      category: ProductCategory.PRIVACY_SECURITY,
+      title: "Privacy/Security Films",
+      featuredSubCategories: ["Window Privacy Films", "Security Window Films", "Decorative Films"],
+      image: "/assets/privacy-security.jpg",
       popular: false
     },
     {
-      id: 3,
-      title: "Banners",
-      description: "Durable vinyl banners for events and promotions",
-      image: "https://images.unsplash.com/photo-1541698444083-023c97d3f4b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
-      popular: false
-    },
-    {
-      id: 4,
-      title: "Retractable Banners",
-      description: "Portable trade show and presentation displays",
-      image: "https://images.unsplash.com/photo-1560472355-536de3962603?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+      category: ProductCategory.MARKETING,
+      title: "Marketing",
+      featuredSubCategories: ["Branding for Businesses", "Digital Printing", "Marketing Signage"],
+      image: "/assets/marketing.jpg",
       popular: true
     },
     {
-      id: 5,
-      title: "Vehicle Wraps",
-      description: "Mobile advertising with professional vehicle graphics",
-      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+      category: ProductCategory.PROMO,
+      title: "Promo",
+      featuredSubCategories: ["Custom Promotional Products", "Trophies & Awards", "Wearables"],
+      image: "/assets/promo.jpg",
       popular: false
     },
     {
-      id: 6,
-      title: "Window Graphics",
-      description: "Eye-catching window displays and privacy films",
-      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
-      popular: false
-    },
-    {
-      id: 7,
-      title: "LED Digital Signs",
-      description: "Dynamic electronic displays for maximum impact",
-      image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+      category: ProductCategory.ELECTRIC_SIGNS,
+      title: "Electric Signs",
+      featuredSubCategories: ["LED Digital Signs", "Neon Signs", "Backlit Signs"],
+      image: "/assets/electric-signs.jpg",
       popular: true
     },
     {
-      id: 8,
-      title: "Monument Signs",
-      description: "Impressive entrance signs for businesses and communities",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+      category: ProductCategory.VEHICLE_TRAILER,
+      title: "Vehicle & Trailer",
+      featuredSubCategories: ["Vehicle Graphics and Wraps", "Vehicle Decals", "Trailer Graphics"],
+      image: "/assets/vehicle-trailer.jpg",
+      popular: true
+    },
+    {
+      category: ProductCategory.INDOOR_SIGNS,
+      title: "Indoor Signs",
+      featuredSubCategories: ["Wall Murals", "Lobby Signs", "Floor Graphics"],
+      image: "/assets/indoor-signs.jpg",
+      popular: false
+    },
+    {
+      category: ProductCategory.OUTDOOR_SIGNS,
+      title: "Outdoor Signs",
+      featuredSubCategories: ["Yard Signs", "Real Estate Signs", "Pylon Signs"],
+      image: "/assets/outdoor-signs.jpg",
+      popular: true
+    },
+    {
+      category: ProductCategory.ACCESSORIES,
+      title: "Accessories",
+      featuredSubCategories: ["Mounting Hardware", "Display Stands", "Flag Poles"],
+      image: "/assets/accessories.jpg",
       popular: false
     }
   ];
@@ -66,66 +103,38 @@ export default function ProductsSection() {
   const customerFavorites = [
     {
       title: "Retractable Banners",
+      category: ProductCategory.EXPO_DISPLAY,
       reviews: 3769,
       image: "https://images.unsplash.com/photo-1560472355-536de3962603?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200",
       rating: 4.8
     },
     {
       title: "Real Estate Signs",
+      category: ProductCategory.OUTDOOR_SIGNS,
       reviews: 4728,
       image: "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200",
       rating: 4.9
     },
     {
       title: "LED Digital Signs",
+      category: ProductCategory.ELECTRIC_SIGNS,
       reviews: 2231,
       image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200",
       rating: 4.7
     },
     {
       title: "Vehicle Wraps",
+      category: ProductCategory.VEHICLE_TRAILER,
       reviews: 2438,
       image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200",
       rating: 4.9
     },
     {
       title: "Custom Banners",
+      category: ProductCategory.BANNERS_FLAGS,
       reviews: 1699,
       image: "https://images.unsplash.com/photo-1541698444083-023c97d3f4b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200",
       rating: 4.6
-    }
-  ];
-
-  const businessProducts = [
-    {
-      title: "Menu Boards",
-      description: "Digital and traditional menu display solutions",
-      image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200"
-    },
-    {
-      title: "Safety Signs",
-      description: "OSHA compliant workplace safety signage",
-      image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200"
-    },
-    {
-      title: "Trade Show Displays",
-      description: "Professional booth graphics and displays",
-      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200"
-    },
-    {
-      title: "Wayfinding Systems",
-      description: "Complete directional signage solutions",
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200"
-    },
-    {
-      title: "Channel Letters",
-      description: "Illuminated dimensional building signage",
-      image: "https://images.unsplash.com/photo-1573883431205-98b5f10aaedb?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200"
-    },
-    {
-      title: "ADA Signs",
-      description: "Compliant accessibility and room identification",
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200"
     }
   ];
 
@@ -141,52 +150,71 @@ export default function ProductsSection() {
           variants={staggerContainer}
         >
           <motion.h2 
-            className="text-4xl lg:text-5xl font-bold text-[var(--master-black)] mb-6"
+            className="text-4xl lg:text-5xl font-bold text-black mb-6"
             variants={fadeInUp}
           >
-            Custom Signs for Every Need
+            Complete Signage Solutions
           </motion.h2>
           <motion.p 
             className="text-xl text-gray-600 max-w-3xl mx-auto"
             variants={fadeInUp}
           >
-            Fast. Reliable. Built to Last. Trusted by thousands of customers for over 15 years.
+            Professional signage solutions for every business need. Trusted by thousands of customers for over 15 years.
           </motion.p>
         </motion.div>
 
+        {/* All Categories Grid */}
         <motion.div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-20"
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
           variants={staggerContainer}
         >
-          {mainProducts.map((product) => (
+          {allCategories.map((category, index) => (
             <motion.div 
-              key={product.id}
-              className="group cursor-pointer"
+              key={index}
+              className="group cursor-pointer h-full"
               variants={fadeInUp}
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -3 }}
+              onClick={() => window.location.href = `/product/${category.category.toLowerCase().replace(/[\s\/&]/g, '-')}-001`}
             >
-              <div className="relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
-                {product.popular && (
-                  <div className="absolute top-3 left-3 z-10">
+              <div className="relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 h-full flex flex-col">
+                {category.popular && (
+                  <div className="absolute top-2 left-2 z-10">
                     <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
                       POPULAR
                     </span>
                   </div>
                 )}
-                <div className="relative overflow-hidden">
+                <div className="relative overflow-hidden flex-shrink-0">
                   <img 
-                    src={product.image}
-                    alt={product.title}
-                    className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+                    src={category.image}
+                    alt={category.title}
+                    className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      e.currentTarget.src = "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300";
+                    }}
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
                 </div>
-                <div className="p-4">
-                  <h3 className="font-bold text-[var(--master-black)] mb-2">{product.title}</h3>
-                  <p className="text-sm text-gray-600 line-clamp-2">{product.description}</p>
+                <div className="p-4 flex-1 flex flex-col">
+                  <h3 className="font-bold text-black mb-3 text-sm">{category.title}</h3>
+                  
+                  {/* Featured Sub-categories */}
+                  <div className="space-y-1 mb-3 flex-1">
+                    {category.featuredSubCategories.map((subCategory, subIndex) => (
+                      <div key={subIndex} className="flex items-center justify-between text-xs">
+                        <span className="text-gray-500 truncate">{subCategory}</span>
+                        <ChevronRight className="h-3 w-3 text-gray-400 group-hover:text-blue-600 transition-colors flex-shrink-0 ml-1" />
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Product count */}
+                  <div className="text-xs text-blue-600 font-medium mt-auto">
+                    {PRODUCT_SUBCATEGORIES[category.category]?.length || 0} products
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -202,10 +230,10 @@ export default function ProductsSection() {
           variants={staggerContainer}
         >
           <motion.h3 
-            className="text-3xl font-bold text-[var(--master-black)] text-center mb-12"
+            className="text-3xl font-bold text-black text-center mb-12"
             variants={fadeInUp}
           >
-            Our Customer Favorites
+            Customer Favorites
           </motion.h3>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
@@ -214,7 +242,7 @@ export default function ProductsSection() {
                 key={index}
                 className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer"
                 variants={fadeInUp}
-                whileHover={{ y: -5 }}
+                whileHover={{ y: -3 }}
               >
                 <div className="relative">
                   <img 
@@ -224,7 +252,8 @@ export default function ProductsSection() {
                   />
                 </div>
                 <div className="p-4">
-                  <h4 className="font-semibold text-[var(--master-black)] mb-2">{item.title}</h4>
+                  <div className="text-xs text-blue-600 font-medium mb-1">{item.category}</div>
+                  <h4 className="font-semibold text-black mb-2 text-sm">{item.title}</h4>
                   <div className="flex items-center space-x-2 text-sm">
                     <div className="flex items-center">
                       <Star className="h-4 w-4 text-yellow-400 fill-current" />
@@ -238,7 +267,7 @@ export default function ProductsSection() {
           </div>
         </motion.div>
 
-        {/* Business Growth Products */}
+        {/* Services Overview */}
         <motion.div 
           className="bg-gray-50 rounded-3xl p-8 lg:p-12"
           initial="initial"
@@ -247,11 +276,11 @@ export default function ProductsSection() {
           variants={staggerContainer}
         >
           <motion.div className="text-center mb-12" variants={fadeInUp}>
-            <h3 className="text-3xl font-bold text-[var(--master-black)] mb-4">
-              Products Designed to Grow Your Business
+            <h3 className="text-3xl font-bold text-black mb-4">
+              Why Choose Master Signs?
             </h3>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Professional signage solutions that drive customer engagement and business success.
+              We provide end-to-end signage solutions with professional design, quality materials, and expert installation.
             </p>
           </motion.div>
 
@@ -259,32 +288,47 @@ export default function ProductsSection() {
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
             variants={staggerContainer}
           >
-            {businessProducts.map((product, index) => (
+            {[
+              {
+                title: "Design & Consultation",
+                description: "Professional design services with expert consultation",
+                icon: "🎨"
+              },
+              {
+                title: "Quality Materials",
+                description: "Premium materials built to last in any environment",
+                icon: "🏆"
+              },
+              {
+                title: "Expert Installation",
+                description: "Professional installation by certified technicians",
+                icon: "🔧"
+              },
+              {
+                title: "Fast Turnaround",
+                description: "Quick production and delivery times",
+                icon: "⚡"
+              },
+              {
+                title: "Warranty & Support",
+                description: "Comprehensive warranty and ongoing support",
+                icon: "🛡️"
+              },
+              {
+                title: "Local Service",
+                description: "Family-owned business serving the community",
+                icon: "🏠"
+              }
+            ].map((service, index) => (
               <motion.div 
                 key={index}
-                className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 group"
+                className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300"
                 variants={fadeInUp}
                 whileHover={{ y: -3 }}
               >
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={product.image}
-                    alt={product.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-6">
-                  <h4 className="font-bold text-[var(--master-black)] mb-2">{product.title}</h4>
-                  <p className="text-gray-600 mb-4">{product.description}</p>
-                  <Button 
-                    variant="outline" 
-                    className="w-full group-hover:bg-[var(--master-blue)] group-hover:text-white transition-colors"
-                    data-testid={`product-${index}`}
-                  >
-                    Learn More
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </div>
+                <div className="text-3xl mb-4">{service.icon}</div>
+                <h4 className="font-bold text-black mb-2">{service.title}</h4>
+                <p className="text-gray-600 text-sm">{service.description}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -292,10 +336,10 @@ export default function ProductsSection() {
           <motion.div className="text-center mt-12" variants={fadeInUp}>
             <Button 
               size="lg"
-              className="btn-primary bg-[var(--master-blue)] text-white hover:bg-blue-700 px-8 py-3"
+              className="btn-primary bg-blue-600 text-white hover:bg-blue-700 px-8 py-3"
               data-testid="button-view-all-products"
             >
-              View All Products
+              Get Your Free Quote
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </motion.div>
@@ -303,7 +347,7 @@ export default function ProductsSection() {
 
         {/* Expert Services Call-out */}
         <motion.div 
-          className="text-center mt-16 bg-gradient-to-r from-[var(--master-blue)] to-blue-600 rounded-3xl p-8 lg:p-12 text-white"
+          className="text-center mt-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-3xl p-8 lg:p-12 text-white"
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
@@ -317,10 +361,10 @@ export default function ProductsSection() {
           <Button 
             size="lg"
             variant="outline"
-            className="border-2 border-white text-white hover:bg-white hover:text-[var(--master-blue)] px-8 py-3"
+            className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 bg-white/10 backdrop-blur-sm"
             data-testid="button-shop-custom-signs"
           >
-            Shop Custom Signs
+            Start Your Project
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </motion.div>

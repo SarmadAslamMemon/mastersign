@@ -7,6 +7,8 @@ import PortfolioSection from "@/components/portfolio-section";
 import AboutSection from "@/components/about-section";
 import QuoteForm from "@/components/quote-form";
 import TestimonialsSection from "@/components/testimonials-section";
+import ClientReviews from "@/components/client-reviews";
+import FAQsSection from "@/components/faqs-section";
 import Footer from "@/components/footer";
 
 export default function Home() {
@@ -35,6 +37,8 @@ export default function Home() {
       <AboutSection />
       <QuoteForm />
       <TestimonialsSection />
+      <ClientReviews />
+      <FAQsSection />
       <Footer />
     </div>
   );

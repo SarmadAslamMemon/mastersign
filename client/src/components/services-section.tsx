@@ -53,6 +53,14 @@ const services = [
     description: "Professional installation and ongoing maintenance services ensure your signs perform at their best. Our certified technicians handle everything from permits to long-term care.",
     tags: ["Installation", "Maintenance", "Permits"],
     image: "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+  },
+  {
+    icon: Settings,
+    title: "Design Your Own",
+    subtitle: "Interactive Editor",
+    description: "Use our professional design tool to create custom signs exactly how you want them. Add text, shapes, images, and more with our easy-to-use online editor.",
+    tags: ["Custom Design", "Online Tool", "Real-time Preview"],
+    image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
   }
 ];
 
@@ -69,17 +77,17 @@ export default function ServicesSection() {
           variants={staggerContainer}
         >
           <motion.div 
-            className="inline-flex items-center space-x-2 bg-[var(--master-blue)] bg-opacity-10 rounded-full px-6 py-3 mb-6"
+            className="inline-flex items-center space-x-2 bg-blue-600 bg-opacity-10 rounded-full px-6 py-3 mb-6"
             variants={fadeInUp}
           >
-            <Star className="h-5 w-5 text-[var(--master-blue)]" />
-            <span className="text-[var(--master-blue)] font-semibold">Our Premium Services</span>
+            <Star className="h-5 w-5 text-blue-600" />
+            <span className="text-blue-600 font-semibold">Our Services</span>
           </motion.div>
           <motion.h2 
-            className="text-4xl lg:text-5xl font-bold text-[var(--master-black)] mb-6"
+            className="text-4xl lg:text-5xl font-bold text-black mb-6"
             variants={fadeInUp}
           >
-            Complete Signage Solutions
+            Professional Signage Services
           </motion.h2>
           <motion.p 
             className="text-xl text-gray-600 max-w-3xl mx-auto"
@@ -99,7 +107,7 @@ export default function ServicesSection() {
         >
           {services.map((service, index) => (
             <motion.div key={index} variants={fadeInUp}>
-              <Card className="glassmorphism rounded-3xl p-8 animate-magnetic group h-full">
+              <Card className="glassmorphism rounded-3xl p-8 animate-magnetic group h-full hover:shadow-xl transition-shadow">
                 <CardContent className="p-0">
                   <img 
                     src={service.image} 
@@ -107,12 +115,12 @@ export default function ServicesSection() {
                     className="rounded-2xl w-full h-48 object-cover mb-6"
                   />
                   <div className="flex items-center space-x-4 mb-4">
-                    <div className="w-16 h-16 bg-[var(--master-blue)] rounded-2xl flex items-center justify-center">
+                    <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center">
                       <service.icon className="h-8 w-8 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-[var(--master-black)]">{service.title}</h3>
-                      <p className="text-[var(--master-blue)] font-semibold">{service.subtitle}</p>
+                      <h3 className="text-2xl font-bold text-black">{service.title}</h3>
+                      <p className="text-blue-600 font-semibold">{service.subtitle}</p>
                     </div>
                   </div>
                   <p className="text-gray-600 mb-6">
@@ -125,12 +133,24 @@ export default function ServicesSection() {
                       </Badge>
                     ))}
                   </div>
-                  <Button 
-                    className="w-full bg-[var(--master-blue)] text-white hover:bg-blue-700 transition-colors"
-                    data-testid={`button-service-${index}`}
-                  >
-                    Learn More
-                  </Button>
+                  {service.title === "Design Your Own" ? (
+                    <Button 
+                      asChild
+                      className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-lg"
+                      data-testid={`button-service-${index}`}
+                    >
+                      <a href="/editor">
+                        Start Designing
+                      </a>
+                    </Button>
+                  ) : (
+                    <Button 
+                      className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-lg"
+                      data-testid={`button-service-${index}`}
+                    >
+                      Learn More
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>

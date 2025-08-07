@@ -95,8 +95,8 @@ export default function QuoteForm() {
             className="inline-flex items-center space-x-2 bg-[var(--master-blue)] bg-opacity-20 rounded-full px-6 py-3 mb-6"
             variants={fadeInUp}
           >
-            <Quote className="h-5 w-5 text-[var(--master-blue)]" />
-            <span className="text-[var(--master-blue)] font-semibold">Free Quote</span>
+                                        <Quote className="h-5 w-5 text-white" />
+              <span className="text-white font-semibold">Free Quote</span>
           </motion.div>
           <motion.h2 
             className="text-4xl lg:text-5xl font-bold text-white mb-6"

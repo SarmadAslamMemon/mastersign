@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Star, Facebook, Instagram, Linkedin, Youtube, MessageSquare } from "lucide-react";
+import { Phone, Mail, MapPin, Star, Facebook, Instagram, Linkedin, Twitter, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 
@@ -13,20 +13,20 @@ export default function Footer() {
     "Installation & Service"
   ];
 
-  const companyLinks = [
+  const quickLinks = [
     { label: "About Us", href: "#about" },
-    { label: "Reviews", href: "#testimonials" },
-    { label: "Portfolio", href: "#services" },
-    { label: "Careers", href: "#" },
-    { label: "Contact", href: "#contact" },
-    { label: "Job Opportunities", href: "#" }
+    { label: "Services", href: "#services" },
+    { label: "Portfolio", href: "#portfolio" },
+    { label: "Reviews", href: "#reviews" },
+    { label: "FAQs", href: "#faqs" },
+    { label: "Contact", href: "#contact" }
   ];
 
   const socialLinks = [
     { icon: Facebook, href: "#", label: "Facebook" },
     { icon: Instagram, href: "#", label: "Instagram" },
     { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Youtube, href: "#", label: "YouTube" }
+    { icon: Twitter, href: "#", label: "X (Twitter)" }
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -66,17 +66,35 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-[var(--master-blue)]" />
-                <span>(555) 123-SIGN</span>
+                <span>(123) 456-7890</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-[var(--master-blue)]" />
-                <span>hello@mastersigns.com</span>
+                <span>support@master-signs.com</span>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="h-5 w-5 text-[var(--master-blue)]" />
-                <span>123 Business District, Your City, State 12345</span>
+                <span>123 Signboard Street, City, Country</span>
               </div>
             </div>
+          </motion.div>
+
+          {/* Quick Links */}
+          <motion.div variants={fadeInUp}>
+            <h4 className="text-lg font-semibold mb-6">Quick Links</h4>
+            <ul className="space-y-3 text-gray-300">
+              {quickLinks.map((link, index) => (
+                <li key={index}>
+                  <button 
+                    onClick={() => scrollToSection(link.href)}
+                    className="hover:text-[var(--master-blue)] transition-colors text-left"
+                    data-testid={`footer-link-${index}`}
+                  >
+                    {link.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </motion.div>
 
           {/* Services */}
@@ -90,24 +108,6 @@ export default function Footer() {
                     data-testid={`footer-service-${index}`}
                   >
                     {service}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Company */}
-          <motion.div variants={fadeInUp}>
-            <h4 className="text-lg font-semibold mb-6">Company</h4>
-            <ul className="space-y-3 text-gray-300">
-              {companyLinks.map((link, index) => (
-                <li key={index}>
-                  <button 
-                    onClick={() => scrollToSection(link.href)}
-                    className="hover:text-[var(--master-blue)] transition-colors text-left"
-                    data-testid={`footer-link-${index}`}
-                  >
-                    {link.label}
                   </button>
                 </li>
               ))}
@@ -139,7 +139,7 @@ export default function Footer() {
             </div>
             
             <div className="flex items-center space-x-6 text-gray-400 text-sm">
-              <span>&copy; 2024 Master Signs. All rights reserved.</span>
+              <span>&copy; 2025 Master Signs. All rights reserved.</span>
               <button 
                 className="hover:text-[var(--master-blue)] transition-colors"
                 data-testid="footer-privacy"
