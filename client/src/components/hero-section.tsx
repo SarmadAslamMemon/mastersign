@@ -126,7 +126,7 @@ export default function HeroSection() {
                   className="border-2 border-white text-blue-600 hover:bg-white hover:text-blue-600 font-semibold px-8 py-4 rounded-xl text-lg transition-all duration-300 shadow-lg"
                   data-testid="button-hero-editor"
                 >
-                  <a href="/editor">
+                  <a href="/editor" target="_blank" rel="noopener noreferrer">
                     <Palette className="mr-2 h-5 w-5" />
                     Start Designing
                   </a>

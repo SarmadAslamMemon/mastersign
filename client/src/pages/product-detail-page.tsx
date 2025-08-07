@@ -239,10 +239,6 @@ const vehicleWrapProduct: ProductDetailType = {
 
 // Mock database for demonstration
 const productDatabase: Record<string, ProductDetailType> = {
-  "banners-flags-001": sampleProduct,
-  "signs-001": channelLettersProduct,
-  "vehicle-trailer-001": vehicleWrapProduct,
-  // Add more products as needed
   "expo-display-001": {
     ...sampleProduct,
     id: "expo-display-001",
@@ -306,13 +302,7 @@ const productDatabase: Record<string, ProductDetailType> = {
     category: ProductCategory.ELECTRIC_SIGNS,
     subCategory: "LED and Digital Signs"
   },
-  "vehicle-trailer-001": {
-    ...sampleProduct,
-    id: "vehicle-trailer-001",
-    name: "Trailer Graphics",
-    category: ProductCategory.VEHICLE_TRAILER,
-    subCategory: "Trailer Graphics and Decals"
-  },
+
   "indoor-signs-001": {
     ...sampleProduct,
     id: "indoor-signs-001",

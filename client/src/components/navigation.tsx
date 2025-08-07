@@ -188,13 +188,22 @@ export default function Navigation() {
 
             {/* Right Navigation */}
             <div className="flex items-center space-x-4">
-              <button 
+              <Button 
+                variant="ghost"
+                onClick={() => window.location.href = '/login'}
                 className="hidden md:flex items-center space-x-1 text-gray-600 hover:text-blue-600 transition-colors"
                 data-testid="button-customer-login"
               >
                 <User className="h-5 w-5" />
                 <span>Sign In</span>
-              </button>
+              </Button>
+              <Button 
+                variant="outline"
+                onClick={() => window.location.href = '/signup'}
+                className="hidden md:flex border-blue-600 text-blue-600 hover:bg-blue-50 font-medium"
+              >
+                Sign Up
+              </Button>
               
               <motion.div {...magneticHover}>
                 <Button 
