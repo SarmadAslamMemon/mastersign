@@ -30,11 +30,17 @@ interface EditableTemplateProps {
 const EditableTemplate: React.FC<EditableTemplateProps> = ({ template, onSave, onClose }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const fabricRef = useRef<fabric.Canvas | null>(null);
+  const elementIdToObjectRef = useRef<Map<string, fabric.Object>>(new Map());
+  const clipboardRef = useRef<fabric.Object | null>(null);
+  const GRID_SIZE = 20;
   const [selectedElement, setSelectedElement] = useState<EditableElement | null>(null);
   const [showProperties, setShowProperties] = useState(false);
   const [editedTemplate, setEditedTemplate] = useState<Template>(template);
   const [history, setHistory] = useState<any[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [showLayers, setShowLayers] = useState(false);
+  const [zoom, setZoom] = useState(1);
+  const [showGrid, setShowGrid] = useState(true);
 
   // Initialize canvas with template
   useEffect(() => {
@@ -53,6 +59,45 @@ const EditableTemplate: React.FC<EditableTemplateProps> = ({ template, onSave, o
     // Load template elements
     loadTemplateElements();
 
+    // Selection sync → update selected element from canvas
+    const handleSelectionChange = () => {
+      const active = canvas.getActiveObject();
+      if (!active) return;
+      const data: any = (active as any).data;
+      if (data?.elementId) {
+        const found = editedTemplate.elements.find(el => el.id === data.elementId);
+        if (found) setSelectedElement(found);
+      }
+    };
+
+    canvas.on('selection:created', handleSelectionChange);
+    canvas.on('selection:updated', handleSelectionChange);
+    canvas.on('object:modified', saveToHistory);
+    canvas.on('object:added', saveToHistory);
+    canvas.on('object:removed', saveToHistory);
+    canvas.on('object:moving', (evt: any) => {
+      const obj = evt.target as fabric.Object;
+      if (showGrid) {
+        obj.set({
+          left: Math.round((obj.left || 0) / GRID_SIZE) * GRID_SIZE,
+          top: Math.round((obj.top || 0) / GRID_SIZE) * GRID_SIZE
+        });
+      }
+    });
+
+    // Add zoom functionality
+    canvas.on('mouse:wheel', (opt) => {
+      const delta = opt.e.deltaY;
+      let zoomLevel = canvas.getZoom();
+      zoomLevel *= 0.999 ** delta;
+      if (zoomLevel > 20) zoomLevel = 20;
+      if (zoomLevel < 0.01) zoomLevel = 0.01;
+      canvas.setZoom(zoomLevel);
+      setZoom(zoomLevel);
+      opt.e.preventDefault();
+      opt.e.stopPropagation();
+    });
+
     return () => {
       canvas.dispose();
     };
@@ -63,18 +108,20 @@ const EditableTemplate: React.FC<EditableTemplateProps> = ({ template, onSave, o
     if (!canvas || !template) return;
 
     canvas.clear();
+    elementIdToObjectRef.current.clear();
 
-    // Add background
+    // Add background with proper scaling
     const background = new fabric.Rect({
       left: 0,
       top: 0,
       width: template.width * 10,
       height: template.height * 10,
-      fill: '#ffffff',
+      fill: template.backgroundColor || '#ffffff',
       selectable: false,
       evented: false
     });
     canvas.add(background);
+    canvas.sendToBack(background);
 
     // Add template elements
     template.elements.forEach(element => {
@@ -104,6 +151,7 @@ const EditableTemplate: React.FC<EditableTemplateProps> = ({ template, onSave, o
           selectable: element.isEditable,
           editable: element.isEditable
         });
+        (fabricObject as any).data = { elementId: element.id, type: element.type };
         break;
 
       case 'image':
@@ -116,7 +164,9 @@ const EditableTemplate: React.FC<EditableTemplateProps> = ({ template, onSave, o
             selectable: element.isEditable,
             evented: element.isEditable
           });
+          (img as any).data = { elementId: element.id, type: element.type };
           canvas.add(img);
+          elementIdToObjectRef.current.set(element.id, img);
           canvas.renderAll();
         });
         return;
@@ -134,6 +184,7 @@ const EditableTemplate: React.FC<EditableTemplateProps> = ({ template, onSave, o
           selectable: element.isEditable,
           evented: element.isEditable
         });
+        (fabricObject as any).data = { elementId: element.id, type: element.type };
         break;
 
       default:
@@ -141,12 +192,20 @@ const EditableTemplate: React.FC<EditableTemplateProps> = ({ template, onSave, o
     }
 
     canvas.add(fabricObject);
+    elementIdToObjectRef.current.set(element.id, fabricObject);
     canvas.renderAll();
   };
 
   const handleElementSelect = (element: EditableElement) => {
     setSelectedElement(element);
     setShowProperties(true);
+    const canvas = fabricRef.current;
+    if (!canvas) return;
+    const obj = elementIdToObjectRef.current.get(element.id);
+    if (obj) {
+      canvas.setActiveObject(obj);
+      canvas.renderAll();
+    }
   };
 
   const updateElementProperty = (property: string, value: any) => {
@@ -171,8 +230,36 @@ const EditableTemplate: React.FC<EditableTemplateProps> = ({ template, onSave, o
 
     setSelectedElement(updatedElement);
 
-    // Update canvas
-    loadTemplateElements();
+    // Update canvas object directly
+    const canvas = fabricRef.current;
+    const obj = elementIdToObjectRef.current.get(selectedElement.id);
+    if (canvas && obj) {
+      if (selectedElement.type === 'text') {
+        if (property === 'text') obj.set('text', value);
+        if (property === 'fontSize') obj.set('fontSize', value);
+        if (property === 'fontColor') obj.set('fill', value);
+        if (property === 'fontFamily') obj.set('fontFamily', value);
+      } else if (selectedElement.type === 'image' && property === 'imageUrl') {
+        // Replace image source
+        fabric.Image.fromURL(value, (newImg) => {
+          const old = obj;
+          newImg.set({ left: old.left, top: old.top, width: old.width, height: old.height, selectable: true, evented: true });
+          (newImg as any).data = (old as any).data;
+          canvas.remove(old);
+          canvas.add(newImg);
+          elementIdToObjectRef.current.set(selectedElement.id, newImg);
+          canvas.setActiveObject(newImg);
+          canvas.renderAll();
+        });
+      } else if (selectedElement.type === 'shape') {
+        if (property === 'backgroundColor') obj.set('fill', value);
+        if (property === 'borderColor') obj.set('stroke', value);
+        if (property === 'borderWidth') obj.set('strokeWidth', value);
+        if (property === 'borderRadius') (obj as any).set('rx', value);
+      }
+      canvas.renderAll();
+      saveToHistory();
+    }
   };
 
   const handleTextChange = (text: string) => {
@@ -202,6 +289,66 @@ const EditableTemplate: React.FC<EditableTemplateProps> = ({ template, onSave, o
     };
     reader.readAsDataURL(file);
   };
+
+  // History helpers
+  const saveToHistory = () => {
+    const canvas = fabricRef.current;
+    if (!canvas) return;
+    const json = canvas.toJSON();
+    const newHistory = history.slice(0, historyIndex + 1);
+    newHistory.push(json);
+    setHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const canvas = fabricRef.current;
+      if (!canvas) return;
+      const isMac = navigator.platform.toUpperCase().includes('MAC');
+      const mod = isMac ? e.metaKey : e.ctrlKey;
+
+      if (e.key === 'Delete' || e.key === 'Backspace') {
+        e.preventDefault();
+        const active = canvas.getActiveObjects();
+        active.forEach(o => canvas.remove(o));
+        canvas.renderAll();
+        saveToHistory();
+      }
+      if (mod && (e.key === 'z' || e.key === 'Z')) {
+        e.preventDefault();
+        if (e.shiftKey && historyIndex < history.length - 1) {
+          canvas.loadFromJSON(history[historyIndex + 1], () => {
+            canvas.renderAll();
+            setHistoryIndex(historyIndex + 1);
+          });
+        } else if (historyIndex > 0) {
+          canvas.loadFromJSON(history[historyIndex - 1], () => {
+            canvas.renderAll();
+            setHistoryIndex(historyIndex - 1);
+          });
+        }
+      }
+      if (mod && (e.key === 'c' || e.key === 'C')) {
+        const active = canvas.getActiveObject();
+        if (active) active.clone((cloned: fabric.Object) => (clipboardRef.current = cloned));
+      }
+      if (mod && (e.key === 'v' || e.key === 'V')) {
+        const clip = clipboardRef.current;
+        if (clip) {
+          clip.clone((cloned: any) => {
+            cloned.set({ left: (cloned.left || 0) + 20, top: (cloned.top || 0) + 20 });
+            canvas.add(cloned);
+            canvas.setActiveObject(cloned);
+            canvas.renderAll();
+            saveToHistory();
+          });
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [history, historyIndex]);
 
   const handleSave = () => {
     onSave(editedTemplate);

@@ -54,7 +54,7 @@ import {
   ChevronUp,
   Plus,
   Grid,
-  Image,
+  
   FileText,
   Settings2,
   ArrowRight,
@@ -78,6 +78,8 @@ import { TemplateService, Template } from '@/services/TemplateService';
 const EditorCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const fabricRef = useRef<fabric.Canvas | null>(null);
+  const canvasContainerRef = useRef<HTMLDivElement | null>(null);
+  const clipboardRef = useRef<fabric.Object | null>(null);
   
   // State Management
   const [zoom, setZoom] = useState(1);
@@ -140,18 +142,96 @@ const EditorCanvas: React.FC = () => {
   const CANVAS_HEIGHT = 480;
   const GRID_SIZE = 20;
 
-  // Load images from localStorage
-  useEffect(() => {
-    const savedImages = localStorage.getItem('signflow-uploaded-images');
-    if (savedImages) {
-      setUploadedImages(JSON.parse(savedImages));
-    }
-  }, []);
+  // (Deduped) LocalStorage sync handled above
 
-  // Save images to localStorage
+  // Keyboard shortcuts + paste/drag-drop image support
   useEffect(() => {
-    localStorage.setItem('signflow-uploaded-images', JSON.stringify(uploadedImages));
-  }, [uploadedImages]);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const canvas = fabricRef.current;
+      if (!canvas) return;
+      const isMac = navigator.platform.toUpperCase().includes('MAC');
+      const mod = isMac ? e.metaKey : e.ctrlKey;
+
+      if (e.key === 'Delete' || e.key === 'Backspace') {
+        e.preventDefault();
+        handleDelete();
+      }
+
+      if (mod && (e.key === 'z' || e.key === 'Z')) {
+        e.preventDefault();
+        if (e.shiftKey) {
+          redo();
+        } else {
+          undo();
+        }
+      }
+
+      if (mod && (e.key === 'c' || e.key === 'C')) {
+        const active = canvas.getActiveObject();
+        if (active && typeof (active as any).clone === 'function') {
+          (active as any).clone().then((cloned: fabric.Object) => {
+            clipboardRef.current = cloned;
+          }).catch(() => {});
+        }
+      }
+
+      if (mod && (e.key === 'v' || e.key === 'V')) {
+        const clip = clipboardRef.current as any;
+        if (clip && typeof clip.clone === 'function') {
+          clip.clone().then((cloned: any) => {
+            cloned.set({ left: (cloned.left || 0) + 20, top: (cloned.top || 0) + 20 });
+            canvas.add(cloned);
+            canvas.setActiveObject(cloned);
+            canvas.renderAll();
+            saveToHistory();
+          }).catch(() => {});
+        }
+      }
+    };
+
+    const handlePaste = (e: ClipboardEvent) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+      for (const item of items) {
+        if (item.type.startsWith('image/')) {
+          const file = item.getAsFile();
+          if (!file) continue;
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            const dataUrl = evt.target?.result as string;
+            if (dataUrl) addImageFromDataUrl(dataUrl);
+          };
+          reader.readAsDataURL(file);
+          break;
+        }
+      }
+    };
+
+    const handleDrop = (e: DragEvent) => {
+      e.preventDefault();
+      const file = e.dataTransfer?.files?.[0];
+      if (!file || !file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        const dataUrl = evt.target?.result as string;
+        if (dataUrl) addImageFromDataUrl(dataUrl);
+      };
+      reader.readAsDataURL(file);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    const container = canvasContainerRef.current || document;
+    container.addEventListener('paste', handlePaste as any);
+    container.addEventListener('dragover', (e) => e.preventDefault());
+    container.addEventListener('drop', handleDrop as any);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      container.removeEventListener('paste', handlePaste as any);
+      container.removeEventListener('dragover', (e) => e.preventDefault());
+      container.removeEventListener('drop', handleDrop as any);
+    };
+  }, []);
 
   // Initialize canvas
   useEffect(() => {
@@ -194,6 +274,15 @@ const EditorCanvas: React.FC = () => {
       if (!e.target) {
         setSelectedTemplateElement(null);
       }
+    });
+    // Snap while moving
+    canvas.on('object:moving', (evt: any) => {
+      const obj = evt.target as fabric.Object;
+      if (!obj) return;
+      obj.set({
+        left: Math.round((obj.left || 0) / GRID_SIZE) * GRID_SIZE,
+        top: Math.round((obj.top || 0) / GRID_SIZE) * GRID_SIZE,
+      });
     });
 
     return () => {
@@ -324,17 +413,19 @@ const EditorCanvas: React.FC = () => {
       height: template.height * 10
     });
 
-    // Add background
+    // Add background with better positioning and styling
     const background = new fabric.Rect({
-      left: 0,
-      top: 0,
-      width: template.width * 10,
-      height: template.height * 10,
+      left: 20,
+      top: 20,
+      width: template.width * 10 - 40,
+      height: template.height * 10 - 40,
       fill: '#ffffff',
       stroke: '#dee2e6',
       strokeWidth: 2,
       selectable: false,
-      evented: false
+      evented: false,
+      rx: 8,
+      ry: 8
     });
     canvas.add(background);
 
@@ -1118,7 +1209,6 @@ const EditorCanvas: React.FC = () => {
   // Handle image selection from gallery
   const handleImageSelect = (imgUrl: string) => {
     console.log('🖼️ handleImageSelect called');
-    console.log('🖼️ Image URL:', imgUrl);
     console.log('🖼️ Image URL length:', imgUrl.length);
     console.log('🖼️ Image URL preview:', imgUrl.substring(0, 100) + '...');
     
@@ -1130,23 +1220,24 @@ const EditorCanvas: React.FC = () => {
 
           console.log('🎨 Canvas available, starting fabric.Image.fromURL...');
       
-            // Try creating image element first, then fabric image
-      const imgElement = new Image();
-      imgElement.onload = () => {
-        console.log('✅ HTML Image loaded successfully');
-        const fabricImg = new fabric.Image(imgElement);
-        console.log('✅ fabric.Image created from HTML image');
-        console.log('🎨 Selected image dimensions:', {
-          width: fabricImg.width,
-          height: fabricImg.height,
-          scaleX: fabricImg.scaleX,
-          scaleY: fabricImg.scaleY
-        });
-        
-        console.log('🎨 Canvas dimensions for selection:', {
-          width: canvas.width,
-          height: canvas.height
-        });
+    // Create a new image element to preload
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    
+    img.onload = () => {
+      console.log('✅ Image loaded successfully');
+      console.log('🎨 Image dimensions:', { width: img.width, height: img.height });
+      
+      // Create fabric image from the loaded image
+      const fabricImg = new fabric.Image(img, {
+        left: 50,
+        top: 50,
+        selectable: true,
+        evented: true
+      });
+      
+      console.log('✅ fabric.Image created from loaded image');
+      console.log('🎨 Canvas dimensions:', { width: canvas.width, height: canvas.height });
 
         // Scale image to fit canvas
         const scale = Math.min(
@@ -1154,14 +1245,12 @@ const EditorCanvas: React.FC = () => {
           (canvas.height! - 100) / fabricImg.height!
         );
         
-        console.log('📏 Calculated scale for selection:', scale);
+      console.log('📏 Calculated scale:', scale);
         
         // Ensure minimum scale
         const finalScale = Math.max(scale, 0.1);
         
         fabricImg.scale(finalScale);
-        fabricImg.left = 50;
-        fabricImg.top = 50;
         
         console.log('🎨 Final image properties:', {
           scale: finalScale,
@@ -1171,101 +1260,67 @@ const EditorCanvas: React.FC = () => {
           height: fabricImg.height
         });
         
-        console.log('🎨 Adding selected image to canvas...');
-        console.log('🎨 Image position after scaling:', {
-          left: fabricImg.left,
-          top: fabricImg.top,
-          scaleX: fabricImg.scaleX,
-          scaleY: fabricImg.scaleY
-        });
+      console.log('🎨 Adding image to canvas...');
         
         canvas.add(fabricImg);
         canvas.setActiveObject(fabricImg);
         canvas.renderAll();
         
-        console.log('✅ Selected image added to canvas successfully');
-        console.log('🎨 Canvas objects count after adding:', canvas.getObjects().length);
-        console.log('🎨 All canvas objects:', canvas.getObjects().map(obj => ({
-          type: obj.type,
-          left: obj.left,
-          top: obj.top,
-          width: obj.width,
-          height: obj.height,
-          scaleX: obj.scaleX,
-          scaleY: obj.scaleY
-        })));
-      };
-      
-      imgElement.onerror = (error) => {
-        console.error('❌ Error loading image:', error);
-      };
-      
-      imgElement.src = imgUrl;
-        console.log('✅ fabric.Image created from selection');
-        console.log('🎨 Selected image dimensions:', {
-          width: img.width,
-          height: img.height,
-          scaleX: img.scaleX,
-          scaleY: img.scaleY
-        });
-        
-        console.log('🎨 Canvas dimensions for selection:', {
-          width: canvas.width,
-          height: canvas.height
-        });
+      console.log('✅ Image added to canvas successfully');
+      console.log('🎨 Canvas objects count:', canvas.getObjects().length);
+    };
+    
+    img.onerror = (error) => {
+      console.error('❌ Error loading image:', error);
+      alert('Failed to load image. Please try again.');
+    };
+    
+    // Set the source to trigger loading
+    img.src = imgUrl;
+  };
 
-        // Scale image to fit canvas
-        const scale = Math.min(
-          (canvas.width! - 100) / img.width!,
-          (canvas.height! - 100) / img.height!
-        );
-        
-        console.log('📏 Calculated scale for selection:', scale);
-        
-        // Ensure minimum scale
-        const finalScale = Math.max(scale, 0.1);
-        
-        img.scale(finalScale);
-        img.left = 50;
-        img.top = 50;
-        
-        console.log('🎨 Final image properties:', {
-          scale: finalScale,
-          left: img.left,
-          top: img.top,
-          width: img.width,
-          height: img.height
-        });
-        
-        console.log('🎨 Adding selected image to canvas...');
-        console.log('🎨 Image position after scaling:', {
-          left: img.left,
-          top: img.top,
-          scaleX: img.scaleX,
-          scaleY: img.scaleY
-        });
-        
-        canvas.add(img);
-        canvas.setActiveObject(img);
-        canvas.renderAll();
-        
-        console.log('✅ Selected image added to canvas successfully');
-        console.log('🎨 Canvas objects count after adding:', canvas.getObjects().length);
-        console.log('🎨 All canvas objects:', canvas.getObjects().map(obj => ({
-          type: obj.type,
-          left: obj.left,
-          top: obj.top,
-          width: obj.width,
-          height: obj.height,
-          scaleX: obj.scaleX,
-          scaleY: obj.scaleY
-        })));
-      }, { crossOrigin: 'anonymous' });
+  const addImageFromDataUrl = (dataUrl: string) => {
+    const canvas = fabricRef.current;
+    if (!canvas) return;
+    
+    // Create a new image element to preload
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    
+    img.onload = () => {
+      console.log('✅ Data URL image loaded successfully');
       
-      // Add error handling
-      setTimeout(() => {
-        console.log('⏰ Timeout check - if no success message above, image loading failed');
-      }, 3000);
+      // Create fabric image from the loaded image
+      const fabricImg = new fabric.Image(img, {
+        left: 50,
+        top: 50,
+        selectable: true,
+        evented: true
+      });
+      
+      // Scale image to fit canvas
+      const scale = Math.min(
+        (canvas.width! - 100) / fabricImg.width!,
+        (canvas.height! - 100) / fabricImg.height!
+      );
+      
+      const finalScale = Math.max(scale, 0.1);
+      fabricImg.scale(finalScale);
+      
+      canvas.add(fabricImg);
+      canvas.setActiveObject(fabricImg);
+      canvas.renderAll();
+      
+      console.log('✅ Data URL image added to canvas successfully');
+    };
+    
+    img.onerror = (error) => {
+      console.error('❌ Error loading data URL image:', error);
+      alert('Failed to load image. Please try again.');
+    };
+    
+    // Set the source to trigger loading
+    img.src = dataUrl;
   };
 
   const handleDeleteImage = (imageIndex: number) => {
@@ -1438,14 +1493,16 @@ const EditorCanvas: React.FC = () => {
     const activeObject = canvas.getActiveObject();
     if (!activeObject) return;
     
-    const cloned = await activeObject.clone();
-    cloned.set({
-      left: (activeObject.left || 0) + 20,
-      top: (activeObject.top || 0) + 20
-    });
-    canvas.add(cloned);
-    canvas.setActiveObject(cloned);
-    canvas.renderAll();
+    try {
+      const cloned = await (activeObject as any).clone();
+      cloned.set({
+        left: (activeObject.left || 0) + 20,
+        top: (activeObject.top || 0) + 20
+      });
+      canvas.add(cloned);
+      canvas.setActiveObject(cloned);
+      canvas.renderAll();
+    } catch {}
   };
 
   // Preview
@@ -1773,39 +1830,63 @@ const EditorCanvas: React.FC = () => {
         </div>
 
         {/* Canvas Container */}
-        <div className="flex-1 bg-gray-100 flex items-center justify-center overflow-auto">
-          <div className="relative">
+        <div className="flex-1 bg-gray-100 flex flex-col items-center justify-center overflow-auto">
+          {/* Template Title - Above Canvas */}
+          {selectedTemplate && (
+            <div className="mb-6 text-center">
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                {selectedTemplate.name}
+              </h2>
+              <div className="text-sm text-gray-600">
+                {selectedTemplate.width}" × {selectedTemplate.height}" • ${selectedTemplate.basePrice}
+              </div>
+            </div>
+          )}
+          
+          <div className="relative" ref={canvasContainerRef}>
             <canvas
               ref={canvasRef}
               className="border border-gray-300 shadow-lg"
             />
-            
-            {/* Canvas Info */}
-            {selectedTemplate && (
-              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
-                <div className="text-sm font-medium text-gray-900">
-                  {selectedTemplate.name}
                 </div>
-                <div className="text-xs text-gray-600">
-                  {selectedTemplate.width}" × {selectedTemplate.height}"
                 </div>
-                <div className="text-xs text-gray-600">
-                  ${selectedTemplate.basePrice}
                 </div>
-              </div>
-            )}
-          </div>
-        </div>
+
+      {/* Header Action Buttons - Repositioned to avoid overlap */}
+      <div className="absolute top-4 right-20 flex items-center space-x-3 z-50">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setShowTemplateBrowser(true)}
+          className="text-white hover:bg-gray-800/50 px-3 py-2 rounded-md transition-colors"
+        >
+          <Layout className="h-4 w-4 mr-2" />
+          Browse
+        </Button>
+        
+        <Button
+          variant={showFilterPanel ? "default" : "ghost"}
+          size="sm"
+          onClick={() => setShowFilterPanel(!showFilterPanel)}
+          className={`px-3 py-2 rounded-md transition-colors ${
+            showFilterPanel 
+              ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+              : 'text-white hover:bg-gray-800/50'
+          }`}
+        >
+          <Filter className="h-4 w-4 mr-2" />
+          Filters
+        </Button>
       </div>
 
-      {/* Filter Panel - Moved to top right */}
+      {/* Filter Panel - Improved UX */}
       <AnimatePresence>
         {showFilterPanel && (
           <motion.div
             initial={{ opacity: 0, x: 300 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 300 }}
-            className="absolute top-20 right-4 w-80 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg shadow-xl z-50"
+            className="absolute top-20 right-4 w-80 bg-gray-900/95 backdrop-blur-sm border border-gray-700 rounded-lg shadow-2xl z-40"
           >
             <div className="p-4">
               <div className="flex items-center justify-between mb-4">
@@ -1814,7 +1895,7 @@ const EditorCanvas: React.FC = () => {
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowFilterPanel(false)}
-                  className="text-white hover:bg-white/20"
+                  className="text-gray-300 hover:text-white hover:bg-gray-800"
                 >
                   <X className="h-4 w-4" />
                 </Button>
@@ -1828,26 +1909,32 @@ const EditorCanvas: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Filter Toggle Button */}
+      {/* Header Action Buttons - Improved Styling */}
+      <div className="absolute top-4 right-4 flex items-center space-x-3 z-50">
       <Button
         variant="ghost"
         size="sm"
-        onClick={() => setShowFilterPanel(!showFilterPanel)}
-        className="absolute top-4 right-4 text-white hover:bg-white/20 z-40"
+          onClick={() => setShowTemplateBrowser(true)}
+          className="text-white hover:bg-gray-800/50 px-3 py-2 rounded-md transition-colors"
       >
-        <Filter className="h-4 w-4 mr-2" />
-        Filters
+          <Layout className="h-4 w-4 mr-2" />
+          Browse
       </Button>
 
-      {/* Template Browser Toggle Button */}
       <Button
-        variant="ghost"
+          variant={showFilterPanel ? "default" : "ghost"}
         size="sm"
-        onClick={() => setShowTemplateBrowser(true)}
-        className="absolute top-4 right-20 text-white hover:bg-white/20 z-40"
-      >
-        Browse Templates
+          onClick={() => setShowFilterPanel(!showFilterPanel)}
+          className={`px-3 py-2 rounded-md transition-colors ${
+            showFilterPanel 
+              ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+              : 'text-white hover:bg-gray-800/50'
+          }`}
+        >
+          <Filter className="h-4 w-4 mr-2" />
+          Filters
       </Button>
+      </div>
 
       {/* Custom Template Modal */}
       <CustomTemplateModal
@@ -1865,7 +1952,6 @@ const EditorCanvas: React.FC = () => {
           />
         )}
       </AnimatePresence>
-
 
     </div>
   );
@@ -1972,14 +2058,78 @@ const ShapesPanel: React.FC<{
   onShapeAdd: (shapeType: string) => void;
 }> = ({ onShapeAdd }) => {
   const shapes = [
-    { type: 'rect', label: 'Rectangle', icon: Square, color: 'bg-blue-500' },
-    { type: 'circle', label: 'Circle', icon: Circle, color: 'bg-green-500' },
-    { type: 'triangle', label: 'Triangle', icon: Triangle, color: 'bg-yellow-500' },
-    { type: 'line', label: 'Line', icon: Minus, color: 'bg-red-500' },
-    { type: 'ellipse', label: 'Ellipse', icon: Circle, color: 'bg-purple-500' },
-    { type: 'polygon', label: 'Hexagon', icon: Hexagon, color: 'bg-orange-500' },
-    { type: 'star', label: 'Star', icon: Star, color: 'bg-yellow-400' },
-    { type: 'arrow', label: 'Arrow', icon: ArrowRight, color: 'bg-pink-500' }
+    { 
+      type: 'rect', 
+      label: 'Rectangle', 
+      svg: (
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="8" width="24" height="16" rx="2" fill="#3B82F6" stroke="#1E40AF" strokeWidth="2"/>
+        </svg>
+      )
+    },
+    { 
+      type: 'circle', 
+      label: 'Circle', 
+      svg: (
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="12" fill="#10B981" stroke="#059669" strokeWidth="2"/>
+        </svg>
+      )
+    },
+    { 
+      type: 'triangle', 
+      label: 'Triangle', 
+      svg: (
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 6L26 26H6L16 6Z" fill="#F59E0B" stroke="#D97706" strokeWidth="2"/>
+        </svg>
+      )
+    },
+    { 
+      type: 'line', 
+      label: 'Line', 
+      svg: (
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="6" y1="16" x2="26" y2="16" stroke="#EF4444" strokeWidth="3" strokeLinecap="round"/>
+        </svg>
+      )
+    },
+    { 
+      type: 'ellipse', 
+      label: 'Ellipse', 
+      svg: (
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="16" cy="16" rx="14" ry="8" fill="#8B5CF6" stroke="#7C3AED" strokeWidth="2"/>
+        </svg>
+      )
+    },
+    { 
+      type: 'polygon', 
+      label: 'Hexagon', 
+      svg: (
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 4L24 10V22L16 28L8 22V10L16 4Z" fill="#F97316" stroke="#EA580C" strokeWidth="2"/>
+        </svg>
+      )
+    },
+    { 
+      type: 'star', 
+      label: 'Star', 
+      svg: (
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 4L19.5 11.5L27.5 12.5L21.5 18.5L23 26.5L16 22.5L9 26.5L10.5 18.5L4.5 12.5L12.5 11.5L16 4Z" fill="#FCD34D" stroke="#F59E0B" strokeWidth="1.5"/>
+        </svg>
+      )
+    },
+    { 
+      type: 'arrow', 
+      label: 'Arrow', 
+      svg: (
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 16H22M22 16L16 10M22 16L16 22" stroke="#EC4899" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      )
+    }
   ];
 
   return (
@@ -1993,7 +2143,9 @@ const ShapesPanel: React.FC<{
             onClick={() => onShapeAdd(shape.type)}
             className="h-20 flex flex-col items-center justify-center text-white hover:bg-white/20 border border-white/20"
           >
-            <div className={`w-8 h-8 ${shape.color} rounded mb-2`}></div>
+            <div className="mb-2">
+              {shape.svg}
+            </div>
             <span className="text-xs">{shape.label}</span>
           </Button>
         ))}
@@ -2551,7 +2703,7 @@ const TemplateCustomizationPanel: React.FC<{
                   const titleObject = objects.find(obj => 
                     obj.type === 'text' && 
                     obj.text && 
-                    obj.text.includes('STYLE STORE')
+                    (obj.text.includes('STYLE STORE') || obj.text.includes('Click to edit'))
                   );
                   
                   if (titleObject) {
@@ -2580,7 +2732,7 @@ const TemplateCustomizationPanel: React.FC<{
                   const saleObject = objects.find(obj => 
                     obj.type === 'text' && 
                     obj.text && 
-                    obj.text.includes('SALE')
+                    (obj.text.includes('SALE') || obj.text.includes('Click to edit'))
                   );
                   
                   if (saleObject) {
@@ -2609,7 +2761,7 @@ const TemplateCustomizationPanel: React.FC<{
                   const addressObject = objects.find(obj => 
                     obj.type === 'text' && 
                     obj.text && 
-                    obj.text.includes('Fashion Ave')
+                    (obj.text.includes('Fashion Ave') || obj.text.includes('Click to edit'))
                   );
                   
                   if (addressObject) {
@@ -2648,10 +2800,37 @@ const TemplateCustomizationPanel: React.FC<{
                   
                   const activeObject = canvas.getActiveObject();
                   if (activeObject && activeObject.type === 'text') {
-                    activeObject.set('text', e.target.value);
+                    // Set text to empty string if cleared, or the new value
+                    const newText = e.target.value || ' ';
+                    activeObject.set('text', newText);
                     canvas.renderAll();
                     // Update selected element
                     onElementSelect({ ...selectedElement, text: e.target.value });
+                  }
+                }}
+                onFocus={(e) => {
+                  // Keep the canvas object selected when input is focused
+                  const canvas = fabricRef.current;
+                  if (!canvas) return;
+                  
+                  const activeObject = canvas.getActiveObject();
+                  if (activeObject && activeObject.type === 'text') {
+                    canvas.setActiveObject(activeObject);
+                    canvas.renderAll();
+                  }
+                }}
+                onBlur={(e) => {
+                  // Ensure text object stays selected and visible
+                  const canvas = fabricRef.current;
+                  if (!canvas) return;
+                  
+                  const activeObject = canvas.getActiveObject();
+                  if (activeObject && activeObject.type === 'text') {
+                    // If text is empty, set a placeholder
+                    if (!activeObject.text || activeObject.text.trim() === '') {
+                      activeObject.set('text', 'Click to edit');
+                    }
+                    canvas.renderAll();
                   }
                 }}
                 className="bg-white/20 border-white/30 text-white text-sm"
@@ -2767,7 +2946,7 @@ const FilterPanel: React.FC<{
             variant="ghost"
             size="sm"
             onClick={clearFilters}
-            className="text-red-300 hover:bg-red-500/20 text-xs"
+            className="text-red-400 hover:text-red-300 hover:bg-red-500/20 text-xs"
           >
             <X className="h-3 w-3 mr-1" />
             Clear
@@ -2775,12 +2954,16 @@ const FilterPanel: React.FC<{
         )}
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-2">
         <Button
           variant={currentFilter.popular ? 'default' : 'ghost'}
           size="sm"
           onClick={() => handleFilterChange('popular', !currentFilter.popular)}
-          className="w-full text-white"
+          className={`w-full text-sm ${
+            currentFilter.popular 
+              ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+              : 'text-gray-300 hover:text-white hover:bg-gray-800'
+          }`}
         >
           <Star className="h-4 w-4 mr-2" />
           Popular ({popularTemplates.length})
@@ -2790,7 +2973,11 @@ const FilterPanel: React.FC<{
           variant={currentFilter.featured ? 'default' : 'ghost'}
           size="sm"
           onClick={() => handleFilterChange('featured', !currentFilter.featured)}
-          className="w-full text-white"
+          className={`w-full text-sm ${
+            currentFilter.featured 
+              ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+              : 'text-gray-300 hover:text-white hover:bg-gray-800'
+          }`}
         >
           <TrendingUp className="h-4 w-4 mr-2" />
           Featured ({featuredTemplates.length})
@@ -2799,17 +2986,17 @@ const FilterPanel: React.FC<{
 
       <div className="space-y-3">
         <h4 className="text-sm font-semibold text-white">Categories</h4>
-        <div className="space-y-2">
+        <div className="space-y-1">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => handleFilterChange('category', 
                 currentFilter.category === category ? undefined : category
               )}
-              className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+              className={`block w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
                 currentFilter.category === category
                   ? 'bg-blue-600 text-white'
-                  : 'text-gray-300 hover:bg-white/10'
+                  : 'text-gray-300 hover:text-white hover:bg-gray-800'
               }`}
             >
               {category}
@@ -2820,17 +3007,17 @@ const FilterPanel: React.FC<{
 
       <div className="space-y-3">
         <h4 className="text-sm font-semibold text-white">Price Range</h4>
-        <div className="space-y-2">
+        <div className="space-y-1">
           {priceRanges.map((range) => (
             <button
               key={range.label}
               onClick={() => handleFilterChange('priceRange', 
                 currentFilter.priceRange?.min === range.min ? undefined : range
               )}
-              className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+              className={`block w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
                 currentFilter.priceRange?.min === range.min
                   ? 'bg-blue-600 text-white'
-                  : 'text-gray-300 hover:bg-white/10'
+                  : 'text-gray-300 hover:text-white hover:bg-gray-800'
               }`}
             >
               {range.label}
