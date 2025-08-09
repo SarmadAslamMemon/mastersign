@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, X, Maximize2, Minimize2 } from "lucide-react";
-import EditorCanvas from "@/components/EditorCanvas";
+import { EditorLayout } from "@/components/editor/EditorLayout";
 
 export default function Editor() {
   const [showLoader, setShowLoader] = useState(true);
@@ -96,9 +96,9 @@ export default function Editor() {
             </div>
           </div>
 
-          {/* Editor Canvas */}
+          {/* Editor Layout */}
           <div className="flex-1 overflow-hidden">
-            <EditorCanvas />
+            <EditorLayout />
           </div>
         </motion.div>
       )}
