@@ -316,19 +316,23 @@ export default function ProductDetailComponent({ product }: ProductDetailProps) 
                 <Button 
                   size="lg" 
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                  onClick={() => window.location.href = '/editor'}
+                  asChild
                 >
-                  <Palette className="h-5 w-5 mr-2" />
-                  Design Custom {product.name}
+                  <a href="/editor">
+                    <Palette className="h-5 w-5 mr-2" />
+                    Design Custom {product.name}
+                  </a>
                 </Button>
                 <Button 
                   variant="outline" 
                   size="lg" 
                   className="w-full border-blue-600 text-blue-600 hover:bg-blue-50"
-                  onClick={() => window.location.href = '/editor'}
+                  asChild
                 >
-                  <Settings className="h-5 w-5 mr-2" />
-                  Get Started with This One
+                  <a href="/editor">
+                    <Settings className="h-5 w-5 mr-2" />
+                    Get Started with This One
+                  </a>
                 </Button>
               </div>
 

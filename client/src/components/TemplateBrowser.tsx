@@ -16,23 +16,22 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { TemplateService, Template, TemplateCategory } from '@/services/TemplateService';
+import { TemplateService, SignTemplate } from '@/services/TemplateService';
 
 interface TemplateBrowserProps {
-  onTemplateSelect: (template: Template) => void;
+  isOpen: boolean;
+  onTemplateSelect: (template: SignTemplate) => void;
   onClose: () => void;
 }
 
-const TemplateBrowser: React.FC<TemplateBrowserProps> = ({ onTemplateSelect, onClose }) => {
+const TemplateBrowser: React.FC<TemplateBrowserProps> = ({ isOpen, onTemplateSelect, onClose }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [showFilters, setShowFilters] = useState(false);
   const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({ min: 0, max: 200 });
-  const [showPopular, setShowPopular] = useState(false);
-  const [showFeatured, setShowFeatured] = useState(false);
-  const [filteredTemplates, setFilteredTemplates] = useState<Template[]>([]);
-  const [categories, setCategories] = useState<TemplateCategory[]>([]);
+  const [filteredTemplates, setFilteredTemplates] = useState<SignTemplate[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
     setCategories(TemplateService.getCategories());
@@ -41,16 +40,14 @@ const TemplateBrowser: React.FC<TemplateBrowserProps> = ({ onTemplateSelect, onC
 
   useEffect(() => {
     updateFilteredTemplates();
-  }, [searchQuery, selectedCategory, priceRange, showPopular, showFeatured]);
+  }, [searchQuery, selectedCategory, priceRange]);
 
   const updateFilteredTemplates = () => {
-    let templates: Template[] = [];
+    let templates: SignTemplate[] = [];
 
-    // Get templates based on category
+    // Get all templates
     if (selectedCategory === 'all') {
-      categories.forEach(category => {
-        templates.push(...category.templates);
-      });
+      templates = TemplateService.getAllTemplates();
     } else {
       templates = TemplateService.getTemplatesByCategory(selectedCategory);
     }
@@ -62,36 +59,35 @@ const TemplateBrowser: React.FC<TemplateBrowserProps> = ({ onTemplateSelect, onC
 
     // Apply price filter
     templates = templates.filter(template => 
-      template.basePrice >= priceRange.min && template.basePrice <= priceRange.max
+      template.price >= priceRange.min && template.price <= priceRange.max
     );
-
-    // Apply popular filter
-    if (showPopular) {
-      templates = templates.filter(template => template.popular);
-    }
-
-    // Apply featured filter
-    if (showFeatured) {
-      templates = templates.filter(template => template.featured);
-    }
 
     setFilteredTemplates(templates);
   };
 
-  const handleTemplateSelect = (template: Template) => {
+  const handleTemplateSelect = (template: SignTemplate) => {
     onTemplateSelect(template);
     onClose();
   };
 
   const getCategoryIcon = (categoryId: string) => {
-    const category = categories.find(cat => cat.id === categoryId);
-    return category?.icon || '📄';
+    // Simple category icons
+    const icons: { [key: string]: string } = {
+      'Lawn Care': '🌱',
+      'Real Estate': '🏠',
+      'Business': '💼',
+      'Restaurant': '🍽️',
+      'Retail': '🛍️',
+      'default': '📄'
+    };
+    return icons[categoryId] || icons.default;
   };
 
   const getCategoryName = (categoryId: string) => {
-    const category = categories.find(cat => cat.id === categoryId);
-    return category?.name || 'Unknown';
+    return categoryId || 'Unknown';
   };
+
+  if (!isOpen) return null;
 
   return (
     <motion.div
@@ -185,8 +181,8 @@ const TemplateBrowser: React.FC<TemplateBrowserProps> = ({ onTemplateSelect, onC
                     >
                       <option value="all">All Categories</option>
                       {categories.map(category => (
-                        <option key={category.id} value={category.id}>
-                          {category.icon} {category.name}
+                        <option key={category} value={category}>
+                          {getCategoryIcon(category)} {getCategoryName(category)}
                         </option>
                       ))}
                     </select>
@@ -266,30 +262,19 @@ const TemplateBrowser: React.FC<TemplateBrowserProps> = ({ onTemplateSelect, onC
                   {/* Template Preview */}
                   <div className={`relative ${viewMode === 'list' ? 'w-32 h-24' : 'h-48'}`}>
                     <img
-                      src={template.preview}
+                      src={template.thumbnail}
                       alt={template.name}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute top-2 right-2 flex space-x-1">
-                      {template.popular && (
-                        <div className="bg-yellow-500 text-white text-xs px-2 py-1 rounded-full">
-                          <Star className="h-3 w-3" />
-                        </div>
-                      )}
-                      {template.featured && (
-                        <div className="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
-                          <TrendingUp className="h-3 w-3" />
-                        </div>
-                      )}
-                    </div>
+
                   </div>
 
                   {/* Template Info */}
                   <div className={`p-4 ${viewMode === 'list' ? 'flex-1' : ''}`}>
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-semibold text-gray-900 text-sm">{template.name}</h3>
-                      <span className="text-green-600 font-semibold text-sm">${template.basePrice}</span>
-                    </div>
+                                         <div className="flex items-start justify-between mb-2">
+                       <h3 className="font-semibold text-gray-900 text-sm">{template.name}</h3>
+                       <span className="text-green-600 font-semibold text-sm">${template.price}</span>
+                     </div>
                     
                     <p className="text-gray-600 text-xs mb-3 line-clamp-2">{template.description}</p>
                     
@@ -298,9 +283,9 @@ const TemplateBrowser: React.FC<TemplateBrowserProps> = ({ onTemplateSelect, onC
                         <span className="text-xs text-gray-500">
                           {getCategoryIcon(template.category)} {getCategoryName(template.category)}
                         </span>
-                        <span className="text-xs text-gray-400">
-                          {template.width}" × {template.height}"
-                        </span>
+                                                 <span className="text-xs text-gray-400">
+                           {template.dimensions.width}" × {template.dimensions.height}"
+                         </span>
                       </div>
                       
                       <div className="flex items-center space-x-1">
@@ -345,7 +330,7 @@ const TemplateBrowser: React.FC<TemplateBrowserProps> = ({ onTemplateSelect, onC
         <div className="p-6 border-t border-gray-200 bg-gray-50">
           <div className="flex items-center justify-between">
             <div className="text-sm text-gray-600">
-              Showing {filteredTemplates.length} of {TemplateService.getCategories().reduce((acc, cat) => acc + cat.templates.length, 0)} templates
+              Showing {filteredTemplates.length} of {TemplateService.getAllTemplates().length} templates
             </div>
             <div className="flex items-center space-x-2">
               <Button variant="outline" onClick={onClose}>
