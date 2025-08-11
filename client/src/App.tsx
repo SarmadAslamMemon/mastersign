@@ -11,11 +11,13 @@ import LoginPage from "@/pages/login";
 import SignupPage from "@/pages/signup";
 import EditorPage from "@/pages/editor-page";
 import NotFound from "@/pages/not-found";
+import ProductsBrowsePage from "@/pages/products-browse";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/products" component={ProductsBrowsePage} />
       <Route path="/editor" component={TemplateEditorRoute} />
       <Route path="/editor/:templateId" component={EditorPage} />
       <Route path="/test-canvas" component={TldrawWrapperTest} />

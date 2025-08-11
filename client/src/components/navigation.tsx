@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { fadeInUp, magneticHover } from "@/lib/animations";
 import { ProductCategory, PRODUCT_SUBCATEGORIES } from "@/types/products";
+import appLogo from "@/assets/app-logo-sub.png";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -65,7 +66,7 @@ export default function Navigation() {
               {leftColumn.map((subCategory, subIndex) => (
                 <a
                   key={subIndex}
-                  href={`/products/${category.toLowerCase().replace(/\s+/g, '-')}/${subCategory.toLowerCase().replace(/\s+/g, '-')}`}
+                  href={`/products?category=${encodeURIComponent(category)}&sub=${encodeURIComponent(subCategory)}`}
                   className="text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 px-2 py-1 rounded transition-colors block"
                 >
                   {subCategory}
@@ -76,7 +77,7 @@ export default function Navigation() {
               {rightColumn.map((subCategory, subIndex) => (
                 <a
                   key={subIndex}
-                  href={`/products/${category.toLowerCase().replace(/\s+/g, '-')}/${subCategory.toLowerCase().replace(/\s+/g, '-')}`}
+                  href={`/products?category=${encodeURIComponent(category)}&sub=${encodeURIComponent(subCategory)}`}
                   className="text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 px-2 py-1 rounded transition-colors block"
                 >
                   {subCategory}
@@ -86,7 +87,7 @@ export default function Navigation() {
           </div>
           <div className="mt-3 pt-3 border-t border-gray-200">
             <a
-              href={`/products/${category.toLowerCase().replace(/\s+/g, '-')}`}
+              href={`/products?category=${encodeURIComponent(category)}`}
               className="text-sm text-blue-600 hover:text-blue-700 font-medium"
             >
               View All {category} →
@@ -99,20 +100,20 @@ export default function Navigation() {
       return (
         <div className="p-4">
           <h3 className="font-semibold text-gray-900 mb-3">{category}</h3>
-          <div className="space-y-2">
-            {subCategories.map((subCategory, subIndex) => (
-              <a
-                key={subIndex}
-                href={`/products/${category.toLowerCase().replace(/\s+/g, '-')}/${subCategory.toLowerCase().replace(/\s+/g, '-')}`}
-                className="text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 px-2 py-1 rounded transition-colors block"
-              >
-                {subCategory}
-              </a>
-            ))}
-          </div>
+                      <div className="space-y-2">
+              {subCategories.map((subCategory, subIndex) => (
+                <a
+                  key={subIndex}
+                  href={`/products?category=${encodeURIComponent(category)}&sub=${encodeURIComponent(subCategory)}`}
+                  className="text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 px-2 py-1 rounded transition-colors block"
+                >
+                  {subCategory}
+                </a>
+              ))}
+            </div>
           <div className="mt-3 pt-3 border-t border-gray-200">
             <a
-              href={`/products/${category.toLowerCase().replace(/\s+/g, '-')}`}
+              href={`/products?category=${encodeURIComponent(category)}`}
               className="text-sm text-blue-600 hover:text-blue-700 font-medium"
             >
               View All {category} →
@@ -163,11 +164,7 @@ export default function Navigation() {
               className="flex items-center space-x-3"
               {...fadeInUp}
             >
-              <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
-                <svg className="h-6 w-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
-              </div>
+              <img src={appLogo} alt="Master Signs" className="w-12 h-12 rounded-xl object-contain" />
               <div>
                 <h1 className="text-2xl font-bold text-black">Master Signs</h1>
                 <p className="text-sm text-blue-600">Make Your Statement</p>
@@ -357,7 +354,7 @@ export default function Navigation() {
                       {PRODUCT_SUBCATEGORIES[category]?.slice(0, 3).map((subCategory, subIndex) => (
                         <a
                           key={subIndex}
-                          href={`/products/${category.toLowerCase().replace(/\s+/g, '-')}/${subCategory.toLowerCase().replace(/\s+/g, '-')}`}
+                          href={`/products?category=${encodeURIComponent(category)}&sub=${encodeURIComponent(subCategory)}`}
                           className="block text-sm text-gray-500 hover:text-blue-600 py-1 transition-colors"
                         >
                           {subCategory}
@@ -365,7 +362,7 @@ export default function Navigation() {
                       ))}
                       {PRODUCT_SUBCATEGORIES[category]?.length > 3 && (
                         <a
-                          href={`/products/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                          href={`/products?category=${encodeURIComponent(category)}`}
                           className="block text-sm text-blue-600 hover:text-blue-700 py-1 font-medium"
                         >
                           View All →

@@ -4,7 +4,8 @@ import {
   loadTemplatesByCategory, 
   searchTemplates, 
   getMainCategories, 
-  getSubCategories 
+  getSubCategories,
+  getAllTemplates
 } from '@/utils/templateLoader';
 
 interface TemplateBrowserProps {
@@ -23,6 +24,8 @@ export default function TemplateBrowser({ onClose, onSelectTemplate }: TemplateB
   useEffect(() => {
     // Load all main categories on component mount
     setMainCategories(getMainCategories());
+    // Show all templates by default
+    setTemplates(getAllTemplates());
   }, []);
 
   useEffect(() => {
@@ -46,7 +49,7 @@ export default function TemplateBrowser({ onClose, onSelectTemplate }: TemplateB
       };
       setTemplates(loadTemplatesByCategory(category));
     } else {
-      setTemplates([]);
+      setTemplates(getAllTemplates());
     }
   }, [selectedCategory, selectedSubCategory, searchQuery]);
 
@@ -67,8 +70,8 @@ export default function TemplateBrowser({ onClose, onSelectTemplate }: TemplateB
   };
 
   return (
-    <div className="w-full h-full bg-white p-6">
-      <div className="mb-6">
+    <div className="w-full h-full bg-white flex flex-col">
+      <div className="p-6 pb-4">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold text-gray-900">Template Browser</h2>
           <button
@@ -119,50 +122,52 @@ export default function TemplateBrowser({ onClose, onSelectTemplate }: TemplateB
       </div>
 
       {/* Templates Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {templates.map(template => (
-          <div
-            key={template.id}
-            onClick={() => handleTemplateClick(template)}
-            className="border border-gray-200 rounded-lg p-4 cursor-pointer hover:shadow-lg transition-shadow duration-200"
-          >
-            <div className="aspect-video bg-gray-100 rounded-lg mb-3 flex items-center justify-center">
-              <span className="text-gray-500 text-sm">Thumbnail: {template.thumbnail}</span>
-            </div>
-            <h3 className="font-semibold text-gray-900 mb-2">{template.name}</h3>
-            <p className="text-gray-600 text-sm mb-2">{template.description}</p>
-            <div className="flex justify-between items-center text-xs text-gray-500">
-              <span>{template.width} × {template.height}</span>
-              <span>{template.category.mainCategory}</span>
-            </div>
-            {template.tags && template.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1 mt-2">
-                {template.tags.slice(0, 3).map(tag => (
-                  <span
-                    key={tag}
-                    className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
+      <div className="flex-1 overflow-y-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-6">
+          {templates.map(template => (
+            <div
+              key={template.id}
+              onClick={() => handleTemplateClick(template)}
+              className="border border-gray-200 rounded-lg p-4 cursor-pointer hover:shadow-lg transition-shadow duration-200"
+            >
+              <div className="aspect-video bg-gray-100 rounded-lg mb-3 flex items-center justify-center">
+                <span className="text-gray-500 text-sm">Thumbnail: {template.thumbnail}</span>
               </div>
-            )}
-          </div>
-        ))}
-      </div>
-
-      {templates.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-gray-500">
-            {searchQuery 
-              ? `No templates found for "${searchQuery}"`
-              : selectedCategory 
-                ? `No templates found in ${selectedCategory}${selectedSubCategory ? ` > ${selectedSubCategory}` : ''}`
-                : 'Select a category or search for templates'
-            }
-          </p>
+              <h3 className="font-semibold text-gray-900 mb-2">{template.name}</h3>
+              <p className="text-gray-600 text-sm mb-2">{template.description}</p>
+              <div className="flex justify-between items-center text-xs text-gray-500">
+                <span>{template.width} × {template.height}</span>
+                <span>{template.categories[0]?.mainCategory || 'Uncategorized'}</span>
+              </div>
+              {template.tags && template.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-2">
+                  {template.tags.slice(0, 3).map(tag => (
+                    <span
+                      key={tag}
+                      className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
-      )}
+
+        {templates.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500">
+              {searchQuery 
+                ? `No templates found for "${searchQuery}"`
+                : selectedCategory 
+                  ? `No templates found in ${selectedCategory}${selectedSubCategory ? ` > ${selectedSubCategory}` : ''}`
+                  : 'Select a category or search for templates'
+              }
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

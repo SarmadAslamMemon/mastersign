@@ -55,10 +55,10 @@ const EditorPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading template...</p>
+          <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 rounded-full animate-spin border-4 border-blue-200 border-t-blue-600"></div>
+          <p className="text-gray-600">Loading template...</p>
         </div>
       </div>
     );

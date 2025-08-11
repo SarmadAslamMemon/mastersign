@@ -112,7 +112,7 @@ const Editor: React.FC<EditorProps> = ({ initialDocument, templateId }) => {
             </h1>
             {currentTemplate && (
               <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
-                {currentTemplate.category.mainCategory}
+                {currentTemplate.categories[0]?.mainCategory || 'Uncategorized'}
               </span>
             )}
           </div>
