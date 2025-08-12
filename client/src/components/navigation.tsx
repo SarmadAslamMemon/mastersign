@@ -208,7 +208,7 @@ export default function Navigation() {
                   className="btn-primary bg-blue-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300"
                   data-testid="button-start-designing"
                 >
-                  <a href="/editor">
+                  <a href="/products">
                     <Palette className="mr-2 h-4 w-4" />
                     START DESIGNING
                   </a>
@@ -378,7 +378,7 @@ export default function Navigation() {
                   asChild
                   className="w-full bg-blue-600 text-white hover:bg-blue-700 font-semibold py-3 rounded-lg transition-colors"
                 >
-                  <a href="/editor">
+                  <a href="/products">
                     <Palette className="mr-2 h-4 w-4" />
                     START DESIGNING
                   </a>

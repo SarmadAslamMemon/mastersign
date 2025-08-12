@@ -146,7 +146,7 @@ export default function ServicesSection() {
                       className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-lg"
                       data-testid={`button-service-${index}`}
                     >
-                      <a href="/editor">
+                      <a href="/products">
                         Start Designing
                       </a>
                     </Button>

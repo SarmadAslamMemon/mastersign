@@ -318,7 +318,7 @@ export default function ProductDetailComponent({ product }: ProductDetailProps) 
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                   asChild
                 >
-                  <a href="/editor">
+                  <a href="/products">
                     <Palette className="h-5 w-5 mr-2" />
                     Design Custom {product.name}
                   </a>
@@ -329,7 +329,7 @@ export default function ProductDetailComponent({ product }: ProductDetailProps) 
                   className="w-full border-blue-600 text-blue-600 hover:bg-blue-50"
                   asChild
                 >
-                  <a href="/editor">
+                  <a href="/products">
                     <Settings className="h-5 w-5 mr-2" />
                     Get Started with This One
                   </a>
