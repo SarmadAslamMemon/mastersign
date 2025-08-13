@@ -1,0 +1,75 @@
+{
+  "id": "mounting-hardware-basic",
+  "name": "Basic Mounting Hardware Layout",
+  "category": {
+    "mainCategory": "Accessories",
+    "subCategory": "Mounting Hardware for Signs and Banners"
+  },
+  "thumbnail": "/assets/templates/accessories/mounting-hardware-basic-thumb.png",
+  "width": 500,
+  "height": 500,
+  "description": "Mounting hardware diagram with editable labels.",
+  "tags": ["accessories", "mounting", "hardware", "diagram", "layout"],
+  "document": {
+    "shapes": {
+      "title": {
+        "id": "title",
+        "type": "text",
+        "x": 250,
+        "y": 50,
+        "props": {
+          "text": "Mounting Hardware",
+          "fontSize": 24,
+          "fontWeight": "bold",
+          "textAlign": "center"
+        }
+      },
+      "bracket": {
+        "id": "bracket",
+        "type": "rectangle",
+        "x": 200,
+        "y": 150,
+        "props": {
+          "width": 100,
+          "height": 20,
+          "fill": "#cccccc"
+        }
+      },
+      "bracketLabel": {
+        "id": "bracketLabel",
+        "type": "text",
+        "x": 250,
+        "y": 200,
+        "props": {
+          "text": "Wall Bracket",
+          "fontSize": 14,
+          "textAlign": "center"
+        }
+      },
+      "screw": {
+        "id": "screw",
+        "type": "ellipse",
+        "x": 240,
+        "y": 120,
+        "props": {
+          "width": 20,
+          "height": 20,
+          "fill": "#666666"
+        }
+      },
+      "screwLabel": {
+        "id": "screwLabel",
+        "type": "text",
+        "x": 250,
+        "y": 100,
+        "props": {
+          "text": "Mounting Screw",
+          "fontSize": 12,
+          "textAlign": "center"
+        }
+      }
+    },
+    "bindings": {},
+    "assets": {}
+  }
+}

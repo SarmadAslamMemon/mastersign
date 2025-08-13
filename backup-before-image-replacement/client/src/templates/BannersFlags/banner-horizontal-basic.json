@@ -1,0 +1,80 @@
+{
+  "id": "banner-horizontal-basic",
+  "name": "Horizontal Banner - Basic",
+  "category": {
+    "mainCategory": "Banners/Flags"
+  },
+  "thumbnail": "/assets/templates/banners-flags/horizontal-banner-thumb.png",
+  "width": 1200,
+  "height": 400,
+  "description": "Standard horizontal banner with header, content area, and call-to-action.",
+  "tags": ["banner", "horizontal", "advertising", "marketing", "basic"],
+  "document": {
+    "shapes": {
+      "header": {
+        "id": "header",
+        "type": "text",
+        "x": 600,
+        "y": 80,
+        "props": {
+          "text": "MAIN HEADLINE",
+          "fontSize": 64,
+          "fontWeight": "bold",
+          "textAlign": "center",
+          "color": "#ffffff"
+        }
+      },
+      "subheader": {
+        "id": "subheader",
+        "type": "text",
+        "x": 600,
+        "y": 160,
+        "props": {
+          "text": "Supporting text that explains your message",
+          "fontSize": 32,
+          "textAlign": "center",
+          "color": "#ffffff"
+        }
+      },
+      "ctaButton": {
+        "id": "ctaButton",
+        "type": "rectangle",
+        "x": 600,
+        "y": 280,
+        "props": {
+          "width": 200,
+          "height": 60,
+          "fill": "#ff6b35",
+          "stroke": "#ffffff",
+          "strokeWidth": 2
+        }
+      },
+      "ctaText": {
+        "id": "ctaText",
+        "type": "text",
+        "x": 600,
+        "y": 310,
+        "props": {
+          "text": "LEARN MORE",
+          "fontSize": 20,
+          "fontWeight": "bold",
+          "textAlign": "center",
+          "color": "#ffffff"
+        }
+      },
+      "background": {
+        "id": "background",
+        "type": "rectangle",
+        "x": 600,
+        "y": 200,
+        "props": {
+          "width": 1200,
+          "height": 400,
+          "fill": "#2c3e50"
+        }
+      }
+    },
+    "bindings": {},
+    "assets": {}
+  }
+}

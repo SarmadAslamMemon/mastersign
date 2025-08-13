@@ -1,0 +1,79 @@
+{
+  "id": "outdoor-sign-basic",
+  "name": "Outdoor Sign - Basic",
+  "category": {
+    "mainCategory": "Signs"
+  },
+  "thumbnail": "/assets/templates/signs/outdoor-sign-thumb.png",
+  "width": 600,
+  "height": 400,
+  "description": "Simple outdoor sign with company name and contact information.",
+  "tags": ["sign", "outdoor", "company", "contact", "basic"],
+  "document": {
+    "shapes": {
+      "background": {
+        "id": "background",
+        "type": "rectangle",
+        "x": 300,
+        "y": 200,
+        "props": {
+          "width": 600,
+          "height": 400,
+          "fill": "#34495e",
+          "stroke": "#2c3e50",
+          "strokeWidth": 4
+        }
+      },
+      "logoIcon": {
+        "id": "logoIcon",
+        "type": "image",
+        "x": 300,
+        "y": 80,
+        "props": {
+          "src": "/assets/icons/icon-placeholder.svg",
+          "width": 80,
+          "height": 80
+        }
+      },
+      "companyName": {
+        "id": "companyName",
+        "type": "text",
+        "x": 300,
+        "y": 150,
+        "props": {
+          "text": "COMPANY NAME",
+          "fontSize": 48,
+          "fontWeight": "bold",
+          "textAlign": "center",
+          "color": "#ffffff"
+        }
+      },
+      "tagline": {
+        "id": "tagline",
+        "type": "text",
+        "x": 300,
+        "y": 220,
+        "props": {
+          "text": "Your Business Tagline",
+          "fontSize": 24,
+          "textAlign": "center",
+          "color": "#ecf0f1"
+        }
+      },
+      "contactInfo": {
+        "id": "contactInfo",
+        "type": "text",
+        "x": 300,
+        "y": 300,
+        "props": {
+          "text": "Phone: (555) 123-4567 | www.company.com",
+          "fontSize": 18,
+          "textAlign": "center",
+          "color": "#bdc3c7"
+        }
+      }
+    },
+    "bindings": {},
+    "assets": {}
+  }
+}
