@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Star, CheckCircle, Zap, Car, Settings, Palette } from "lucide-react";
+import { ArrowRight, Play, Star, CheckCircle, Zap, Car, Settings, Palette, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { fadeInUp, staggerContainer, magneticHover } from "@/lib/animations";
+import heroBanner from "@/assets/Banners/MAIN - Banner.jpg";
+import heroShowcase from "@/assets/Fabricated Signs/20231114_212838.jpg";
 
 export default function HeroSection() {
   const scrollToQuote = () => {
@@ -24,7 +26,7 @@ export default function HeroSection() {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1553413077-190dd305871c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')`
+          backgroundImage: `url(${heroBanner})`
         }}
       />
       
@@ -126,7 +128,7 @@ export default function HeroSection() {
                   className="border-2 border-white text-blue-600 hover:bg-white hover:text-blue-600 font-semibold px-8 py-4 rounded-xl text-lg transition-all duration-300 shadow-lg"
                   data-testid="button-hero-editor"
                 >
-                  <a href="/editor">
+                  <a href="/products">
                     <Palette className="mr-2 h-5 w-5" />
                     Start Designing
                   </a>
@@ -144,27 +146,39 @@ export default function HeroSection() {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
-                alt="Professional business woman in modern office with custom signage"
+                src={heroShowcase}
+                alt="Showcase of our signage work"
                 className="w-full h-auto"
               />
               
               {/* Floating Stats Card */}
               <motion.div 
-                className="absolute -bottom-6 -left-6 bg-white rounded-xl p-6 shadow-2xl"
+                className="absolute left-3 bottom-3 md:left-6 md:bottom-6 z-20 bg-black/50 backdrop-blur-md border border-white/10 rounded-xl px-3 py-2 md:px-4 md:py-3 shadow-2xl"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1 }}
               >
-                <div className="flex items-center space-x-4">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">500+</div>
-                    <div className="text-sm text-gray-600">Happy Clients</div>
+                <div className="flex items-center gap-2 md:gap-3">
+                  {/* Clients pill */}
+                  <div className="flex items-center gap-2 bg-white/10 rounded-lg px-2.5 py-1.5 md:px-3 md:py-2 shadow-sm">
+                    <div className="w-7 h-7 md:w-8 md:h-8 rounded-md bg-blue-500/40 flex items-center justify-center text-white">
+                      <Users className="w-4 h-4 md:w-4.5 md:h-4.5" />
+                    </div>
+                    <div className="leading-tight">
+                      <div className="text-sm md:text-base font-bold text-white">500+</div>
+                      <div className="text-[10px] md:text-xs text-white/80">Happy Clients</div>
+                    </div>
                   </div>
-                  <div className="w-px h-12 bg-gray-200"></div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">4.9★</div>
-                    <div className="text-sm text-gray-600">Rating</div>
+
+                  {/* Rating pill */}
+                  <div className="flex items-center gap-2 bg-white/10 rounded-lg px-2.5 py-1.5 md:px-3 md:py-2 shadow-sm ml-1">
+                    <div className="w-7 h-7 md:w-8 md:h-8 rounded-md bg-yellow-400/40 flex items-center justify-center text-yellow-200">
+                      <Star className="w-4 h-4" fill="currentColor" />
+                    </div>
+                    <div className="leading-tight">
+                      <div className="text-sm md:text-base font-bold text-white">4.9</div>
+                      <div className="text-[10px] md:text-xs text-white/80">Rating</div>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -172,20 +186,19 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-
-
         <motion.div 
-          className="mt-16 bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8"
+          className="mt-16 bg-white/10 backdrop-blur-xl border border-white/15 rounded-lg p-6 md:p-8 shadow-lg"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <div className="text-center mb-6">
-            <h3 className="text-white text-lg font-semibold mb-2">Complete Signage Solutions</h3>
-            <p className="text-blue-100 text-sm">From concept to installation, we deliver results</p>
+            <h3 className="text-white text-xl md:text-2xl font-bold mb-1">Complete Signage Solutions</h3>
+            <p className="text-blue-100 text-sm md:text-base">From concept to installation, we deliver results</p>
+            <div className="mt-4 h-px w-full bg-gradient-to-r from-transparent via-white/25 to-transparent" />
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {[
               { icon: Zap, label: "LED Digital Signs", desc: "Eye-catching displays" },
               { icon: Car, label: "Vehicle Wraps", desc: "Mobile advertising" },
@@ -194,16 +207,15 @@ export default function HeroSection() {
             ].map((service, index) => (
               <motion.div 
                 key={index}
-                className="text-center group cursor-pointer"
+                className="text-center group cursor-pointer bg-white/10 hover:bg-white/15 border border-white/15 rounded-lg p-4 md:p-5 transition-all duration-300 shadow-sm hover:shadow-md"
                 variants={fadeInUp}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
+                whileHover={{ translateY: -2 }}
               >
-                <div className="w-16 h-16 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-3 mx-auto group-hover:bg-opacity-30 transition-all duration-300">
-                  <service.icon className="h-8 w-8 text-white" />
+                <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-white/25 to-white/10 rounded-lg flex items-center justify-center mb-3 mx-auto">
+                  <service.icon className="h-6 w-6 md:h-7 md:w-7 text-white" />
                 </div>
-                <div className="text-white font-medium text-sm">{service.label}</div>
-                <div className="text-blue-200 text-xs">{service.desc}</div>
+                <div className="text-white font-semibold text-sm md:text-base">{service.label}</div>
+                <div className="text-blue-200 text-xs md:text-sm mt-0.5">{service.desc}</div>
               </motion.div>
             ))}
           </div>

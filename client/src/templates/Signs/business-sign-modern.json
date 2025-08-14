@@ -1,0 +1,117 @@
+{
+  "id": "business-sign-modern",
+  "name": "Business Sign - Modern",
+  "category": {
+    "mainCategory": "Signs"
+  },
+  "thumbnail": "/assets/templates/signs/business-sign-modern-thumb.png",
+  "width": 1000,
+  "height": 500,
+  "description": "Modern business sign with logo placeholder, company name, and contact information.",
+  "tags": ["sign", "business", "modern", "company", "logo", "professional"],
+  "document": {
+    "shapes": {
+      "mainBackground": {
+        "id": "mainBackground",
+        "type": "rectangle",
+        "x": 500,
+        "y": 250,
+        "props": {
+          "width": 1000,
+          "height": 500,
+          "fill": "#1a1a1a",
+          "stroke": "#333333",
+          "strokeWidth": 2
+        }
+      },
+      "accentBar": {
+        "id": "accentBar",
+        "type": "rectangle",
+        "x": 500,
+        "y": 100,
+        "props": {
+          "width": 1000,
+          "height": 80,
+          "fill": "#007acc",
+          "stroke": "transparent",
+          "strokeWidth": 0
+        }
+      },
+      "logoPlaceholder": {
+        "id": "logoPlaceholder",
+        "type": "image",
+        "x": 200,
+        "y": 250,
+        "props": {
+          "src": "/assets/icons/icon-placeholder.svg",
+          "width": 150,
+          "height": 150
+        }
+      },
+      "companyName": {
+        "id": "companyName",
+        "type": "text",
+        "x": 600,
+        "y": 200,
+        "props": {
+          "text": "COMPANY NAME",
+          "fontSize": 64,
+          "fontWeight": "bold",
+          "textAlign": "left",
+          "color": "#ffffff"
+        }
+      },
+      "tagline": {
+        "id": "tagline",
+        "type": "text",
+        "x": 600,
+        "y": 280,
+        "props": {
+          "text": "Professional Solutions & Services",
+          "fontSize": 28,
+          "textAlign": "left",
+          "color": "#cccccc"
+        }
+      },
+      "contactInfo": {
+        "id": "contactInfo",
+        "type": "text",
+        "x": 600,
+        "y": 350,
+        "props": {
+          "text": "📞 (555) 123-4567 | 📧 info@company.com",
+          "fontSize": 24,
+          "textAlign": "left",
+          "color": "#007acc"
+        }
+      },
+      "address": {
+        "id": "address",
+        "type": "text",
+        "x": 600,
+        "y": 400,
+        "props": {
+          "text": "📍 123 Business Street, City, State 12345",
+          "fontSize": 20,
+          "textAlign": "left",
+          "color": "#999999"
+        }
+      },
+      "decorationLine": {
+        "id": "decorationLine",
+        "type": "rectangle",
+        "x": 600,
+        "y": 320,
+        "props": {
+          "width": 300,
+          "height": 3,
+          "fill": "#007acc",
+          "stroke": "transparent",
+          "strokeWidth": 0
+        }
+      }
+    },
+    "bindings": {},
+    "assets": {}
+  }
+}

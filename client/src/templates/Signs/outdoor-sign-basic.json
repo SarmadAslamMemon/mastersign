@@ -24,6 +24,17 @@
           "strokeWidth": 4
         }
       },
+      "logoIcon": {
+        "id": "logoIcon",
+        "type": "image",
+        "x": 300,
+        "y": 80,
+        "props": {
+          "src": "/assets/icons/icon-placeholder.svg",
+          "width": 80,
+          "height": 80
+        }
+      },
       "companyName": {
         "id": "companyName",
         "type": "text",

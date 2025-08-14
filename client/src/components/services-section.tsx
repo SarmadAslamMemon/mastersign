@@ -5,6 +5,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { fadeInUp, staggerContainer, magneticHover } from "@/lib/animations";
 
+import ledImg from "@/assets/Channel Letters/24330.jpeg";
+import vehicleImg from "@/assets/Vehicle Graphics/20240309_133150.jpg";
+import laserImg from "@/assets/Laser Engraving/fish.jpg";
+import bannersImg from "@/assets/Banners/MAIN - Banner.jpg";
+import architecturalImg from "@/assets/Business Signage/Performance.jpg";
+import installImg from "@/assets/Fabricated Signs/20230616_154312.jpg";
+
 const services = [
   {
     icon: Zap,
@@ -12,7 +19,7 @@ const services = [
     subtitle: "High-Impact Displays",
     description: "Eye-catching LED displays that attract customers 24/7. From outdoor billboards to indoor screens, our digital solutions deliver dynamic content that drives engagement and sales.",
     tags: ["Outdoor LED", "Indoor Displays", "Interactive Kiosks"],
-    image: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    image: ledImg
   },
   {
     icon: Car,
@@ -20,7 +27,7 @@ const services = [
     subtitle: "Mobile Advertising",
     description: "Transform your vehicles into powerful marketing tools. Our premium wraps combine durability with stunning graphics that generate thousands of impressions daily.",
     tags: ["Full Wraps", "Partial Graphics", "Fleet Branding"],
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    image: vehicleImg
   },
   {
     icon: Settings,
@@ -28,7 +35,7 @@ const services = [
     subtitle: "Precision Crafting",
     description: "Precision laser engraving for awards, plaques, architectural signage, and custom products. Create lasting impressions with intricate detail and professional finish.",
     tags: ["Awards", "Plaques", "Architectural"],
-    image: "https://pixabay.com/get/gfbfca59992315832460b4c73590b108a8d8f6eb518286d9ca63339c8229560560025d7e613456b806ffbeb17c0439fcac1a8508fe3ea993a22d82259a4c4728f_1280.jpg"
+    image: laserImg
   },
   {
     icon: Flag,
@@ -36,7 +43,7 @@ const services = [
     subtitle: "Event & Promotion",
     description: "High-quality vinyl banners perfect for events, promotions, and temporary advertising. Weather-resistant materials ensure your message stays vibrant indoors and outdoors.",
     tags: ["Vinyl Banners", "Mesh Banners", "Fabric Displays"],
-    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    image: bannersImg
   },
   {
     icon: Building,
@@ -44,7 +51,7 @@ const services = [
     subtitle: "Building Identity",
     description: "Sophisticated architectural signage that integrates seamlessly with your building design. From lobby displays to exterior monuments, we create lasting brand impressions.",
     tags: ["Monument Signs", "Lobby Displays", "Wayfinding"],
-    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    image: architecturalImg
   },
   {
     icon: Wrench,
@@ -52,7 +59,7 @@ const services = [
     subtitle: "Complete Support",
     description: "Professional installation and ongoing maintenance services ensure your signs perform at their best. Our certified technicians handle everything from permits to long-term care.",
     tags: ["Installation", "Maintenance", "Permits"],
-    image: "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    image: installImg
   },
   {
     icon: Settings,
@@ -60,7 +67,7 @@ const services = [
     subtitle: "Interactive Editor",
     description: "Use our professional design tool to create custom signs exactly how you want them. Add text, shapes, images, and more with our easy-to-use online editor.",
     tags: ["Custom Design", "Online Tool", "Real-time Preview"],
-    image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    image: bannersImg
   }
 ];
 
@@ -139,7 +146,7 @@ export default function ServicesSection() {
                       className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-lg"
                       data-testid={`button-service-${index}`}
                     >
-                      <a href="/editor">
+                      <a href="/products">
                         Start Designing
                       </a>
                     </Button>
