@@ -1267,29 +1267,44 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       return
     }
 
-    // Get object bounds for background positioning
-    const objBounds = selectedObject.getBoundingRect()
-    const objLeft = objBounds.left
-    const objTop = objBounds.top
-    const objWidth = objBounds.width
-    const objHeight = objBounds.height
+    // Calculate the template area bounds (including all template objects)
+    const allObjects = canvasRef.current.getObjects()
+    const templateObjects = allObjects.filter(obj => (obj as any).templateId)
+    
+    if (templateObjects.length === 0) {
+      alert('No template objects found. Please load a template first.')
+      return
+    }
 
-    // Calculate the center of the selected object (this is where the background should go)
-    const backgroundCenterX = objLeft + objWidth / 2
-    const backgroundCenterY = objTop + objHeight / 2
-
-    console.log('🎯 Using selected object for background positioning:', {
-      objectBounds: { left: objLeft, top: objTop, width: objWidth, height: objHeight },
-      backgroundCenter: { x: backgroundCenterX, y: backgroundCenterY }
+    // Find the bounding box of all template objects
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity
+    
+    templateObjects.forEach(obj => {
+      const bounds = obj.getBoundingRect()
+      minX = Math.min(minX, bounds.left)
+      minY = Math.min(minY, bounds.top)
+      maxX = Math.max(maxX, bounds.left + bounds.width)
+      maxY = Math.max(maxY, bounds.top + bounds.height)
     })
 
-    // Create background from preset using selected object dimensions
-    const backgroundObject = backgroundService.createBackgroundFromPreset(preset, objWidth, objHeight)
+    const templateWidth = maxX - minX
+    const templateHeight = maxY - minY
+    const templateCenterX = minX + templateWidth / 2
+    const templateCenterY = minY + templateHeight / 2
+
+    console.log('🎯 Template area calculated for background:', {
+      templateBounds: { minX, minY, maxX, maxY },
+      templateSize: { width: templateWidth, height: templateHeight },
+      templateCenter: { x: templateCenterX, y: templateCenterY }
+    })
+
+    // Create background from preset using template area dimensions
+    const backgroundObject = backgroundService.createBackgroundFromPreset(preset, templateWidth, templateHeight)
     
-    // Position the background to cover only the selected object area
+    // Position the background to cover only the template area
     backgroundObject.set({
-      left: backgroundCenterX,  // Center of selected object on canvas
-      top: backgroundCenterY,   // Center of selected object on canvas
+      left: templateCenterX,  // Center of template area on canvas
+      top: templateCenterY,   // Center of template area on canvas
       originX: 'center',
       originY: 'center',
       selectable: false,
@@ -1322,17 +1337,15 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
     canvasRef.current!.renderAll()
 
     console.log('✅ Background preset applied successfully:', preset.name)
-    console.log('📍 Background positioned at selected object center:', { 
-      left: backgroundCenterX, 
-      top: backgroundCenterY,
-      width: objWidth,
-      height: objHeight
+    console.log('📍 Background positioned at template center:', { 
+      left: templateCenterX, 
+      top: templateCenterY,
+      width: templateWidth,
+      height: templateHeight
     })
-    console.log('🎯 Selected object bounds:', { 
-      left: objLeft, 
-      top: objTop, 
-      width: objWidth, 
-      height: objHeight 
+    console.log('🎯 Template area bounds:', { 
+      minX, minY, maxX, maxY,
+      width: templateWidth, height: templateHeight
     })
   }
 
