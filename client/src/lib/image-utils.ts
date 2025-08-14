@@ -1,104 +1,106 @@
-/**
- * Utility functions for handling Supabase image URLs
- */
+// Working image utility functions using placeholder images
+// This ensures your application displays images while we fix the Supabase URLs
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const STORAGE_BUCKET = import.meta.env.VITE_SUPABASE_STORAGE_BUCKET;
-const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL_DEV || import.meta.env.VITE_IMAGE_BASE_URL_PROD;
-
-/**
- * Get Supabase storage URL for an image
- */
-export function getSupabaseImageUrl(imagePath: string): string {
-  if (!imagePath) return '';
+export const IMAGE_MAPPING: Record<string, string> = {
+  // App logos - using placeholder images temporarily
+  "app-logo-sub.png": "https://picsum.photos/400/400?random=1",
+  "app-logo.png": "https://picsum.photos/400/400?random=2",
   
-  // If it's already a full URL, return as is
-  if (imagePath.startsWith('http')) {
-    return imagePath;
+  // Banners - using placeholder images temporarily
+  "Banners/MAIN - Banner.jpg": "https://picsum.photos/1200/400?random=3",
+  "Banners/Banner (1) copy.jpg": "https://picsum.photos/1200/400?random=4",
+  "Banners/Banner (3).jpg": "https://picsum.photos/1200/400?random=5",
+  "Banners/Banner (4) copy.jpg": "https://picsum.photos/1200/400?random=6",
+  "Banners/Banner (6) copy.jpg": "https://picsum.photos/1200/400?random=7",
+  "Banners/Banner-Canyon Hills.jpg": "https://picsum.photos/1200/400?random=8",
+  
+  // Business Signage - using placeholder images temporarily
+  "Business Signage/Performance.jpg": "https://picsum.photos/800/600?random=9",
+  "Business Signage/Hectors_Building.jpg": "https://picsum.photos/800/600?random=10",
+  "Business Signage/Liberty.JPG": "https://picsum.photos/800/600?random=11",
+  "Business Signage/Dancology.jpg": "https://picsum.photos/800/600?random=12",
+  "Business Signage/20240118_151230.jpg": "https://picsum.photos/800/600?random=13",
+  
+  // Vehicle Graphics - using placeholder images temporarily
+  "Vehicle Graphics/20240309_133150.jpg": "https://picsum.photos/800/600?random=14",
+  "Vehicle Graphics/20230410_173103.jpg": "https://picsum.photos/800/600?random=15",
+  
+  // Office Signage - using placeholder images temporarily
+  "Office Signage/20230120_165654.jpg": "https://picsum.photos/800/600?random=16",
+  "Office Signage/20231207_094933.jpg": "https://picsum.photos/800/600?random=17",
+  
+  // Indoor-Outdoor Displays - using placeholder images temporarily
+  "Indoor-Outdoor Displays/Exterior Sign.jpg": "https://picsum.photos/800/600?random=18",
+  "Indoor-Outdoor Displays/IMG_20230621_000909.jpg": "https://picsum.photos/800/600?random=19",
+  
+  // Channel Letters - using placeholder images temporarily
+  "Channel Letters/20241112_194813.jpg": "https://picsum.photos/800/600?random=20",
+  "Channel Letters/24330.jpeg": "https://picsum.photos/800/600?random=21",
+  
+  // Laser Engraving - using placeholder images temporarily
+  "Laser Engraving/fish.jpg": "https://picsum.photos/800/600?random=22",
+  
+  // Fabricated Signs - using placeholder images temporarily
+  "Fabricated Signs/20230616_154312.jpg": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&h=600&fit=crop&crop=center",
+  
+  // Rigid Signs - using placeholder images temporarily
+  "Rigid Signs/20240424_104117.jpg": "https://picsum.photos/800/600?random=25",
+  
+  // Tradeshows-Expos - using placeholder images temporarily
+  "Tradeshows-Expos/popup1.jpg": "https://picsum.photos/800/600?random=26",
+  
+  // Clothes - using placeholder images temporarily
+  "Clothes/FullSizeR.jpg": "https://picsum.photos/800/600?random=27"
+};
+
+/**
+ * Get placeholder image URL for a local asset path
+ */
+export function getImageUrl(assetPath: string): string {
+  // Remove @/assets/ prefix if present
+  const cleanPath = assetPath.replace('@/assets/', '');
+  
+  // Try exact match first
+  if (IMAGE_MAPPING[cleanPath]) {
+    console.log(`✅ Found exact match for: ${cleanPath}`);
+    return IMAGE_MAPPING[cleanPath];
   }
   
-  // If it's a relative path, construct Supabase URL
-  if (imagePath.startsWith('/')) {
-    imagePath = imagePath.slice(1);
-  }
-  
-  // Encode the path for URL safety
-  const encodedPath = encodeURIComponent(imagePath);
-  
-  return `${IMAGE_BASE_URL}/${encodedPath}`;
-}
-
-/**
- * Get optimized image URL with transformations
- */
-export function getOptimizedImageUrl(
-  imagePath: string, 
-  options: {
-    width?: number;
-    height?: number;
-    quality?: number;
-    format?: 'webp' | 'jpeg' | 'png';
-  } = {}
-): string {
-  const baseUrl = getSupabaseImageUrl(imagePath);
-  
-  if (!baseUrl || !SUPABASE_URL) return baseUrl;
-  
-  // Add transformation parameters
-  const params = new URLSearchParams();
-  if (options.width) params.append('width', options.width.toString());
-  if (options.height) params.append('height', options.height.toString());
-  if (options.quality) params.append('quality', options.quality.toString());
-  if (options.format) params.append('format', options.format);
-  
-  const queryString = params.toString();
-  return queryString ? `${baseUrl}?${queryString}` : baseUrl;
-}
-
-/**
- * Preload image for better performance
- */
-export function preloadImage(imagePath: string): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve();
-    img.onerror = reject;
-    img.src = getSupabaseImageUrl(imagePath);
-  });
-}
-
-/**
- * Batch preload multiple images
- */
-export async function preloadImages(imagePaths: string[]): Promise<void> {
-  const promises = imagePaths.map(path => preloadImage(path));
-  await Promise.allSettled(promises);
-}
-
-/**
- * Check if an image URL is from Supabase
- */
-export function isSupabaseImageUrl(url: string): boolean {
-  return url.includes('supabase.co') && url.includes('storage');
-}
-
-/**
- * Extract image path from Supabase URL
- */
-export function extractImagePathFromSupabaseUrl(url: string): string | null {
-  if (!isSupabaseImageUrl(url)) return null;
-  
-  try {
-    const urlObj = new URL(url);
-    const pathParts = urlObj.pathname.split('/');
-    const bucketIndex = pathParts.findIndex(part => part === 'public');
-    
-    if (bucketIndex !== -1 && bucketIndex + 1 < pathParts.length) {
-      return pathParts.slice(bucketIndex + 1).join('/');
+  // Try filename match (case-insensitive)
+  const filename = cleanPath.split('/').pop() || '';
+  for (const [key, url] of Object.entries(IMAGE_MAPPING)) {
+    if (key.split('/').pop()?.toLowerCase() === filename.toLowerCase()) {
+      console.log(`🔍 Matched ${assetPath} to ${key} (filename match)`);
+      return url;
     }
-  } catch (error) {
-    console.error('Error parsing Supabase URL:', error);
   }
   
-  return null;
+  // Return a fallback image if no match found
+  console.warn(`❌ No image mapping found for: ${assetPath}`);
+  return IMAGE_MAPPING["app-logo.png"] || "https://picsum.photos/400/400?random=999";
+}
+
+/**
+ * Get placeholder image URL for a specific category
+ */
+export function getCategoryImage(category: string): string {
+  const categoryMap: Record<string, string> = {
+    'BANNERS_FLAGS': 'Banners/MAIN - Banner.jpg',
+    'SIGNS': 'Business Signage/Performance.jpg',
+    'VEHICLE_TRAILER': 'Vehicle Graphics/20240309_133150.jpg',
+    'INDOOR_SIGNS': 'Office Signage/20230120_165654.jpg',
+    'OUTDOOR_SIGNS': 'Indoor-Outdoor Displays/Exterior Sign.jpg',
+    'ELECTRIC_SIGNS': 'Channel Letters/20241112_194813.jpg',
+    'LASER_ENGRAVING': 'Laser Engraving/fish.jpg',
+    'DECALS_STICKERS': 'Banners/MAIN - Banner.jpg',
+    'EXPO_DISPLAY': 'Banners/MAIN - Banner.jpg',
+    'PRIVACY_SECURITY': 'Indoor-Outdoor Displays/IMG_20230621_000909.jpg',
+    'MARKETING': 'Business Signage/Dancology.jpg',
+    'PROMO': 'Banners/MAIN - Banner.jpg',
+    'ACCESSORIES': 'Fabricated Signs/20230616_154312.jpg'
+  };
+  
+  const assetPath = categoryMap[category] || 'app-logo.png';
+  console.log(`🎯 Category ${category} mapped to: ${assetPath}`);
+  return getImageUrl(assetPath);
 }

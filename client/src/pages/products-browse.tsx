@@ -9,15 +9,7 @@ import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { staggerContainer, fadeInUp } from "@/lib/animations";
 import { ChevronRight } from "lucide-react";
-
-// Import a few representative local images per category as fallbacks
-import bannersImg from "@/assets/Banners/MAIN - Banner.jpg";
-import signsImg from "@/assets/Business Signage/Performance.jpg";
-import vehiclesImg from "@/assets/Vehicle Graphics/20240309_133150.jpg";
-import indoorImg from "@/assets/Office Signage/20230120_165654.jpg";
-import outdoorImg from "@/assets/Indoor-Outdoor Displays/Exterior Sign.jpg";
-import electricImg from "@/assets/Channel Letters/20241112_194813.jpg";
-import laserImg from "@/assets/Laser Engraving/fish.jpg";
+import { getCategoryImage } from "@/lib/image-utils";
 
 type Shape = "Rectangle" | "Square" | "Circle";
 
@@ -32,19 +24,19 @@ type BrowseItem = {
 };
 
 const categoryFallbackImage: Record<ProductCategory, string> = {
-  [ProductCategory.BANNERS_FLAGS]: bannersImg,
-  [ProductCategory.SIGNS]: signsImg,
-  [ProductCategory.VEHICLE_TRAILER]: vehiclesImg,
-  [ProductCategory.INDOOR_SIGNS]: indoorImg,
-  [ProductCategory.OUTDOOR_SIGNS]: outdoorImg,
-  [ProductCategory.ELECTRIC_SIGNS]: electricImg,
-  [ProductCategory.LASER_ENGRAVING]: laserImg,
-  [ProductCategory.DECALS_STICKERS]: bannersImg,
-  [ProductCategory.EXPO_DISPLAY]: bannersImg,
-  [ProductCategory.PRIVACY_SECURITY]: indoorImg,
-  [ProductCategory.MARKETING]: signsImg,
-  [ProductCategory.PROMO]: bannersImg,
-  [ProductCategory.ACCESSORIES]: signsImg,
+  [ProductCategory.BANNERS_FLAGS]: getCategoryImage('BANNERS_FLAGS'),
+  [ProductCategory.SIGNS]: getCategoryImage('SIGNS'),
+  [ProductCategory.VEHICLE_TRAILER]: getCategoryImage('VEHICLE_TRAILER'),
+  [ProductCategory.INDOOR_SIGNS]: getCategoryImage('INDOOR_SIGNS'),
+  [ProductCategory.OUTDOOR_SIGNS]: getCategoryImage('OUTDOOR_SIGNS'),
+  [ProductCategory.ELECTRIC_SIGNS]: getCategoryImage('ELECTRIC_SIGNS'),
+  [ProductCategory.LASER_ENGRAVING]: getCategoryImage('LASER_ENGRAVING'),
+  [ProductCategory.DECALS_STICKERS]: getCategoryImage('DECALS_STICKERS'),
+  [ProductCategory.EXPO_DISPLAY]: getCategoryImage('EXPO_DISPLAY'),
+  [ProductCategory.PRIVACY_SECURITY]: getCategoryImage('PRIVACY_SECURITY'),
+  [ProductCategory.MARKETING]: getCategoryImage('MARKETING'),
+  [ProductCategory.PROMO]: getCategoryImage('PROMO'),
+  [ProductCategory.ACCESSORIES]: getCategoryImage('ACCESSORIES'),
 };
 
 function slugify(input: string) {

@@ -1121,7 +1121,7 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
     }
 
     const { fitMode = 'cover', opacity = 1, position = 'center' } = options
-    console.log('🎨 Setting background image for selected object:', selectedObject, 'with options:', { fitMode, opacity, position })
+    console.log('🎨 Setting background image for selected template area:', selectedObject, 'with options:', { fitMode, opacity, position })
     
     const reader = new FileReader()
     reader.onload = (e) => {
@@ -1134,13 +1134,14 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
         const objWidth = objBounds.width
         const objHeight = objBounds.height
         
-        // Create a clipping path that matches the object's shape using the service
-        const clipPath = backgroundService.createClippingPath(selectedObject, objWidth, objHeight)
+        console.log('🎯 Template area bounds for background:', { left: objLeft, top: objTop, width: objWidth, height: objHeight })
         
-        // Create background image that will be clipped to the object shape
+        // Create background image that will be clipped to the template area
         const fabricImage = new fabric.Image(img, {
           left: objLeft + objWidth / 2,
           top: objTop + objHeight / 2,
+          width: objWidth,  // Set explicit width to match template area
+          height: objHeight, // Set explicit height to match template area
           originX: 'center',
           originY: 'center',
           selectable: false,
@@ -1153,93 +1154,89 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
           hasControls: false,
           hasBorders: false,
           opacity: opacity,
-          templateRole: 'object-background',
+          templateRole: 'template-background',
           isEditable: false,
           isRequired: false,
           // Enhanced metadata
           linkedObjectId: selectedObject.id,
           backgroundFitMode: fitMode,
           backgroundPosition: position,
-          zIndex: -1, // Ensure background stays behind
-          // Apply clipping path to contain background within object shape
-          clipPath: clipPath
+          zIndex: -1, // Ensure background stays behind template objects
         })
 
-        // Enhanced scaling based on fit mode using the service
-        const { scaleX, scaleY } = backgroundService.calculateImageScale(
-          img.width, 
-          img.height, 
-          objWidth, 
-          objHeight, 
-          fitMode
-        )
+        // Calculate scaling to cover the template area
+        let scaleX, scaleY
         
-        // Apply scaling and ensure the image covers the object area
+        if (fitMode === 'cover') {
+          // Scale to cover template area, maintaining aspect ratio
+          const scaleX1 = objWidth / img.width
+          const scaleY1 = objHeight / img.height
+          const scale = Math.max(scaleX1, scaleY1)
+          scaleX = scale
+          scaleY = scale
+        } else if (fitMode === 'contain') {
+          // Scale to fit within template area, maintaining aspect ratio
+          const scaleX1 = objWidth / img.width
+          const scaleY1 = objHeight / img.height
+          const scale = Math.min(scaleX1, scaleY1)
+          scaleX = scale
+          scaleY = scale
+        } else if (fitMode === 'stretch') {
+          // Stretch to fill template area
+          scaleX = objWidth / img.width
+          scaleY = objHeight / img.height
+        } else {
+          // Default to cover
+          const scaleX1 = objWidth / img.width
+          const scaleY1 = objHeight / img.height
+          const scale = Math.max(scaleX1, scaleY1)
+          scaleX = scale
+          scaleY = scale
+        }
+        
+        // Apply scaling and ensure proper dimensions
         fabricImage.set({
           scaleX: scaleX,
-          scaleY: scaleY
+          scaleY: scaleY,
+          width: objWidth,  // Ensure width matches template area
+          height: objHeight // Ensure height matches template area
         })
         
-        // Position the image so it's centered within the object bounds
-        // This ensures the clipping path works correctly
+        // Position the image so it's centered within the template bounds
         fabricImage.set({
           left: objLeft + objWidth / 2,
           top: objTop + objHeight / 2
         })
 
-        // Ensure the clipping path is properly positioned relative to the image
-        if (clipPath) {
-          // The clipping path should be relative to the image's center
-          clipPath.set({
-            left: -objWidth / 2,
-            top: -objHeight / 2
-          })
-          
-          // Apply the clipping path to the background image
-          fabricImage.clipPath = clipPath
-          
-          console.log('🎯 Clipping path applied:', {
-            type: clipPath.type,
-            left: clipPath.left,
-            top: clipPath.top,
-            width: clipPath.width || (clipPath as any).radius * 2,
-            height: clipPath.height || (clipPath as any).radius * 2
-          })
-        }
+        console.log('🎯 Background image configuration:', {
+          imageSize: { width: img.width, height: img.height },
+          templateArea: { width: objWidth, height: objHeight },
+          calculatedScale: { scaleX, scaleY },
+          finalDimensions: { width: fabricImage.width, height: fabricImage.height },
+          position: { left: fabricImage.left, top: fabricImage.top }
+        })
 
-        // Remove existing background images for this object
+        // Remove existing background images for this template
         const existingBackgrounds = canvasRef.current!.getObjects().filter(obj => 
-          (obj as any).templateRole === 'object-background' && 
+          (obj as any).templateRole === 'template-background' && 
           (obj as any).linkedObjectId === selectedObject.id
         )
         existingBackgrounds.forEach(bg => canvasRef.current!.remove(bg))
 
-        // Add new background image behind the selected object
+        // Add new background image behind the template
         canvasRef.current!.add(fabricImage)
         canvasRef.current!.sendToBack(fabricImage)
         
-        // Ensure the selected object is above the background
+        // Ensure the template objects are above the background
         canvasRef.current!.bringToFront(selectedObject)
         canvasRef.current!.renderAll()
         
-        // Ensure all objects remain interactive after background addition
-        ensureObjectInteraction()
-        
-        console.log('✅ Background image set successfully for selected object with proper clipping')
-        console.log('🎯 Clipping path created for:', selectedObject.type, 'with dimensions:', {
-          width: clipPath?.width,
-          height: clipPath?.height,
-          scaleX: clipPath?.scaleX,
-          scaleY: clipPath?.scaleY,
-          angle: clipPath?.angle
-        })
-        
-        // Additional debugging for clipping verification
-        console.log('🔍 Background image details:', {
+        console.log('✅ Template background image set successfully')
+        console.log('🎯 Background image details:', {
           imagePosition: { left: fabricImage.left, top: fabricImage.top },
           imageScale: { scaleX: fabricImage.scaleX, scaleY: fabricImage.scaleY },
-          objectBounds: { left: objLeft, top: objTop, width: objWidth, height: objHeight },
-          clippingApplied: !!fabricImage.clipPath
+          templateBounds: { left: objLeft, top: objTop, width: objWidth, height: objHeight },
+          fitMode: fitMode
         })
       }
       img.onerror = () => {
@@ -1267,44 +1264,24 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       return
     }
 
-    // Calculate the template area bounds (including all template objects)
-    const allObjects = canvasRef.current.getObjects()
-    const templateObjects = allObjects.filter(obj => (obj as any).templateId)
+    console.log('🎨 Setting background preset for selected template area:', preset.name)
+
+    // Get the selected object's bounds
+    const objBounds = selectedObject.getBoundingRect()
+    const objLeft = objBounds.left
+    const objTop = objBounds.top
+    const objWidth = objBounds.width
+    const objHeight = objBounds.height
     
-    if (templateObjects.length === 0) {
-      alert('No template objects found. Please load a template first.')
-      return
-    }
-
-    // Find the bounding box of all template objects
-    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity
-    
-    templateObjects.forEach(obj => {
-      const bounds = obj.getBoundingRect()
-      minX = Math.min(minX, bounds.left)
-      minY = Math.min(minY, bounds.top)
-      maxX = Math.max(maxX, bounds.left + bounds.width)
-      maxY = Math.max(maxY, bounds.top + bounds.height)
-    })
-
-    const templateWidth = maxX - minX
-    const templateHeight = maxY - minY
-    const templateCenterX = minX + templateWidth / 2
-    const templateCenterY = minY + templateHeight / 2
-
-    console.log('🎯 Template area calculated for background:', {
-      templateBounds: { minX, minY, maxX, maxY },
-      templateSize: { width: templateWidth, height: templateHeight },
-      templateCenter: { x: templateCenterX, y: templateCenterY }
-    })
+    console.log('🎯 Template area bounds for background preset:', { left: objLeft, top: objTop, width: objWidth, height: objHeight })
 
     // Create background from preset using template area dimensions
-    const backgroundObject = backgroundService.createBackgroundFromPreset(preset, templateWidth, templateHeight)
+    const backgroundObject = backgroundService.createBackgroundFromPreset(preset, objWidth, objHeight)
     
     // Position the background to cover only the template area
     backgroundObject.set({
-      left: templateCenterX,  // Center of template area on canvas
-      top: templateCenterY,   // Center of template area on canvas
+      left: objLeft + objWidth / 2,  // Center of template area
+      top: objTop + objHeight / 2,   // Center of template area
       originX: 'center',
       originY: 'center',
       selectable: false,
@@ -1316,14 +1293,14 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       lockScalingY: true,
       hasControls: false,
       hasBorders: false,
-      templateRole: 'template-background', // Changed to template-specific
+      templateRole: 'template-background', // Template-specific
       isEditable: false,
       isRequired: false,
       linkedObjectId: selectedObject.id,
       zIndex: -100 // Behind template objects but above canvas
     })
 
-    // Remove existing background images for this object
+    // Remove existing background images for this template
     const existingBackgrounds = canvasRef.current!.getObjects().filter(obj => 
       (obj as any).templateRole === 'template-background' && 
       (obj as any).linkedObjectId === selectedObject.id
@@ -1336,16 +1313,12 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
     canvasRef.current!.bringToFront(selectedObject)
     canvasRef.current!.renderAll()
 
-    console.log('✅ Background preset applied successfully:', preset.name)
+    console.log('✅ Template background preset applied successfully:', preset.name)
     console.log('📍 Background positioned at template center:', { 
-      left: templateCenterX, 
-      top: templateCenterY,
-      width: templateWidth,
-      height: templateHeight
-    })
-    console.log('🎯 Template area bounds:', { 
-      minX, minY, maxX, maxY,
-      width: templateWidth, height: templateHeight
+      left: objLeft + objWidth / 2, 
+      top: objTop + objHeight / 2,
+      width: objWidth,
+      height: objHeight
     })
   }
 
@@ -1361,7 +1334,9 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       return
     }
 
-    // Remove background images for the selected object
+    console.log('🗑️ Removing background image for selected template')
+
+    // Remove background images for the selected template
     const backgroundImages = canvasRef.current.getObjects().filter(obj => 
       (obj as any).templateRole === 'template-background' && 
       (obj as any).linkedObjectId === selectedObject.id
@@ -1370,16 +1345,18 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
     if (backgroundImages.length > 0) {
       backgroundImages.forEach(bg => canvasRef.current!.remove(bg))
       canvasRef.current!.renderAll()
-      console.log('✅ Background image removed for selected object')
+      console.log('✅ Template background image removed')
     } else {
-      console.log('ℹ️ No background image found for selected object')
-      alert('No background image found for the selected object.')
+      console.log('ℹ️ No background image found for selected template')
+      alert('No background image found for the selected template.')
     }
   }
 
   // Remove all template backgrounds (useful for resetting)
   const removeAllBackgrounds = () => {
     if (!canvasRef.current) return
+    
+    console.log('🗑️ Removing all template backgrounds')
     
     const allBackgrounds = canvasRef.current.getObjects().filter(obj => 
       (obj as any).templateRole === 'template-background'

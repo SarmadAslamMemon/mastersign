@@ -37,6 +37,49 @@ export class BackgroundImageService {
 
   private initializePresets() {
     this.backgroundPresets = [
+      // High-Quality Unsplash Images
+      {
+        id: 'unsplash-business-sign',
+        name: 'Professional Business Sign',
+        type: 'image',
+        value: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&h=800&fit=crop&crop=center',
+        thumbnail: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=200&h=150&fit=crop&crop=center'
+      },
+      {
+        id: 'unsplash-modern-office',
+        name: 'Modern Office Building',
+        type: 'image',
+        value: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=800&fit=crop&crop=center',
+        thumbnail: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=200&h=150&fit=crop&crop=center'
+      },
+      {
+        id: 'unsplash-urban-street',
+        name: 'Urban Street Scene',
+        type: 'image',
+        value: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=800&fit=crop&crop=center',
+        thumbnail: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=200&h=150&fit=crop&crop=center'
+      },
+      {
+        id: 'unsplash-industrial-sign',
+        name: 'Industrial Signage',
+        type: 'image',
+        value: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=1200&h=800&fit=crop&crop=center',
+        thumbnail: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=200&h=150&fit=crop&crop=center'
+      },
+      {
+        id: 'unsplash-retail-store',
+        name: 'Retail Store Front',
+        type: 'image',
+        value: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1200&h=800&fit=crop&crop=center',
+        thumbnail: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=150&fit=crop&crop=center'
+      },
+      {
+        id: 'unsplash-abstract-design',
+        name: 'Abstract Design Pattern',
+        type: 'image',
+        value: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=1200&h=800&fit=crop&crop=center',
+        thumbnail: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=200&h=150&fit=crop&crop=center'
+      },
       // Real Image Presets from assets
       {
         id: 'banner-main',
@@ -304,14 +347,31 @@ export class BackgroundImageService {
       
       img.onerror = (error) => {
         console.error('❌ Failed to load background image:', preset.value, error)
-        // Keep placeholder if image fails to load
+        // Create a simple fallback with solid color and text
         placeholder.set({
-          fill: '#ff6b6b',
-          stroke: '#e74c3c',
+          fill: '#667eea',
+          stroke: '#4A90E2',
           strokeWidth: 3
         })
+        
+        // Add fallback text
+        const fallbackText = new fabric.IText('Image Unavailable', {
+          left: width / 2,
+          top: height / 2,
+          fontSize: 24,
+          fill: '#ffffff',
+          textAlign: 'center',
+          originX: 'center',
+          originY: 'center',
+          selectable: false,
+          evented: false
+        })
+        
+        // Add text to canvas if it exists
         if (placeholder.canvas) {
+          placeholder.canvas.add(fallbackText)
           placeholder.canvas.renderAll()
+          console.log('✅ Fallback background applied due to image load failure')
         }
       }
       

@@ -25,6 +25,7 @@ interface EnhancedTopBarProps {
   onResetZoom: () => void
   onSetBackgroundImage: (file: File) => void
   onSetBackgroundPreset: (preset: BackgroundPreset) => void
+  onGenerateRandomTestImage: () => void
   canUndo: boolean
   canRedo: boolean
   currentZoom: number
@@ -42,6 +43,7 @@ export const EnhancedTopBar: React.FC<EnhancedTopBarProps> = ({
   onResetZoom,
   onSetBackgroundImage,
   onSetBackgroundPreset,
+  onGenerateRandomTestImage,
   canUndo,
   canRedo,
   currentZoom,
@@ -179,6 +181,16 @@ export const EnhancedTopBar: React.FC<EnhancedTopBarProps> = ({
               </div>
             )}
           </div>
+
+          {/* Random Test Image Button */}
+          <button
+            onClick={onGenerateRandomTestImage}
+            className="flex items-center space-x-2 px-3 py-2 bg-purple-100 text-purple-700 rounded-md hover:bg-purple-200 transition-colors"
+            title="Generate a random test image to test background rendering"
+          >
+            <Image className="w-4 h-4" />
+            <span className="text-sm font-medium">Test BG</span>
+          </button>
         </div>
 
         {/* Right Section - Zoom & Status */}

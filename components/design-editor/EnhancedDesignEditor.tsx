@@ -106,6 +106,88 @@ export const EnhancedDesignEditor: React.FC<EnhancedDesignEditorProps> = ({
         }
       ],
       thumbnail: undefined
+    },
+    // Custom Banner Template for testing background rendering
+    {
+      id: 'custom-banner-template',
+      name: 'Custom Banner Template',
+      description: 'A custom template with heading, banner area, and note section for testing background rendering',
+      category: 'marketing',
+      dimensions: { width: 1200, height: 800 },
+      objects: [
+        {
+          id: 'main-banner-area',
+          type: 'rectangle',
+          templateRole: 'background',
+          isEditable: true,
+          isRequired: true,
+          placeholder: 'Main Banner Area',
+          properties: {
+            left: 600, top: 400, width: 1000, height: 600, angle: 0, scaleX: 1, scaleY: 1,
+            fill: '#f8f9fa', stroke: '#4A90E2', strokeWidth: 3, opacity: 1,
+            visible: true, selectable: true, evented: true, zIndex: 1
+          }
+        },
+        {
+          id: 'heading-text',
+          type: 'text',
+          templateRole: 'text',
+          isEditable: true,
+          isRequired: true,
+          placeholder: 'MAIN HEADING',
+          properties: {
+            left: 600, top: 150, width: 800, height: 80, angle: 0, scaleX: 1, scaleY: 1,
+            fill: '#2C3E50', opacity: 1, visible: true, selectable: true, evented: true, zIndex: 2
+          },
+          textProperties: {
+            fontFamily: 'Arial Black', fontSize: 64, fontWeight: 'bold', textAlign: 'center', text: 'MAIN HEADING'
+          }
+        },
+        {
+          id: 'subheading-text',
+          type: 'text',
+          templateRole: 'text',
+          isEditable: true,
+          isRequired: false,
+          placeholder: 'Subheading text goes here',
+          properties: {
+            left: 600, top: 250, width: 600, height: 40, angle: 0, scaleX: 1, scaleY: 1,
+            fill: '#7F8C8D', opacity: 1, visible: true, selectable: true, evented: true, zIndex: 2
+          },
+          textProperties: {
+            fontFamily: 'Arial', fontSize: 28, fontWeight: 'normal', textAlign: 'center', text: 'Subheading text goes here'
+          }
+        },
+        {
+          id: 'note-section',
+          type: 'rectangle',
+          templateRole: 'text',
+          isEditable: true,
+          isRequired: false,
+          placeholder: 'Note Section',
+          properties: {
+            left: 1000, top: 700, width: 300, height: 150, angle: 0, scaleX: 1, scaleY: 1,
+            fill: '#E8F5E8', stroke: '#4CAF50', strokeWidth: 2, opacity: 1,
+            visible: true, selectable: true, evented: true, zIndex: 2
+          }
+        },
+        {
+          id: 'note-text',
+          type: 'text',
+          templateRole: 'text',
+          isEditable: true,
+          isRequired: false,
+          placeholder: 'Important note text',
+          properties: {
+            left: 1000, top: 750, width: 250, height: 80, angle: 0, scaleX: 1, scaleY: 1,
+            fill: '#2E7D32', opacity: 1, visible: true, selectable: true, evented: true, zIndex: 3
+          },
+          textProperties: {
+            fontFamily: 'Arial', fontSize: 18, fontWeight: 'normal', textAlign: 'left', text: 'Important note text goes here. This section can contain additional information or reminders.'
+          }
+        }
+      ],
+      thumbnail: undefined
     }
   ])
 
@@ -183,6 +265,62 @@ export const EnhancedDesignEditor: React.FC<EnhancedDesignEditorProps> = ({
     setBackgroundPreset(preset)
   }, [setBackgroundPreset])
 
+  // Function to generate a random test image for testing background rendering
+  const generateRandomTestImage = useCallback(() => {
+    // Create a canvas element to generate a random image
+    const canvas = document.createElement('canvas')
+    canvas.width = 1000  // Match the template banner area width
+    canvas.height = 600  // Match the template banner area height
+    const ctx = canvas.getContext('2d')
+    
+    if (ctx) {
+      // Generate random colors
+      const colors = [
+        '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
+        '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9'
+      ]
+      
+      // Fill background with random color
+      ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)]
+      ctx.fillRect(0, 0, 1000, 600)
+      
+      // Add some random shapes
+      for (let i = 0; i < 8; i++) {
+        ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)]
+        const x = Math.random() * 1000
+        const y = Math.random() * 600
+        const size = 80 + Math.random() * 150
+        
+        if (Math.random() > 0.5) {
+          ctx.beginPath()
+          ctx.arc(x, y, size / 2, 0, Math.PI * 2)
+          ctx.fill()
+        } else {
+          ctx.fillRect(x - size / 2, y - size / 2, size, size)
+        }
+      }
+      
+      // Add some text
+      ctx.fillStyle = '#FFFFFF'
+      ctx.font = 'bold 72px Arial'
+      ctx.textAlign = 'center'
+      ctx.fillText('TEST BACKGROUND', 500, 250)
+      ctx.font = '36px Arial'
+      ctx.fillText('Random Generated Image', 500, 320)
+      ctx.font = '24px Arial'
+      ctx.fillText('Perfect for testing template backgrounds!', 500, 380)
+      
+      // Convert to blob and create file
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const file = new File([blob], 'test-background.png', { type: 'image/png' })
+          console.log('🎨 Generated random test image for background testing (1000x600)')
+          handleBackgroundImageUpload(file)
+        }
+      }, 'image/png')
+    }
+  }, [handleBackgroundImageUpload])
+
   const handleZoomIn = useCallback(() => {
     zoomIn()
   }, [zoomIn])
@@ -208,6 +346,7 @@ export const EnhancedDesignEditor: React.FC<EnhancedDesignEditorProps> = ({
         onResetZoom={handleResetZoom}
         onSetBackgroundImage={handleBackgroundImageUpload}
         onSetBackgroundPreset={handleBackgroundPreset}
+        onGenerateRandomTestImage={generateRandomTestImage}
         canUndo={false} // TODO: Implement undo/redo state
         canRedo={false}
         currentZoom={zoom}

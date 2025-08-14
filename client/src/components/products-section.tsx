@@ -3,21 +3,7 @@ import { ArrowRight, Star, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { ProductCategory, PRODUCT_SUBCATEGORIES } from "@/types/products";
-import appLogo from "@/assets/app-logo-sub.png";
-
-// Local asset images for categories
-import expoDisplayImg from "@/assets/Tradeshows-Expos/popup1.jpg";
-import laserEngravingImg from "@/assets/Laser Engraving/fish.jpg";
-import bannersFlagsImg from "@/assets/Banners/MAIN - Banner.jpg";
-import signsImg from "@/assets/Business Signage/Performance.jpg";
-import privacySecurityImg from "@/assets/Indoor-Outdoor Displays/IMG_20230621_000909.jpg";
-import marketingImg from "@/assets/Business Signage/Dancology.jpg";
-import promoImg from "@/assets/Clothes/FullSizeR.jpg";
-import electricSignsImg from "@/assets/Channel Letters/20241112_194813.jpg";
-import vehicleTrailerImg from "@/assets/Vehicle Graphics/20240309_133150.jpg";
-import indoorSignsImg from "@/assets/Office Signage/20230120_165654.jpg";
-import outdoorSignsImg from "@/assets/Indoor-Outdoor Displays/Exterior Sign.jpg";
-import accessoriesImg from "@/assets/Fabricated Signs/20230616_154312.jpg";
+import { getImageUrl } from "@/lib/image-utils";
 
 export default function ProductsSection() {
   // All parent categories with their featured sub-categories
@@ -26,91 +12,91 @@ export default function ProductsSection() {
       category: ProductCategory.EXPO_DISPLAY,
       title: "Expo/Display",
       featuredSubCategories: ["Trade Show Displays", "Banner Stands", "Custom Table Covers"],
-      image: expoDisplayImg,
+      image: getImageUrl("Tradeshows-Expos/popup1.jpg"),
       popular: true
     },
     {
       category: ProductCategory.LASER_ENGRAVING,
       title: "Laser Engraving",
       featuredSubCategories: ["Engraved Signs", "Laser Engraved Plaques", "Custom Promotional Products"],
-      image: laserEngravingImg,
+      image: getImageUrl("Laser Engraving/fish.jpg"),
       popular: false
     },
     {
       category: ProductCategory.DECALS_STICKERS,
       title: "Decals/Stickers",
       featuredSubCategories: ["Custom Stickers", "Wall Decals", "Vehicle Magnets"],
-      image: expoDisplayImg,
+      image: getImageUrl("Tradeshows-Expos/popup1.jpg"),
       popular: true
     },
     {
       category: ProductCategory.BANNERS_FLAGS,
       title: "Banners/Flags",
       featuredSubCategories: ["Vinyl Banners", "Custom Flags", "Event Banners"],
-      image: bannersFlagsImg,
+      image: getImageUrl("Banners/MAIN - Banner.jpg"),
       popular: true
     },
     {
       category: ProductCategory.SIGNS,
       title: "Signs",
       featuredSubCategories: ["Channel Letters", "Monument Signs", "Custom Signs"],
-      image: signsImg,
+      image: getImageUrl("Business Signage/Performance.jpg"),
       popular: true
     },
     {
       category: ProductCategory.PRIVACY_SECURITY,
       title: "Privacy/Security Films",
       featuredSubCategories: ["Window Privacy Films", "Security Window Films", "Decorative Films"],
-      image: privacySecurityImg,
+      image: getImageUrl("Indoor-Outdoor Displays/IMG_20230621_000909.jpg"),
       popular: false
     },
     {
       category: ProductCategory.MARKETING,
       title: "Marketing",
       featuredSubCategories: ["Branding for Businesses", "Digital Printing", "Marketing Signage"],
-      image: marketingImg,
+      image: getImageUrl("Business Signage/Dancology.jpg"),
       popular: true
     },
     {
       category: ProductCategory.PROMO,
       title: "Promo",
       featuredSubCategories: ["Custom Promotional Products", "Trophies & Awards", "Wearables"],
-      image: promoImg,
+      image: getImageUrl("Clothes/FullSizeR.jpg"),
       popular: false
     },
     {
       category: ProductCategory.ELECTRIC_SIGNS,
       title: "Electric Signs",
       featuredSubCategories: ["LED Digital Signs", "Neon Signs", "Backlit Signs"],
-      image: electricSignsImg,
+      image: getImageUrl("Channel Letters/20241112_194813.jpg"),
       popular: true
     },
     {
       category: ProductCategory.VEHICLE_TRAILER,
       title: "Vehicle & Trailer",
       featuredSubCategories: ["Vehicle Graphics and Wraps", "Vehicle Decals", "Trailer Graphics"],
-      image: vehicleTrailerImg,
+      image: getImageUrl("Vehicle Graphics/20240309_133150.jpg"),
       popular: true
     },
     {
       category: ProductCategory.INDOOR_SIGNS,
       title: "Indoor Signs",
       featuredSubCategories: ["Wall Murals", "Lobby Signs", "Floor Graphics"],
-      image: indoorSignsImg,
+      image: getImageUrl("Office Signage/20230120_165654.jpg"),
       popular: false
     },
     {
       category: ProductCategory.OUTDOOR_SIGNS,
       title: "Outdoor Signs",
       featuredSubCategories: ["Yard Signs", "Real Estate Signs", "Pylon Signs"],
-      image: outdoorSignsImg,
+      image: getImageUrl("Indoor-Outdoor Displays/Exterior Sign.jpg"),
       popular: true
     },
     {
       category: ProductCategory.ACCESSORIES,
       title: "Accessories",
       featuredSubCategories: ["Mounting Hardware", "Display Stands", "Flag Poles"],
-      image: accessoriesImg,
+      image: getImageUrl("Fabricated Signs/20230616_154312.jpg"),
       popular: false
     }
   ];
@@ -120,35 +106,35 @@ export default function ProductsSection() {
       title: "Retractable Banners",
       category: ProductCategory.EXPO_DISPLAY,
       reviews: 3769,
-      image: bannersFlagsImg,
+      image: getImageUrl("Banners/MAIN - Banner.jpg"),
       rating: 4.8
     },
     {
       title: "Real Estate Signs",
       category: ProductCategory.OUTDOOR_SIGNS,
       reviews: 4728,
-      image: outdoorSignsImg,
+      image: getImageUrl("Indoor-Outdoor Displays/Exterior Sign.jpg"),
       rating: 4.9
     },
     {
       title: "LED Digital Signs",
       category: ProductCategory.ELECTRIC_SIGNS,
       reviews: 2231,
-      image: electricSignsImg,
+      image: getImageUrl("Channel Letters/20241112_194813.jpg"),
       rating: 4.7
     },
     {
       title: "Vehicle Wraps",
       category: ProductCategory.VEHICLE_TRAILER,
       reviews: 2438,
-      image: vehicleTrailerImg,
+      image: getImageUrl("Vehicle Graphics/20240309_133150.jpg"),
       rating: 4.9
     },
     {
       title: "Custom Banners",
       category: ProductCategory.BANNERS_FLAGS,
       reviews: 1699,
-      image: bannersFlagsImg,
+      image: getImageUrl("Banners/MAIN - Banner.jpg"),
       rating: 4.6
     }
   ];
@@ -165,7 +151,7 @@ export default function ProductsSection() {
           variants={staggerContainer}
         >
           <motion.div className="flex items-center justify-center gap-3 mb-4" variants={fadeInUp}>
-            <img src={appLogo} alt="Master Signs" className="h-8 w-auto" />
+            <img src={getImageUrl("app-logo-sub.png")} alt="Master Signs" className="h-8 w-auto" />
             <span className="text-sm uppercase tracking-wide text-blue-600 font-semibold">Our Products</span>
           </motion.div>
           <motion.h2 

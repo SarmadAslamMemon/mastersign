@@ -5,12 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { fadeInUp, staggerContainer, magneticHover } from "@/lib/animations";
 
-import ledImg from "@/assets/Channel Letters/24330.jpeg";
-import vehicleImg from "@/assets/Vehicle Graphics/20240309_133150.jpg";
-import laserImg from "@/assets/Laser Engraving/fish.jpg";
-import bannersImg from "@/assets/Banners/MAIN - Banner.jpg";
-import architecturalImg from "@/assets/Business Signage/Performance.jpg";
-import installImg from "@/assets/Fabricated Signs/20230616_154312.jpg";
+import { getImageUrl } from "@/lib/image-utils";
 
 const services = [
   {
@@ -19,7 +14,7 @@ const services = [
     subtitle: "High-Impact Displays",
     description: "Eye-catching LED displays that attract customers 24/7. From outdoor billboards to indoor screens, our digital solutions deliver dynamic content that drives engagement and sales.",
     tags: ["Outdoor LED", "Indoor Displays", "Interactive Kiosks"],
-    image: ledImg
+    image: getImageUrl("Channel Letters/24330.jpeg")
   },
   {
     icon: Car,
@@ -27,7 +22,7 @@ const services = [
     subtitle: "Mobile Advertising",
     description: "Transform your vehicles into powerful marketing tools. Our premium wraps combine durability with stunning graphics that generate thousands of impressions daily.",
     tags: ["Full Wraps", "Partial Graphics", "Fleet Branding"],
-    image: vehicleImg
+    image: getImageUrl("Vehicle Graphics/20240309_133150.jpg")
   },
   {
     icon: Settings,
@@ -35,7 +30,7 @@ const services = [
     subtitle: "Precision Crafting",
     description: "Precision laser engraving for awards, plaques, architectural signage, and custom products. Create lasting impressions with intricate detail and professional finish.",
     tags: ["Awards", "Plaques", "Architectural"],
-    image: laserImg
+    image: getImageUrl("Laser Engraving/fish.jpg")
   },
   {
     icon: Flag,
@@ -43,7 +38,7 @@ const services = [
     subtitle: "Event & Promotion",
     description: "High-quality vinyl banners perfect for events, promotions, and temporary advertising. Weather-resistant materials ensure your message stays vibrant indoors and outdoors.",
     tags: ["Vinyl Banners", "Mesh Banners", "Fabric Displays"],
-    image: bannersImg
+    image: getImageUrl("Banners/MAIN - Banner.jpg")
   },
   {
     icon: Building,
@@ -51,7 +46,7 @@ const services = [
     subtitle: "Building Identity",
     description: "Sophisticated architectural signage that integrates seamlessly with your building design. From lobby displays to exterior monuments, we create lasting brand impressions.",
     tags: ["Monument Signs", "Lobby Displays", "Wayfinding"],
-    image: architecturalImg
+    image: getImageUrl("Business Signage/Performance.jpg")
   },
   {
     icon: Wrench,
@@ -59,7 +54,7 @@ const services = [
     subtitle: "Complete Support",
     description: "Professional installation and ongoing maintenance services ensure your signs perform at their best. Our certified technicians handle everything from permits to long-term care.",
     tags: ["Installation", "Maintenance", "Permits"],
-    image: installImg
+    image: getImageUrl("Fabricated Signs/20230616_154312.jpg")
   },
   {
     icon: Settings,
@@ -67,7 +62,7 @@ const services = [
     subtitle: "Interactive Editor",
     description: "Use our professional design tool to create custom signs exactly how you want them. Add text, shapes, images, and more with our easy-to-use online editor.",
     tags: ["Custom Design", "Online Tool", "Real-time Preview"],
-    image: bannersImg
+    image: getImageUrl("Banners/MAIN - Banner.jpg")
   }
 ];
 

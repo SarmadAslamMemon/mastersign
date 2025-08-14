@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { fadeInUp, magneticHover } from "@/lib/animations";
 import { ProductCategory, PRODUCT_SUBCATEGORIES } from "@/types/products";
-import appLogo from "@/assets/app-logo-sub.png";
+import { getImageUrl } from "@/lib/image-utils";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -164,7 +164,7 @@ export default function Navigation() {
               className="flex items-center space-x-3"
               {...fadeInUp}
             >
-              <img src={appLogo} alt="Master Signs" className="w-12 h-12 rounded-xl object-contain" />
+              <img src={getImageUrl("app-logo-sub.png")} alt="Master Signs" className="w-12 h-12 rounded-xl object-contain" />
               <div>
                 <h1 className="text-2xl font-bold text-black">Master Signs</h1>
                 <p className="text-sm text-blue-600">Make Your Statement</p>
