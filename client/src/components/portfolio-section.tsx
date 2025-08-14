@@ -3,13 +3,20 @@ import { ArrowRight, ExternalLink, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 
+import realEstateImg from "@/assets/Business Signage/20240118_151230.jpg";
+import restaurantImg from "@/assets/Business Signage/Hectors_Building.jpg";
+import healthcareImg from "@/assets/Office Signage/20231207_094933.jpg";
+import automotiveImg from "@/assets/Vehicle Graphics/20230410_173103.jpg";
+import constructionImg from "@/assets/Rigid Signs/20240424_104117.jpg";
+import financialImg from "@/assets/Business Signage/Liberty.JPG";
+
 export default function PortfolioSection() {
   const portfolioItems = [
     {
       id: 1,
       title: "Apartment & Campus Signage",
       description: "Complete wayfinding system for luxury apartment complex with ADA-compliant directories and building identification.",
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+      image: realEstateImg,
       category: "Real Estate",
       tags: ["LED Signs", "Wayfinding", "ADA Compliant"]
     },
@@ -17,7 +24,7 @@ export default function PortfolioSection() {
       id: 2,
       title: "Restaurant Chain Rebrand",
       description: "Full exterior and interior signage package including illuminated channel letters, menu boards, and promotional displays.",
-      image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+      image: restaurantImg,
       category: "Restaurant",
       tags: ["Channel Letters", "Menu Boards", "Interior Signs"]
     },
@@ -25,7 +32,7 @@ export default function PortfolioSection() {
       id: 3,
       title: "Medical Center Directory",
       description: "Digital directory system with touch-screen navigation and integrated appointment scheduling for busy medical facility.",
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+      image: healthcareImg,
       category: "Healthcare",
       tags: ["Digital Displays", "Interactive", "Healthcare"]
     },
@@ -33,7 +40,7 @@ export default function PortfolioSection() {
       id: 4,
       title: "Automotive Dealership",
       description: "Monument sign with LED lighting, vehicle wraps for sales team, and indoor promotional displays.",
-      image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+      image: automotiveImg,
       category: "Automotive",
       tags: ["Monument Signs", "Vehicle Wraps", "LED Lighting"]
     },
@@ -41,7 +48,7 @@ export default function PortfolioSection() {
       id: 5,
       title: "Construction Site Safety",
       description: "Comprehensive safety signage system including OSHA-compliant warning signs and project identification banners.",
-      image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+      image: constructionImg,
       category: "Construction",
       tags: ["Safety Signs", "Banners", "OSHA Compliant"]
     },
@@ -49,7 +56,7 @@ export default function PortfolioSection() {
       id: 6,
       title: "Banking Branch Identity",
       description: "Complete corporate identity package including exterior monument sign, interior graphics, and ATM wraps.",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+      image: financialImg,
       category: "Financial",
       tags: ["Corporate Identity", "Monument Signs", "Interior Graphics"]
     }
