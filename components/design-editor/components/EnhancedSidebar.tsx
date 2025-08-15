@@ -271,7 +271,7 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
       <div className="p-4 border-t border-gray-200">
         <button
           onClick={() => {/* Clear canvas logic */}}
-          className="w-full py-2 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md transition-colors text-sm font-medium"
+                      className="w-full py-2 px-4 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-md transition-colors text-sm font-medium"
         >
           Start from Scratch
         </button>

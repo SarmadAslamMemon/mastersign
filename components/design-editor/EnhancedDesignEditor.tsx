@@ -22,7 +22,7 @@ export const EnhancedDesignEditor: React.FC<EnhancedDesignEditorProps> = ({
   onExport,
   className = ''
 }) => {
-  const [currentTool, setCurrentTool] = useState<string>('select')
+  const [currentTool, setCurrentToolState] = useState<string>('select')
   const [templates] = useState<Template[]>([
     // Real template with actual content
     {
@@ -35,7 +35,7 @@ export const EnhancedDesignEditor: React.FC<EnhancedDesignEditorProps> = ({
         {
           id: 'header-text',
           type: 'text',
-          templateRole: 'header',
+                     templateRole: 'text',
           isEditable: true,
           isRequired: true,
           properties: {
@@ -60,7 +60,7 @@ export const EnhancedDesignEditor: React.FC<EnhancedDesignEditorProps> = ({
         {
           id: 'property-photo',
           type: 'image',
-          templateRole: 'main-image',
+                     templateRole: 'background',
           isEditable: true,
           isRequired: true,
           properties: {
@@ -74,15 +74,15 @@ export const EnhancedDesignEditor: React.FC<EnhancedDesignEditorProps> = ({
             opacity: 1,
             visible: true
           },
-          imageProperties: {
-            src: '/placeholders/house-placeholder.jpg',
-            placeholder: 'Property Photo'
-          }
+                                             imageProperties: {
+               src: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/20240118_151230.jpg',
+               filters: []
+             }
         },
         {
           id: 'contact-info',
           type: 'text',
-          templateRole: 'contact',
+                     templateRole: 'text',
           isEditable: true,
           isRequired: true,
           properties: {
@@ -211,7 +211,9 @@ export const EnhancedDesignEditor: React.FC<EnhancedDesignEditorProps> = ({
     zoomOut,
     resetZoom,
     fitToCanvas,
-    debugCanvasObjects
+    debugCanvasObjects,
+    addImageInShape,
+    setCurrentTool: setCanvasTool
   } = useCanvasEditor({
     canvasId,
     width,
@@ -336,23 +338,24 @@ export const EnhancedDesignEditor: React.FC<EnhancedDesignEditorProps> = ({
   return (
     <div className={`flex flex-col h-full ${className}`}>
       {/* Enhanced Top Bar */}
-      <EnhancedTopBar
-        onSave={handleSave}
-        onExport={handleExport}
-        onUndo={handleUndo}
-        onRedo={handleRedo}
-        onZoomIn={handleZoomIn}
-        onZoomOut={handleZoomOut}
-        onResetZoom={handleResetZoom}
-        onSetBackgroundImage={handleBackgroundImageUpload}
-        onSetBackgroundPreset={handleBackgroundPreset}
-        onGenerateRandomTestImage={generateRandomTestImage}
-        canUndo={false} // TODO: Implement undo/redo state
-        canRedo={false}
-        currentZoom={zoom}
-        selectedObjectCount={selectedObjects.length}
-        currentTool={currentTool}
-      />
+             <EnhancedTopBar
+         onSave={handleSave}
+         onExport={handleExport}
+         onUndo={handleUndo}
+         onRedo={handleRedo}
+         onZoomIn={handleZoomIn}
+         onZoomOut={handleZoomOut}
+         onResetZoom={handleResetZoom}
+         onSetBackgroundImage={handleBackgroundImageUpload}
+         onSetBackgroundPreset={handleBackgroundPreset}
+         onGenerateRandomTestImage={generateRandomTestImage}
+         onAddImageInShape={addImageInShape}
+         canUndo={false} // TODO: Implement undo/redo state
+         canRedo={false}
+         currentZoom={zoom}
+         selectedObjectCount={selectedObjects.length}
+         currentTool={currentTool}
+       />
 
       {/* Main Content Area */}
       <div className="flex flex-1 overflow-hidden">
@@ -385,41 +388,53 @@ export const EnhancedDesignEditor: React.FC<EnhancedDesignEditorProps> = ({
             <h4 className="text-sm font-medium text-gray-700 mb-2">Tools</h4>
             <div className="grid grid-cols-2 gap-2">
               <button
-                onClick={() => setCurrentTool('select')}
+                onClick={() => {
+                  setCurrentToolState('select')
+                  setCanvasTool('select')
+                }}
                 className={`p-2 text-sm rounded-md transition-colors ${
                   currentTool === 'select'
                     ? 'bg-blue-100 text-blue-700'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                 }`}
               >
                 Select
               </button>
               <button
-                onClick={() => setCurrentTool('text')}
+                onClick={() => {
+                  setCurrentToolState('text')
+                  setCanvasTool('text')
+                }}
                 className={`p-2 text-sm rounded-md transition-colors ${
                   currentTool === 'text'
                     ? 'bg-blue-100 text-blue-700'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                 }`}
               >
                 Text
               </button>
               <button
-                onClick={() => setCurrentTool('rectangle')}
+                onClick={() => {
+                  setCurrentToolState('rectangle')
+                  setCanvasTool('rectangle')
+                }}
                 className={`p-2 text-sm rounded-md transition-colors ${
                   currentTool === 'rectangle'
                     ? 'bg-blue-100 text-blue-700'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                 }`}
               >
                 Rectangle
               </button>
               <button
-                onClick={() => setCurrentTool('circle')}
+                onClick={() => {
+                  setCurrentToolState('circle')
+                  setCanvasTool('circle')
+                }}
                 className={`p-2 text-sm rounded-md transition-colors ${
                   currentTool === 'circle'
                     ? 'bg-blue-100 text-blue-700'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                 }`}
               >
                 Circle
@@ -431,6 +446,15 @@ export const EnhancedDesignEditor: React.FC<EnhancedDesignEditorProps> = ({
           <div className="mb-6">
             <h4 className="text-sm font-medium text-gray-700 mb-2">Quick Actions</h4>
             <div className="space-y-2">
+              {/* Add Image in Shape Button - Also available in Properties panel */}
+              <button
+  onClick={() => addImageInShape()}
+  className="w-full p-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+  title="Add an image inside a selected shape (circle or rectangle)"
+>
+  Add Image in Shape
+</button>
+              
               <button
                 onClick={() => addText()}
                 className="w-full p-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"

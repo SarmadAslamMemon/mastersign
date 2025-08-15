@@ -2,55 +2,56 @@
 // This ensures your application displays images while we fix the Supabase URLs
 
 export const IMAGE_MAPPING: Record<string, string> = {
-  // App logos - using placeholder images temporarily
-  "app-logo-sub.png": "https://picsum.photos/400/400?random=1",
-  "app-logo.png": "https://picsum.photos/400/400?random=2",
+  // App logos
+  "app-logo-sub.png": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/app-logo-sub.png",
+  "app-logo.png": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/app-logo.png",
   
-  // Banners - using placeholder images temporarily
-  "Banners/MAIN - Banner.jpg": "https://picsum.photos/1200/400?random=3",
-  "Banners/Banner (1) copy.jpg": "https://picsum.photos/1200/400?random=4",
-  "Banners/Banner (3).jpg": "https://picsum.photos/1200/400?random=5",
-  "Banners/Banner (4) copy.jpg": "https://picsum.photos/1200/400?random=6",
-  "Banners/Banner (6) copy.jpg": "https://picsum.photos/1200/400?random=7",
-  "Banners/Banner-Canyon Hills.jpg": "https://picsum.photos/1200/400?random=8",
+  // Banners
+  "Banners/MAIN - Banner.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/MAIN%20-%20Banner.jpg",
+  "Banners/Banner (1) copy.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/Banner%20%281%29%20copy.jpg",
+  "Banners/Banner (3).jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/Banner%20%283%29.jpg",
+  "Banners/Banner (4) copy.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/Banner%20%284%29%20copy.jpg",
+  "Banners/Banner (6) copy.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/Banner%20%286%29%20copy.jpg",
+  "Banners/Banner-Canyon Hills.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/Banner-Canyon%20Hills.jpg",
   
-  // Business Signage - using placeholder images temporarily
-  "Business Signage/Performance.jpg": "https://picsum.photos/800/600?random=9",
-  "Business Signage/Hectors_Building.jpg": "https://picsum.photos/800/600?random=10",
-  "Business Signage/Liberty.JPG": "https://picsum.photos/800/600?random=11",
-  "Business Signage/Dancology.jpg": "https://picsum.photos/800/600?random=12",
-  "Business Signage/20240118_151230.jpg": "https://picsum.photos/800/600?random=13",
+  // Business Signage
+  "Business Signage/Performance.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/Performance.jpg",
+  "Business Signage/Hectors_Building.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/Hectors_Building.jpg",
+  "Business Signage/Liberty.JPG": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/Liberty.JPG",
+  "Business Signage/Dancology.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/Dancology.jpg",
+  "Business Signage/20240118_151230.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/20240118_151230.jpg",
   
-  // Vehicle Graphics - using placeholder images temporarily
-  "Vehicle Graphics/20240309_133150.jpg": "https://picsum.photos/800/600?random=14",
-  "Vehicle Graphics/20230410_173103.jpg": "https://picsum.photos/800/600?random=15",
+  // Vehicle Graphics
+  "Vehicle Graphics/20240309_133150.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Vehicle%20Graphics/20240309_133150.jpg",
+  "Vehicle Graphics/20230410_173103.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Vehicle%20Graphics/20230410_173103.jpg",
   
-  // Office Signage - using placeholder images temporarily
-  "Office Signage/20230120_165654.jpg": "https://picsum.photos/800/600?random=16",
-  "Office Signage/20231207_094933.jpg": "https://picsum.photos/800/600?random=17",
+  // Office Signage
+  "Office Signage/20230120_165654.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Office%20Signage/20230120_165654.jpg",
+  "Office Signage/20231207_094933.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Office%20Signage/20231207_094933.jpg",
   
-  // Indoor-Outdoor Displays - using placeholder images temporarily
-  "Indoor-Outdoor Displays/Exterior Sign.jpg": "https://picsum.photos/800/600?random=18",
-  "Indoor-Outdoor Displays/IMG_20230621_000909.jpg": "https://picsum.photos/800/600?random=19",
+  // Indoor-Outdoor Displays
+  "Indoor-Outdoor Displays/Exterior Sign.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Indoor-Outdoor%20Displays/Exterior%20Sign.jpg",
+  "Indoor-Outdoor Displays/IMG_20230621_000909.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Indoor-Outdoor%20Displays/IMG_20230621_000909.jpg",
   
-  // Channel Letters - using placeholder images temporarily
-  "Channel Letters/20241112_194813.jpg": "https://picsum.photos/800/600?random=20",
-  "Channel Letters/24330.jpeg": "https://picsum.photos/800/600?random=21",
+  // Channel Letters
+  "Channel Letters/20241112_194813.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Channel%20Letters/20241112_194813.jpg",
+  "Channel Letters/24330.jpeg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Channel%20Letters/24330.jpeg",
   
-  // Laser Engraving - using placeholder images temporarily
-  "Laser Engraving/fish.jpg": "https://picsum.photos/800/600?random=22",
+  // Laser Engraving
+  "Laser Engraving/fish.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Laser%20Engraving/fish.jpg",
   
-  // Fabricated Signs - using placeholder images temporarily
-  "Fabricated Signs/20230616_154312.jpg": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&h=600&fit=crop&crop=center",
+  // Fabricated Signs
+  "Fabricated Signs/20230616_154312.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Fabricated%20Signs/20230616_154312.jpg",
+  "Fabricated Signs/20231114_212838.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Fabricated%20Signs/20231114_212838.jpg",
   
-  // Rigid Signs - using placeholder images temporarily
-  "Rigid Signs/20240424_104117.jpg": "https://picsum.photos/800/600?random=25",
+  // Rigid Signs
+  "Rigid Signs/20240424_104117.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Rigid%20Signs/20240424_104117.jpg",
   
-  // Tradeshows-Expos - using placeholder images temporarily
-  "Tradeshows-Expos/popup1.jpg": "https://picsum.photos/800/600?random=26",
+  // Tradeshows-Expos
+  "Tradeshows-Expos/popup1.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Tradeshows-Expos/popup1.jpg",
   
-  // Clothes - using placeholder images temporarily
-  "Clothes/FullSizeR.jpg": "https://picsum.photos/800/600?random=27"
+  // Clothes
+  "Clothes/FullSizeR.jpg": "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Clothes/FullSizeR.jpg"
 };
 
 /**
@@ -77,7 +78,24 @@ export function getImageUrl(assetPath: string): string {
   
   // Return a fallback image if no match found
   console.warn(`❌ No image mapping found for: ${assetPath}`);
-  return IMAGE_MAPPING["app-logo.png"] || "https://picsum.photos/400/400?random=999";
+  return IMAGE_MAPPING["app-logo.png"] || "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/app-logo.png";
+}
+
+/**
+ * Test if an image URL is accessible and return a fallback if not
+ */
+export async function testImageUrl(url: string, fallbackUrl?: string): Promise<string> {
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    if (response.ok) {
+      return url;
+    }
+  } catch (error) {
+    console.warn(`⚠️ Image URL not accessible: ${url}`, error);
+  }
+  
+  // Return fallback or default
+  return fallbackUrl || IMAGE_MAPPING["app-logo.png"] || "https://picsum.photos/400/400?random=999";
 }
 
 /**

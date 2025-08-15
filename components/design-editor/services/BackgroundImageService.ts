@@ -37,86 +37,92 @@ export class BackgroundImageService {
 
   private initializePresets() {
     this.backgroundPresets = [
-      // High-Quality Unsplash Images
-      {
-        id: 'unsplash-business-sign',
-        name: 'Professional Business Sign',
-        type: 'image',
-        value: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&h=800&fit=crop&crop=center',
-        thumbnail: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=200&h=150&fit=crop&crop=center'
-      },
-      {
-        id: 'unsplash-modern-office',
-        name: 'Modern Office Building',
-        type: 'image',
-        value: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=800&fit=crop&crop=center',
-        thumbnail: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=200&h=150&fit=crop&crop=center'
-      },
-      {
-        id: 'unsplash-urban-street',
-        name: 'Urban Street Scene',
-        type: 'image',
-        value: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=800&fit=crop&crop=center',
-        thumbnail: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=200&h=150&fit=crop&crop=center'
-      },
-      {
-        id: 'unsplash-industrial-sign',
-        name: 'Industrial Signage',
-        type: 'image',
-        value: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=1200&h=800&fit=crop&crop=center',
-        thumbnail: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=200&h=150&fit=crop&crop=center'
-      },
-      {
-        id: 'unsplash-retail-store',
-        name: 'Retail Store Front',
-        type: 'image',
-        value: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1200&h=800&fit=crop&crop=center',
-        thumbnail: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=150&fit=crop&crop=center'
-      },
-      {
-        id: 'unsplash-abstract-design',
-        name: 'Abstract Design Pattern',
-        type: 'image',
-        value: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=1200&h=800&fit=crop&crop=center',
-        thumbnail: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=200&h=150&fit=crop&crop=center'
-      },
-      // Real Image Presets from assets
-      {
-        id: 'banner-main',
-        name: 'Main Banner',
-        type: 'image',
-        value: '/src/assets/Banners/MAIN - Banner.jpg'
-      },
-      {
-        id: 'banner-1',
-        name: 'Banner Style 1',
-        type: 'image',
-        value: '/src/assets/Banners/Banner (1) copy.jpg'
-      },
-      {
-        id: 'banner-3',
-        name: 'Banner Style 3',
-        type: 'image',
-        value: '/src/assets/Banners/Banner (3).jpg'
-      },
-      {
-        id: 'banner-4',
-        name: 'Banner Style 4',
-        type: 'image',
-        value: '/src/assets/Banners/Banner (4) copy.jpg'
-      },
-      {
-        id: 'banner-6',
-        name: 'Banner Style 6',
-        type: 'image',
-        value: '/src/assets/Banners/Banner (6) copy.jpg'
-      },
-      {
-        id: 'banner-canyon',
-        name: 'Canyon Hills Banner',
-        type: 'image',
-        value: '/src/assets/Banners/Banner-Canyon Hills.jpg'
-      },
+                    // High-Quality Database Images
+        {
+          id: 'business-performance',
+          name: 'Business Performance Sign',
+          type: 'image',
+          value: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/Performance.jpg',
+          thumbnail: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/Performance.jpg'
+        },
+        {
+          id: 'hectors-building',
+          name: 'Hectors Building',
+          type: 'image',
+          value: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/Hectors_Building.jpg',
+          thumbnail: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/Hectors_Building.jpg'
+        },
+        {
+          id: 'liberty-sign',
+          name: 'Liberty Sign',
+          type: 'image',
+          value: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/Liberty.JPG',
+          thumbnail: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/Liberty.JPG'
+        },
+        {
+          id: 'dancology-sign',
+          name: 'Dancology Sign',
+          type: 'image',
+          value: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/Dancology.jpg',
+          thumbnail: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/Dancology.jpg'
+        },
+        {
+          id: 'fabricated-sign',
+          name: 'Fabricated Sign',
+          type: 'image',
+          value: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Fabricated%20Signs/20230616_154312.jpg',
+          thumbnail: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Fabricated%20Signs/20230616_154312.jpg'
+        },
+        {
+          id: 'vehicle-graphics',
+          name: 'Vehicle Graphics',
+          type: 'image',
+          value: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Vehicle%20Graphics/20240309_133150.jpg',
+          thumbnail: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Vehicle%20Graphics/20240309_133150.jpg'
+        },
+                                          // Real Image Presets from Supabase
+         {
+           id: 'banner-main',
+           name: 'Main Banner',
+           type: 'image',
+           value: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/MAIN%20-%20Banner.jpg',
+           thumbnail: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/MAIN%20-%20Banner.jpg'
+         },
+         {
+           id: 'banner-1',
+           name: 'Banner Style 1',
+           type: 'image',
+           value: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/Banner%20%281%29%20copy.jpg',
+           thumbnail: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/Banner%20%281%29%20copy.jpg'
+         },
+         {
+           id: 'banner-3',
+           name: 'Banner Style 3',
+           type: 'image',
+           value: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/Banner%20%283%29.jpg',
+           thumbnail: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/Banner%20%283%29.jpg'
+         },
+         {
+           id: 'banner-4',
+           name: 'Banner Style 4',
+           type: 'image',
+           value: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/Banner%20%284%29%20copy.jpg',
+           thumbnail: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/Banner%20%284%29%20copy.jpg'
+         },
+         {
+           id: 'banner-6',
+           name: 'Banner Style 6',
+           type: 'image',
+           value: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/Banner%20%286%29%20copy.jpg',
+           thumbnail: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/Banner%20%286%29%20copy.jpg'
+         },
+         {
+           id: 'banner-canyon',
+           name: 'Canyon Hills Banner',
+           type: 'image',
+           value: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/Banner-Canyon%20Hills.jpg',
+           thumbnail: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/Banner-Canyon%20Hills.jpg'
+         },
       // Gradient Presets
       {
         id: 'gradient-blue',
@@ -293,7 +299,9 @@ export class BackgroundImageService {
 
   createBackgroundFromPreset(preset: BackgroundPreset, width: number, height: number): fabric.Object {
     if (preset.type === 'image') {
-      // Create a placeholder rectangle first
+      console.log('🔄 Creating image background from preset:', preset.value)
+      
+      // Create a placeholder rectangle that will be replaced with the actual image
       const placeholder = new fabric.Rect({
         left: 0,
         top: 0,
@@ -304,86 +312,72 @@ export class BackgroundImageService {
         strokeWidth: 2,
         selectable: false,
         evented: false,
-        originX: 'left',
-        originY: 'top'
-      })
-
-      // Load the actual image with better error handling
-      const img = new Image()
-      img.crossOrigin = 'anonymous' // Handle CORS issues
-      
-      console.log('🔄 Attempting to load background image:', preset.value)
-      
-      img.onload = () => {
-        console.log('✅ Background image loaded successfully:', preset.value)
-        console.log('📏 Image dimensions:', { width: img.naturalWidth, height: img.naturalHeight })
-        
-        // Create fabric image from loaded image with proper sizing
-        const fabricImage = new fabric.Image(img, {
-          left: 0,
-          top: 0,
+        originX: 'center',
+        originY: 'center',
+        // Ensure the background is clipped to the template area
+        clipPath: new fabric.Rect({
+          left: -width / 2,
+          top: -height / 2,
           width: width,
           height: height,
-          selectable: false,
-          evented: false,
           originX: 'left',
-          originY: 'top',
-          scaleX: 1,
-          scaleY: 1
+          originY: 'top'
+        })
+      })
+      
+      // Store the image URL and create a promise for loading
+      ;(placeholder as any).imageUrl = preset.value
+      ;(placeholder as any).isImagePlaceholder = true
+      
+      // Create a promise that resolves when the image is loaded
+      const imagePromise = new Promise<fabric.Image>((resolve, reject) => {
+        console.log('🔄 Starting to load image:', preset.value)
+        
+        fabric.Image.fromURL(preset.value as string, (loadedImage: fabric.Image) => {
+          console.log('✅ Background image loaded successfully:', preset.value)
+          console.log('📏 Image dimensions:', { width: loadedImage.width, height: loadedImage.height })
+          
+          // Calculate proper scaling to fit the target dimensions
+          const scaleX = width / loadedImage.width!
+          const scaleY = height / loadedImage.height!
+          
+          console.log('📐 Calculated scaling:', { scaleX, scaleY, targetWidth: width, targetHeight: height })
+          
+          // Update the loaded image with the correct positioning and properties
+          loadedImage.set({
+            left: 0,
+            top: 0,
+            originX: 'center',
+            originY: 'center',
+            scaleX: scaleX,
+            scaleY: scaleY,
+            selectable: false,
+            evented: false,
+            // Apply the same clipping to the loaded image
+            clipPath: new fabric.Rect({
+              left: -width / 2,
+              top: -height / 2,
+              width: width,
+              height: height,
+              originX: 'left',
+              originY: 'top'
+            })
+          })
+          
+          resolve(loadedImage)
+        }, {
+          crossOrigin: 'anonymous'
         })
         
-        // Apply the image to the canvas if it exists
-        if (placeholder.canvas) {
-          const canvas = placeholder.canvas
-          const index = canvas.getObjects().indexOf(placeholder)
-          if (index !== -1) {
-            canvas.remove(placeholder)
-            canvas.insertAt(fabricImage, index)
-            canvas.renderAll()
-            console.log('✅ Background image applied to canvas')
-          }
-        }
-      }
+        // Add error handling
+        setTimeout(() => {
+          console.error('❌ Image loading timeout for:', preset.value)
+          reject(new Error('Image loading timeout'))
+        }, 10000) // 10 second timeout
+      })
       
-      img.onerror = (error) => {
-        console.error('❌ Failed to load background image:', preset.value, error)
-        // Create a simple fallback with solid color and text
-        placeholder.set({
-          fill: '#667eea',
-          stroke: '#4A90E2',
-          strokeWidth: 3
-        })
-        
-        // Add fallback text
-        const fallbackText = new fabric.IText('Image Unavailable', {
-          left: width / 2,
-          top: height / 2,
-          fontSize: 24,
-          fill: '#ffffff',
-          textAlign: 'center',
-          originX: 'center',
-          originY: 'center',
-          selectable: false,
-          evented: false
-        })
-        
-        // Add text to canvas if it exists
-        if (placeholder.canvas) {
-          placeholder.canvas.add(fallbackText)
-          placeholder.canvas.renderAll()
-          console.log('✅ Fallback background applied due to image load failure')
-        }
-      }
-      
-      // Set image source with retry logic
-      img.src = preset.value as string
-      
-      // Add timeout for image loading
-      setTimeout(() => {
-        if (!img.complete) {
-          console.warn('⚠️ Image loading taking too long, may be too large:', preset.value)
-        }
-      }, 5000)
+      // Store the promise on the placeholder
+      ;(placeholder as any).imagePromise = imagePromise
       
       return placeholder
     } else if (preset.type === 'gradient') {
@@ -434,6 +428,24 @@ export class BackgroundImageService {
             colorStops: [
               { offset: 0, color: '#a8edea' },
               { offset: 1, color: '#fed6e3' }
+            ]
+          }),
+          selectable: false,
+          evented: false
+        })
+      } else if (preset.value === 'test-gradient') {
+        return new fabric.Rect({
+          left: 0,
+          top: 0,
+          width: width,
+          height: height,
+          fill: new fabric.Gradient({
+            type: 'linear',
+            coords: { x1: 0, y1: 0, x2: width, y2: height },
+            colorStops: [
+              { offset: 0, color: '#ff6b6b' },
+              { offset: 0.5, color: '#4ecdc4' },
+              { offset: 1, color: '#45b7d1' }
             ]
           }),
           selectable: false,

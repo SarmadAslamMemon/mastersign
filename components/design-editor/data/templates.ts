@@ -42,8 +42,7 @@ export const TEMPLATE_CATEGORIES = [
   { id: 'safety', name: 'Safety Signs', icon: '⚠️' },
   { id: 'vehicle', name: 'Vehicle Graphics', icon: '🚗' },
   { id: 'property', name: 'Property Signs', icon: '🏡' },
-  { id: 'marketing', name: 'Marketing Cards', icon: '🎨' },
-  { id: 'unsplash', name: 'Unsplash Templates', icon: '📸' }
+  { id: 'marketing', name: 'Marketing Cards', icon: '🎨' }
 ]
 
 export const MOCK_TEMPLATES: Template[] = [
@@ -800,6 +799,22 @@ export const MOCK_TEMPLATES: Template[] = [
         textProperties: {
           fontFamily: 'Arial', fontSize: 18, fontWeight: 'normal', textAlign: 'left', text: 'Important note text goes here. This section can contain additional information or reminders.'
         }
+      },
+      {
+        id: 'banner-image',
+        type: 'image',
+        templateRole: 'background',
+        isEditable: true,
+        isRequired: false,
+        placeholder: 'Banner Image',
+        properties: {
+          left: 600, top: 500, width: 400, height: 200, angle: 0, scaleX: 1, scaleY: 1,
+          opacity: 1, visible: true, selectable: true, evented: true, zIndex: 2
+        },
+        imageProperties: {
+          src: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/20240118_151230.jpg',
+          filters: []
+        }
       }
     ],
     colorVariations: [
@@ -812,159 +827,6 @@ export const MOCK_TEMPLATES: Template[] = [
       { id: 'business', name: 'Business', texts: { 'heading-text': 'BUSINESS BANNER', 'subheading-text': 'Professional business solutions' } },
       { id: 'event', name: 'Event', texts: { 'heading-text': 'EVENT BANNER', 'subheading-text': 'Join us for an amazing event' } },
       { id: 'promotion', name: 'Promotion', texts: { 'heading-text': 'SPECIAL OFFER', 'subheading-text': 'Limited time promotion' } }
-    ]
-  },
-  // UNSplash IMAGE TEMPLATES
-  {
-    id: 'unsplash-business-template',
-    name: 'Professional Business Template',
-    description: 'Modern business template with high-quality Unsplash background',
-    category: 'unsplash',
-    tags: ['professional', 'business', 'modern', 'unsplash'],
-    thumbnail: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=200&h=150&fit=crop&crop=center',
-    dimensions: { width: 1200, height: 800 },
-    objects: [
-      {
-        id: 'unsplash-bg',
-        type: 'image',
-        templateRole: 'background',
-        isEditable: true,
-        isRequired: true,
-        placeholder: 'Professional Business Background',
-        properties: {
-          left: 600, top: 400, width: 1200, height: 800, angle: 0, scaleX: 1, scaleY: 1,
-          fill: '#f8f9fa', stroke: 'transparent', strokeWidth: 0, opacity: 1,
-          visible: true, selectable: true, evented: true, zIndex: 0
-        },
-        imageProperties: {
-          src: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&h=800&fit=crop&crop=center',
-          filters: []
-        }
-      },
-      {
-        id: 'overlay-rect',
-        type: 'rectangle',
-        templateRole: 'decoration',
-        isEditable: true,
-        isRequired: false,
-        placeholder: 'Text Overlay Background',
-        properties: {
-          left: 600, top: 300, width: 800, height: 200, angle: 0, scaleX: 1, scaleY: 1,
-          fill: 'rgba(0,0,0,0.7)', stroke: 'transparent', strokeWidth: 0, opacity: 1,
-          visible: true, selectable: true, evented: true, zIndex: 1
-        }
-      },
-      {
-        id: 'main-title',
-        type: 'text',
-        templateRole: 'text',
-        isEditable: true,
-        isRequired: true,
-        placeholder: 'COMPANY NAME',
-        properties: {
-          left: 600, top: 350, width: 800, height: 80, angle: 0, scaleX: 1, scaleY: 1,
-          fill: '#FFFFFF', opacity: 1, visible: true, selectable: true, evented: true, zIndex: 2
-        },
-        textProperties: {
-          fontFamily: 'Arial Black', fontSize: 64, fontWeight: 'bold', textAlign: 'center', text: 'COMPANY NAME'
-        }
-      },
-      {
-        id: 'tagline',
-        type: 'text',
-        templateRole: 'text',
-        isEditable: true,
-        isRequired: false,
-        placeholder: 'Your Professional Tagline',
-        properties: {
-          left: 600, top: 450, width: 600, height: 40, angle: 0, scaleX: 1, scaleY: 1,
-          fill: '#FFFFFF', opacity: 1, visible: true, selectable: true, evented: true, zIndex: 2
-        },
-        textProperties: {
-          fontFamily: 'Arial', fontSize: 28, fontWeight: 'normal', textAlign: 'center', text: 'Your Professional Tagline'
-        }
-      }
-    ],
-    colorVariations: [
-      { id: 'professional', name: 'Professional', preview: '#000000', colors: { 'overlay-rect': 'rgba(0,0,0,0.7)' } },
-      { id: 'elegant', name: 'Elegant', preview: '#2C3E50', colors: { 'overlay-rect': 'rgba(44,62,80,0.8)' } },
-      { id: 'modern', name: 'Modern', preview: '#34495E', colors: { 'overlay-rect': 'rgba(52,73,94,0.8)' } }
-    ]
-  },
-  {
-    id: 'unsplash-urban-template',
-    name: 'Urban Street Template',
-    description: 'Dynamic urban template with street scene background',
-    category: 'unsplash',
-    tags: ['urban', 'street', 'dynamic', 'unsplash'],
-    thumbnail: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=200&h=150&fit=crop&crop=center',
-    dimensions: { width: 1200, height: 800 },
-    objects: [
-      {
-        id: 'urban-bg',
-        type: 'image',
-        templateRole: 'background',
-        isEditable: true,
-        isRequired: true,
-        placeholder: 'Urban Street Background',
-        properties: {
-          left: 600, top: 400, width: 1200, height: 800, angle: 0, scaleX: 1, scaleY: 1,
-          fill: '#f8f9fa', stroke: 'transparent', strokeWidth: 0, opacity: 1,
-          visible: true, selectable: true, evented: true, zIndex: 0
-        },
-        imageProperties: {
-          src: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=800&fit=crop&crop=center',
-          filters: []
-        }
-      },
-      {
-        id: 'gradient-overlay',
-        type: 'rectangle',
-        templateRole: 'decoration',
-        isEditable: true,
-        isRequired: false,
-        placeholder: 'Gradient Overlay',
-        properties: {
-          left: 600, top: 0, width: 1200, height: 800, angle: 0, scaleX: 1, scaleY: 1,
-          fill: 'linear-gradient(135deg, rgba(52,73,94,0.8) 0%, rgba(44,62,80,0.6) 100%)', stroke: 'transparent', strokeWidth: 0, opacity: 1,
-          visible: true, selectable: true, evented: true, zIndex: 1
-        }
-      },
-      {
-        id: 'urban-title',
-        type: 'text',
-        templateRole: 'text',
-        isEditable: true,
-        isRequired: true,
-        placeholder: 'URBAN STYLE',
-        properties: {
-          left: 600, top: 300, width: 800, height: 100, angle: 0, scaleX: 1, scaleY: 1,
-          fill: '#FFFFFF', opacity: 1, visible: true, selectable: true, evented: true, zIndex: 2
-        },
-        textProperties: {
-          fontFamily: 'Arial Black', fontSize: 72, fontWeight: 'bold', textAlign: 'center', text: 'URBAN STYLE'
-        }
-      },
-      {
-        id: 'urban-subtitle',
-        type: 'text',
-        templateRole: 'text',
-        isEditable: true,
-        isRequired: false,
-        placeholder: 'Modern Urban Design',
-        properties: {
-          left: 600, top: 450, width: 600, height: 50, angle: 0, scaleX: 1, scaleY: 1,
-          fill: '#ECF0F1', opacity: 1, visible: true, selectable: true, evented: true, zIndex: 2
-        },
-        textProperties: {
-          fontFamily: 'Arial', fontSize: 32, fontWeight: 'normal', textAlign: 'center', text: 'Modern Urban Design'
-        }
-      }
-    ],
-    colorVariations: [
-      { id: 'urban-blue', name: 'Urban Blue', preview: '#34495E', colors: { 'gradient-overlay': 'linear-gradient(135deg, rgba(52,73,94,0.8) 0%, rgba(44,62,80,0.6) 100%)' } },
-      { id: 'urban-purple', name: 'Urban Purple', preview: '#8E44AD', colors: { 'gradient-overlay': 'linear-gradient(135deg, rgba(142,68,173,0.8) 0%, rgba(155,89,182,0.6) 100%)' } },
-      { id: 'urban-green', name: 'Urban Green', preview: '#27AE60', colors: { 'gradient-overlay': 'linear-gradient(135deg, rgba(39,174,96,0.8) 0%, rgba(46,204,113,0.6) 100%)' } }
     ]
   }
 ]

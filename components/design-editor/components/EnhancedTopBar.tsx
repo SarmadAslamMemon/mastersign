@@ -26,6 +26,7 @@ interface EnhancedTopBarProps {
   onSetBackgroundImage: (file: File) => void
   onSetBackgroundPreset: (preset: BackgroundPreset) => void
   onGenerateRandomTestImage: () => void
+  onAddImageInShape: () => void
   canUndo: boolean
   canRedo: boolean
   currentZoom: number
@@ -44,6 +45,7 @@ export const EnhancedTopBar: React.FC<EnhancedTopBarProps> = ({
   onSetBackgroundImage,
   onSetBackgroundPreset,
   onGenerateRandomTestImage,
+  onAddImageInShape,
   canUndo,
   canRedo,
   currentZoom,
@@ -52,6 +54,7 @@ export const EnhancedTopBar: React.FC<EnhancedTopBarProps> = ({
 }) => {
   const [showBackgroundGallery, setShowBackgroundGallery] = useState(false)
   const [showImageUpload, setShowImageUpload] = useState(false)
+  const [lastAppliedBackground, setLastAppliedBackground] = useState<string | null>(null)
   const backgroundService = BackgroundImageService.getInstance()
   const backgroundPresets = backgroundService.getBackgroundPresets()
 
@@ -65,7 +68,41 @@ export const EnhancedTopBar: React.FC<EnhancedTopBarProps> = ({
 
   const handlePresetSelect = (preset: BackgroundPreset) => {
     onSetBackgroundPreset(preset)
+    setLastAppliedBackground(preset.name)
     setShowBackgroundGallery(false)
+    
+    // Clear the indicator after 2 seconds
+    setTimeout(() => setLastAppliedBackground(null), 2000)
+  }
+
+  // Create a default background preset for the Background button
+  const handleBackgroundButtonClick = () => {
+    const defaultBackground: BackgroundPreset = {
+      id: 'default-background',
+      name: 'Default Background',
+      type: 'solid',
+      value: '#f8f9fa'
+    }
+    onSetBackgroundPreset(defaultBackground)
+    setLastAppliedBackground('Default Background')
+    
+    // Clear the indicator after 2 seconds
+    setTimeout(() => setLastAppliedBackground(null), 2000)
+  }
+
+  // Create a test background preset for the Test BG button
+  const handleTestBGButtonClick = () => {
+    const testBackground: BackgroundPreset = {
+      id: 'test-background',
+      name: 'Test Background',
+      type: 'gradient',
+      value: 'test-gradient'
+    }
+    onSetBackgroundPreset(testBackground)
+    setLastAppliedBackground('Test Background')
+    
+    // Clear the indicator after 2 seconds
+    setTimeout(() => setLastAppliedBackground(null), 2000)
   }
 
   return (
@@ -94,12 +131,12 @@ export const EnhancedTopBar: React.FC<EnhancedTopBarProps> = ({
           <div className="w-px h-6 bg-gray-300" />
 
           {/* Undo/Redo */}
-          <button
+                    <button
             onClick={onUndo}
             disabled={!canUndo}
             className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${
-              canUndo 
-                ? 'bg-gray-100 text-gray-700 hover:bg-gray-200' 
+              canUndo
+                ? 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                 : 'bg-gray-50 text-gray-400 cursor-not-allowed'
             }`}
           >
@@ -107,12 +144,12 @@ export const EnhancedTopBar: React.FC<EnhancedTopBarProps> = ({
             <span className="text-sm font-medium">Undo</span>
           </button>
           
-          <button
+                    <button
             onClick={onRedo}
             disabled={!canRedo}
             className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${
-              canRedo 
-                ? 'bg-gray-100 text-gray-700 hover:bg-gray-200' 
+              canRedo
+                ? 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                 : 'bg-gray-50 text-gray-400 cursor-not-allowed'
             }`}
           >
@@ -123,32 +160,23 @@ export const EnhancedTopBar: React.FC<EnhancedTopBarProps> = ({
 
         {/* Center Section - Background Controls */}
         <div className="flex items-center space-x-3">
-          {/* Background Image Upload */}
-          <div className="relative">
-            <button
-              onClick={() => setShowImageUpload(!showImageUpload)}
-              className="flex items-center space-x-2 px-3 py-2 bg-purple-100 text-purple-700 rounded-md hover:bg-purple-200 transition-colors"
-            >
-              <Image className="w-4 h-4" />
-              <span className="text-sm font-medium">Background</span>
-            </button>
-            
-            {showImageUpload && (
-              <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-md shadow-lg p-3 z-50 min-w-[200px]">
-                <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Upload Background Image
-                  </label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleBackgroundImageUpload}
-                    className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
-                  />
-                </div>
-              </div>
+
+          {/* Background Button - Now works like a preset */}
+          <button
+            onClick={handleBackgroundButtonClick}
+            className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-200 ${
+              lastAppliedBackground === 'Default Background'
+                ? 'bg-green-100 text-green-700 border-2 border-green-300'
+                : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+            }`}
+            title="Apply a light gray background to the selected template"
+          >
+            <Image className="w-4 h-4" />
+            <span className="text-sm font-medium">Background</span>
+            {lastAppliedBackground === 'Default Background' && (
+              <span className="text-xs bg-green-500 text-white px-2 py-1 rounded-full">✓</span>
             )}
-          </div>
+          </button>
 
           {/* Background Presets */}
           <div className="relative">
@@ -182,14 +210,21 @@ export const EnhancedTopBar: React.FC<EnhancedTopBarProps> = ({
             )}
           </div>
 
-          {/* Random Test Image Button */}
+          {/* Test BG Button - Now works like a preset */}
           <button
-            onClick={onGenerateRandomTestImage}
-            className="flex items-center space-x-2 px-3 py-2 bg-purple-100 text-purple-700 rounded-md hover:bg-purple-200 transition-colors"
-            title="Generate a random test image to test background rendering"
+            onClick={handleTestBGButtonClick}
+            className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-200 ${
+              lastAppliedBackground === 'Test Background'
+                ? 'bg-green-100 text-green-700 border-2 border-green-300'
+                : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+            }`}
+            title="Apply a test gradient background to the selected template"
           >
             <Image className="w-4 h-4" />
             <span className="text-sm font-medium">Test BG</span>
+            {lastAppliedBackground === 'Test Background' && (
+              <span className="text-xs bg-green-500 text-white px-2 py-1 rounded-full">✓</span>
+            )}
           </button>
         </div>
 
@@ -235,12 +270,11 @@ export const EnhancedTopBar: React.FC<EnhancedTopBarProps> = ({
       </div>
 
       {/* Background Click Handler */}
-      {(showBackgroundGallery || showImageUpload) && (
+      {showBackgroundGallery && (
         <div 
           className="fixed inset-0 z-40" 
           onClick={() => {
             setShowBackgroundGallery(false)
-            setShowImageUpload(false)
           }}
         />
       )}

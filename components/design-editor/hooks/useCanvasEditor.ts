@@ -19,6 +19,11 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
   const [panY, setPanY] = useState(0)
   const [currentTemplate, setCurrentTemplate] = useState<Template | null>(null)
   const backgroundService = BackgroundImageService.getInstance()
+  
+  // Drawing state variables
+  let isDrawing = false
+  let startPoint: { x: number; y: number } | null = null
+  let currentShape: fabric.Object | null = null
 
   // Utility function to generate unique IDs
   const generateId = () => `obj_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
@@ -43,19 +48,25 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
 
     canvasRef.current = canvas
 
+
+
     // Enhanced selection tracking with better UX
     canvas.on('selection:created', () => {
-      const activeObjects = canvas.getActiveObjects()
-      setSelectedObjects(activeObjects)
-      console.log('🎯 Selection created:', activeObjects.length, 'objects')
-      
-      // Highlight selected objects
-      activeObjects.forEach(obj => {
-        obj.set('borderColor', '#4A90E2')
-        obj.set('borderScaleFactor', 2)
-      })
-      canvas.renderAll()
-    })
+       const activeObjects = canvas.getActiveObjects()
+       setSelectedObjects(activeObjects)
+       console.log('🎯 Selection created:', activeObjects.length, 'objects')
+       
+       // Highlight selected objects
+       activeObjects.forEach(obj => {
+         obj.set('borderColor', '#4A90E2')
+         obj.set('borderScaleFactor', 2)
+       })
+       
+       // If background is selected with other objects, ensure it moves with them
+       handleBackgroundGroupSelection(activeObjects)
+       
+       canvas.renderAll()
+     })
     
     canvas.on('selection:updated', () => {
       const activeObjects = canvas.getActiveObjects()
@@ -87,13 +98,18 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       canvas.renderAll()
     })
 
-    // Enhanced object interaction with smooth movement
-    canvas.on('object:moving', (e) => {
-      console.log('🚀 Object moving:', e.target?.id)
-      
-      // Show alignment guides
-      showAlignmentGuides(e.target)
-    })
+         // Enhanced object interaction with smooth movement
+     canvas.on('object:moving', (e) => {
+       console.log('🚀 Object moving:', e.target?.id)
+       
+       // Show alignment guides
+       showAlignmentGuides(e.target)
+       
+       // If moving a template object, also move its background
+       if (e.target && (e.target as any).templateRole !== 'template-background') {
+         moveBackgroundWithTemplate(e.target)
+       }
+     })
 
     canvas.on('object:scaling', (e) => {
       console.log('📏 Object scaling:', e.target?.id)
@@ -139,6 +155,8 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       }
     })
 
+
+
     // Let Fabric.js handle text editing naturally
     canvas.on('mouse:dblclick', (e) => {
       if (e.target && e.target.type === 'i-text') {
@@ -147,9 +165,66 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       }
     })
 
-    // Handle image clicks for upload
+
+
+    // Handle drawing shapes and image clicks
     canvas.on('mouse:down', (e) => {
-      if (e.target && e.target.type === 'image' && e.e.button === 0) { // Left click on image
+      // First check if we're in drawing mode
+      const currentTool = (canvasRef.current as any).currentTool || 'select'
+      console.log('🖱️ Mouse down - Current tool:', currentTool, 'isDrawing:', isDrawing)
+      
+      // If we're already drawing, don't start a new shape
+      if (isDrawing) {
+        return
+      }
+      
+      if (currentTool === 'rectangle' || currentTool === 'circle') {
+        // Don't start drawing if clicking on an existing object
+        if (e.target) {
+          console.log('⚠️ Clicked on existing object, not starting new shape')
+          return
+        }
+        
+        // Start drawing mode
+        isDrawing = true
+        const pointer = canvas.getPointer(e.e)
+        startPoint = { x: pointer.x, y: pointer.y }
+        
+        if (currentTool === 'rectangle') {
+          currentShape = new fabric.Rect({
+            left: startPoint.x,
+            top: startPoint.y,
+            width: 0,
+            height: 0,
+            fill: '#FF6B6B',
+            stroke: '#000000',
+            strokeWidth: 1,
+            selectable: false,
+            evented: false
+          })
+        } else if (currentTool === 'circle') {
+          currentShape = new fabric.Circle({
+            left: startPoint.x,
+            top: startPoint.y,
+            radius: 0,
+            fill: '#4ECDC4',
+            stroke: '#000000',
+            strokeWidth: 1,
+            selectable: false,
+            evented: false
+          })
+        }
+        
+        if (currentShape) {
+          canvas.add(currentShape)
+          canvas.renderAll()
+          console.log('🎨 Started drawing shape:', currentTool)
+        }
+        return // Exit early, don't handle image clicks when drawing
+      }
+      
+      // Handle image clicks for upload (only when not drawing)
+      if (e.target && e.target.type === 'image' && e.e.button === 0) {
         const imageObj = e.target as fabric.Image
         const templateId = (imageObj as any).templateId
         
@@ -184,6 +259,71 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
           })))
         }
       }
+    })
+
+    // Handle drawing shapes - mouse move
+    canvas.on('mouse:move', (e) => {
+      if (!isDrawing || !startPoint || !currentShape || !canvasRef.current) return
+      
+      const currentTool = (canvasRef.current as any).currentTool || 'select'
+      const pointer = canvas.getPointer(e.e)
+      
+      if (currentTool === 'rectangle') {
+        const width = Math.abs(pointer.x - startPoint.x)
+        const height = Math.abs(pointer.y - startPoint.y)
+        const left = Math.min(pointer.x, startPoint.x)
+        const top = Math.min(pointer.y, startPoint.y)
+        
+        currentShape.set({
+          left: left,
+          top: top,
+          width: width,
+          height: height
+        })
+      } else if (currentTool === 'circle') {
+        const radius = Math.sqrt(
+          Math.pow(pointer.x - startPoint.x, 2) + 
+          Math.pow(pointer.y - startPoint.y, 2)
+        ) / 2
+        
+        const centerX = (startPoint.x + pointer.x) / 2
+        const centerY = (startPoint.y + pointer.y) / 2
+        
+        currentShape.set({
+          left: centerX,
+          top: centerY,
+          radius: radius
+        })
+      }
+      
+      canvas.renderAll()
+    })
+
+    // Handle drawing shapes - mouse up
+    canvas.on('mouse:up', (e) => {
+      if (!isDrawing || !currentShape || !canvasRef.current) return
+      
+      isDrawing = false
+      startPoint = null
+      
+      // Make the shape selectable and interactive
+      currentShape.set({
+        selectable: true,
+        evented: true,
+        hasControls: true,
+        hasBorders: true
+      })
+      
+      currentShape.id = generateId()
+      currentShape.setCoords()
+      canvas.renderAll()
+      
+      // Reset to select tool after drawing
+      ;(canvasRef.current as any).currentTool = 'select'
+      canvasRef.current.defaultCursor = 'default'
+      canvasRef.current.selection = true
+      
+      console.log('✅ Shape drawn and tool reset to select')
     })
 
     // Add hover effects for editable images
@@ -443,6 +583,9 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       scaleX: obj.scaleX,
       scaleY: obj.scaleY
     })
+    
+    // Lock template layout to prevent movement during replacement
+    lockTemplateLayout()
 
     const reader = new FileReader()
     reader.onload = (e) => {
@@ -468,23 +611,34 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
           finalScaledSize: { width: scaledWidth, height: scaledHeight }
         })
 
-        // Preserve the object's current properties and metadata
+        // Preserve the object's current properties and metadata EXACTLY
         const fabricImage = new fabric.Image(img, {
-          left: obj.left,
-          top: obj.top,
+          left: obj.left || 0,
+          top: obj.top || 0,
           width: targetWidth,        // Set explicit width to match placeholder
           height: targetHeight,      // Set explicit height to match placeholder
           scaleX: scale,
           scaleY: scale,
-          angle: obj.angle,
-          originX: obj.originX,
-          originY: obj.originY,
+          angle: obj.angle || 0,
+          originX: obj.originX || 'center',
+          originY: obj.originY || 'center',
           cornerSize: 12,
           cornerStyle: 'circle',
           borderColor: '#4A90E2',
           cornerColor: '#4A90E2',
           transparentCorners: false,
         })
+        
+        // Ensure the image is positioned exactly where the original was
+        fabricImage.setCoords()
+        
+        // Double-check positioning to prevent any drift
+        if (obj.left !== undefined && obj.top !== undefined) {
+          fabricImage.set({
+            left: obj.left,
+            top: obj.top
+          })
+        }
 
         // Copy all the important metadata from the original object
         fabricImage.id = obj.id
@@ -535,14 +689,18 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
           })
         }
         
-        // Replace the old object
+                // Replace the old object
         canvasRef.current?.remove(obj)
         canvasRef.current?.add(fabricImage)
         canvasRef.current?.setActiveObject(fabricImage)
-        canvasRef.current?.renderAll()
         
-        // Ensure the new image and all objects are properly interactive
-        ensureObjectInteraction()
+        // Preserve template layout - ensure other objects don't move
+        preserveTemplateLayout()
+        
+        // Unlock template layout after replacement
+        unlockTemplateLayout()
+        
+        canvasRef.current?.renderAll()
         
         console.log('✅ Image replaced successfully with preserved metadata and interaction')
         console.log('🎯 Final image dimensions:', {
@@ -626,12 +784,21 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
     return canvasRef.current.toDataURL('image/png')
   }
 
-  // Enhanced template loading functionality
-  const loadTemplate = (template: Template, options: { 
-    clearCanvas?: boolean
-    fitToCanvas?: boolean 
-  } = {}) => {
-    if (!canvasRef.current) return
+     // Enhanced template loading functionality
+   const loadTemplate = (template: Template, options: { 
+     clearCanvas?: boolean
+     fitToCanvas?: boolean 
+   } = {}) => {
+     if (!canvasRef.current) return
+     
+     console.log('🎨 ===== TEMPLATE LOADING STARTED =====')
+     console.log('📋 Template:', template.name)
+     console.log('🏷️ Template ID:', template.id)
+     console.log('📐 Dimensions:', template.dimensions)
+     console.log('📦 Total Objects:', template.objects.length)
+     console.log('🖼️ Image Objects:', template.objects.filter(obj => obj.type === 'image').length)
+     console.log('📝 Text Objects:', template.objects.filter(obj => obj.type === 'text').length)
+     console.log('🔲 Shape Objects:', template.objects.filter(obj => ['rectangle', 'circle', 'triangle'].includes(obj.type)).length)
 
     console.log('🎨 Loading Template:', template.name)
     console.log('📦 Template Objects:', template.objects.length)
@@ -702,51 +869,64 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       console.log(`📊 Template Loading Summary: ${successCount} success, ${failCount} failed`)
       console.log('🎯 Canvas Objects After Load:', canvasRef.current?.getObjects().length)
       
-      // Ensure proper object ordering and interaction
-      if (canvasRef.current) {
-        const canvasObjects = canvasRef.current.getObjects()
+           // Ensure proper object ordering and interaction
+     if (canvasRef.current) {
+       const canvasObjects = canvasRef.current.getObjects()
+       
+       // Configure all objects for proper interaction
+       canvasObjects.forEach(obj => {
+         // Ensure all objects are selectable and interactive
+         obj.set({
+           selectable: true,
+           evented: true,
+           hasControls: true,
+           hasBorders: true,
+           lockMovementX: false,
+           lockMovementY: false,
+           lockRotation: false,
+           lockScalingX: false,
+           lockScalingY: false
+         })
+         
+         // Store original positions for movement tracking
+         obj.set({
+           originalLeft: obj.left,
+           originalTop: obj.top
+         })
+         
+         // Add visible borders to all objects for better visibility
+         if (obj.type === 'rect' || obj.type === 'image') {
+           obj.set({
+             stroke: '#4A90E2',
+             strokeWidth: 2,
+             cornerSize: 12,
+             cornerStyle: 'circle',
+             borderColor: '#4A90E2',
+             cornerColor: '#4A90E2',
+             transparentCorners: false
+           })
+         }
+         
+         // Bring text objects to front for better editing
+         if (obj.type === 'i-text') {
+           canvasRef.current?.bringToFront(obj)
+         }
+       })
         
-        // Configure all objects for proper interaction
-        canvasObjects.forEach(obj => {
-          // Ensure all objects are selectable and interactive
-          obj.set({
-            selectable: true,
-            evented: true,
-            hasControls: true,
-            hasBorders: true,
-            lockMovementX: false,
-            lockMovementY: false,
-            lockRotation: false,
-            lockScalingX: false,
-            lockScalingY: false
-          })
-          
-          // Add visible borders to all objects for better visibility
-          if (obj.type === 'rect' || obj.type === 'image') {
-            obj.set({
-              stroke: '#4A90E2',
-              strokeWidth: 2,
-              cornerSize: 12,
-              cornerStyle: 'circle',
-              borderColor: '#4A90E2',
-              cornerColor: '#4A90E2',
-              transparentCorners: false
-            })
-          }
-          
-          // Bring text objects to front for better editing
-          if (obj.type === 'i-text') {
-            canvasRef.current?.bringToFront(obj)
-          }
-        })
-        
-        canvasRef.current.renderAll()
-        console.log('🎯 All objects configured for smooth interaction')
-      }
-    }
-
-    processObjects()
-  }
+                 canvasRef.current.renderAll()
+         console.log('🎯 All objects configured for smooth interaction')
+         
+         // Load all pending images after objects are configured
+         loadPendingImages()
+         
+         console.log('🎨 ===== TEMPLATE LOADING COMPLETED =====')
+         console.log('✅ Template loaded successfully:', template.name)
+         console.log('🎯 Canvas ready for editing')
+       }
+     }
+ 
+     processObjects()
+   }
 
   const createFabricObjectFromTemplate = async (
     templateObj: TemplateObject, 
@@ -893,78 +1073,56 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
         console.log('✅ Triangle object created with center origin')
         break
 
-      case 'image':
-        console.log('🖼️ Creating image object...')
-        if (templateObj.imageProperties) {
-                  // Create a placeholder first, then load the image asynchronously
-        fabricObj = new fabric.Rect({
-          ...baseProps,
-          width: (templateObj.properties.width || 100) * scaleX,
-          height: (templateObj.properties.height || 100) * scaleY,
-          fill: '#f0f0f0',
-          stroke: '#4A90E2',
-          strokeWidth: 3,
-          cornerSize: templateObj.isEditable ? 12 : 0,
-          cornerStyle: 'circle',
-          borderColor: templateObj.isEditable ? '#4A90E2' : '#4A90E2',
-          cornerColor: '#4A90E2',
-          transparentCorners: false,
-          dashArray: [5, 5], // Add dashed border for placeholder
-          ...templateMetadata
-        })
-          
-          // Store original opacity for hover effects
-          ;(fabricObj as any).originalOpacity = templateObj.properties.opacity || 1
-          
-          // Load the actual image asynchronously
-          const img = new Image()
-          img.onload = () => {
-            if (canvasRef.current) {
-              const fabricImage = new fabric.Image(img, {
-                ...baseProps,
-                width: (templateObj.properties.width || 100) * scaleX,
-                height: (templateObj.properties.height || 100) * scaleY,
-                cornerSize: templateObj.isEditable ? 12 : 0,
-                cornerStyle: 'circle',
-                borderColor: templateObj.isEditable ? '#4A90E2' : 'transparent',
-                cornerColor: '#4A90E2',
-                transparentCorners: false,
-                ...templateMetadata
-              })
-              
-              // Store original opacity for hover effects
-              ;(fabricImage as any).originalOpacity = templateObj.properties.opacity || 1
-              
-              // Add a subtle border to indicate it's editable
-              if (templateObj.isEditable) {
-                fabricImage.set('stroke', '#4A90E2')
-                fabricImage.set('strokeWidth', 2)
-                
-                // Add a visual indicator (small icon or overlay)
-                console.log('🎨 Added editable styling to image:', templateObj.id)
-              }
-              
-              // Replace the placeholder with the actual image
-              const index = canvasRef.current.getObjects().indexOf(fabricObj)
-              if (index !== -1) {
-                canvasRef.current.remove(fabricObj)
-                canvasRef.current.insertAt(fabricImage, index)
-                canvasRef.current.renderAll()
-                console.log('✅ Image object replaced placeholder with actual image')
-              }
-            }
-          }
-          img.onerror = () => {
-            console.error('❌ Failed to load image:', templateObj.imageProperties?.src)
-            console.log('✅ Using placeholder due to image load failure')
-          }
-          img.src = templateObj.imageProperties.src
-          
-          console.log('✅ Image placeholder created, loading actual image...')
-        } else {
-          console.log('❌ No image properties found')
-        }
-        break
+             case 'image':
+         console.log('🖼️ Creating image object...')
+         if (templateObj.imageProperties) {
+           console.log('📸 Image properties found:', templateObj.imageProperties)
+           
+           // Create a placeholder first, then load the image asynchronously
+           fabricObj = new fabric.Rect({
+             ...baseProps,
+             width: (templateObj.properties.width || 100) * scaleX,
+             height: (templateObj.properties.height || 100) * scaleY,
+             fill: '#f0f0f0',
+             stroke: '#4A90E2',
+             strokeWidth: 3,
+             cornerSize: templateObj.isEditable ? 12 : 0,
+             cornerStyle: 'circle',
+             borderColor: templateObj.isEditable ? '#4A90E2' : '#4A90E2',
+             cornerColor: '#4A90E2',
+             transparentCorners: false,
+             dashArray: [5, 5], // Add dashed border for placeholder
+             ...templateMetadata
+           })
+           
+           // Store original opacity for hover effects
+           ;(fabricObj as any).originalOpacity = templateObj.properties.opacity || 1
+           
+           // Store image URL for later loading
+           ;(fabricObj as any).pendingImageUrl = templateObj.imageProperties.src
+           ;(fabricObj as any).isImagePlaceholder = true
+           
+           console.log('✅ Image placeholder created, will load image:', templateObj.imageProperties.src)
+         } else {
+           console.log('❌ No image properties found, creating basic placeholder')
+           // Create a basic placeholder if no image properties
+           fabricObj = new fabric.Rect({
+             ...baseProps,
+             width: (templateObj.properties.width || 100) * scaleX,
+             height: (templateObj.properties.height || 100) * scaleY,
+             fill: '#f0f0f0',
+             stroke: '#999',
+             strokeWidth: 2,
+             cornerSize: templateObj.isEditable ? 12 : 0,
+             cornerStyle: 'circle',
+             borderColor: templateObj.isEditable ? '#999' : 'transparent',
+             cornerColor: '#999',
+             transparentCorners: false,
+             dashArray: [5, 5],
+             ...templateMetadata
+           })
+         }
+         break
 
       default:
         console.warn(`❌ Unsupported template object type: ${templateObj.type}`)
@@ -1091,22 +1249,212 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
     setPanY(centerY)
   }
 
-  // Debug helper function
-  const debugCanvasObjects = () => {
-    if (!canvasRef.current) return
-    
-    const objects = canvasRef.current.getObjects()
-    console.log('🔍 Canvas Objects Debug:', objects.map(obj => ({
-      id: obj.id,
-      type: obj.type,
-      templateId: (obj as any).templateId,
-      isEditable: (obj as any).isEditable,
-      templateRole: (obj as any).templateRole,
-      left: obj.left,
-      top: obj.top,
-      visible: obj.visible
-    })))
-  }
+     // Load all pending images after template is fully loaded
+   const loadPendingImages = () => {
+     if (!canvasRef.current) return
+     
+     console.log('🔄 Loading pending images...')
+     const objects = canvasRef.current.getObjects()
+     let loadedCount = 0
+     let failedCount = 0
+     
+     objects.forEach((obj, index) => {
+       if ((obj as any).isImagePlaceholder && (obj as any).pendingImageUrl) {
+         console.log(`🖼️ Loading image ${index + 1}:`, (obj as any).pendingImageUrl)
+         
+         const img = new Image()
+         img.crossOrigin = 'anonymous'
+         
+         img.onload = () => {
+           console.log('✅ Image loaded successfully:', (obj as any).pendingImageUrl)
+           
+           // Create fabric image with proper properties
+           const fabricImage = new fabric.Image(img, {
+             left: obj.left,
+             top: obj.top,
+             width: obj.width,
+             height: obj.height,
+             scaleX: obj.scaleX || 1,
+             scaleY: obj.scaleY || 1,
+             angle: obj.angle || 0,
+             originX: obj.originX || 'center',
+             originY: obj.originY || 'center',
+             selectable: obj.selectable,
+             evented: obj.evented,
+             cornerSize: (obj as any).isEditable ? 12 : 0,
+             cornerStyle: 'circle',
+             borderColor: (obj as any).isEditable ? '#4A90E2' : 'transparent',
+             cornerColor: '#4A90E2',
+             transparentCorners: false,
+             hasControls: (obj as any).isEditable !== false,
+             hasBorders: (obj as any).isEditable !== false
+           })
+           
+           // Copy all custom properties
+           Object.keys(obj).forEach(key => {
+             if (key !== 'canvas' && key !== 'group' && key !== 'group' && key !== 'evented') {
+               ;(fabricImage as any)[key] = (obj as any)[key]
+             }
+           })
+           
+           // Ensure proper positioning
+           fabricImage.setCoords()
+           
+           // Replace placeholder with actual image
+           if (canvasRef.current) {
+             canvasRef.current.remove(obj)
+             canvasRef.current.insertAt(fabricImage, index)
+             canvasRef.current.renderAll()
+             loadedCount++
+             console.log(`✅ Image ${loadedCount} replaced placeholder successfully`)
+           }
+         }
+         
+         img.onerror = (error) => {
+           console.error('❌ Failed to load image:', (obj as any).pendingImageUrl, error)
+           failedCount++
+           
+           // Keep the placeholder but mark it as failed
+           obj.set({
+             fill: '#ffebee',
+             stroke: '#f44336',
+             strokeWidth: 2
+           })
+           
+           // Add error text overlay
+           const errorText = new fabric.IText('Image Failed', {
+             left: obj.left,
+             top: obj.top + (obj.height || 100) / 2 + 20,
+             fontSize: 12,
+             fill: '#f44336',
+             textAlign: 'center',
+             originX: 'center',
+             originY: 'center',
+             selectable: false,
+             evented: false
+           })
+           
+           if (canvasRef.current) {
+             canvasRef.current.add(errorText)
+             canvasRef.current.renderAll()
+           }
+         }
+         
+         // Start loading the image
+         img.src = (obj as any).pendingImageUrl
+       }
+     })
+     
+     console.log(`📊 Image loading complete: ${loadedCount} loaded, ${failedCount} failed`)
+   }
+   
+   // Retry loading a specific failed image
+   const retryImageLoad = (objectId: string) => {
+     if (!canvasRef.current) return
+     
+     const obj = canvasRef.current.getObjects().find(o => o.id === objectId)
+     if (!obj || !(obj as any).isImagePlaceholder) {
+       console.log('❌ Object not found or not an image placeholder:', objectId)
+       return
+     }
+     
+     console.log('🔄 Retrying image load for:', objectId)
+     
+     const img = new Image()
+     img.crossOrigin = 'anonymous'
+     
+     img.onload = () => {
+       console.log('✅ Image loaded successfully on retry:', (obj as any).pendingImageUrl)
+       
+       // Create fabric image with proper properties
+       const fabricImage = new fabric.Image(img, {
+         left: obj.left,
+         top: obj.top,
+         width: obj.width,
+         height: obj.height,
+         scaleX: obj.scaleX || 1,
+         scaleY: obj.scaleY || 1,
+         angle: obj.angle || 0,
+         originX: obj.originX || 'center',
+         originY: obj.originY || 'center',
+         selectable: obj.selectable,
+         evented: obj.evented,
+         cornerSize: (obj as any).isEditable ? 12 : 0,
+         cornerStyle: 'circle',
+         borderColor: (obj as any).isEditable ? '#4A90E2' : 'transparent',
+         cornerColor: '#4A90E2',
+         transparentCorners: false,
+         hasControls: (obj as any).isEditable !== false,
+         hasBorders: (obj as any).isEditable !== false
+       })
+       
+       // Copy all custom properties
+       Object.keys(obj).forEach(key => {
+         if (key !== 'canvas' && key !== 'group' && key !== 'evented') {
+           ;(fabricImage as any)[key] = (obj as any)[key]
+         }
+       })
+       
+       // Ensure proper positioning
+       fabricImage.setCoords()
+       
+       // Replace placeholder with actual image
+       if (canvasRef.current) {
+         const index = canvasRef.current.getObjects().indexOf(obj)
+         canvasRef.current.remove(obj)
+         canvasRef.current.insertAt(fabricImage, index)
+         canvasRef.current.renderAll()
+         console.log('✅ Image replaced placeholder successfully on retry')
+       }
+     }
+     
+     img.onerror = (error) => {
+       console.error('❌ Failed to load image on retry:', (obj as any).pendingImageUrl, error)
+     }
+     
+     // Start loading the image
+     img.src = (obj as any).pendingImageUrl
+   }
+   
+   // Debug helper function
+   const debugCanvasObjects = () => {
+     if (!canvasRef.current) return
+     
+     const objects = canvasRef.current.getObjects()
+     console.log('🔍 Canvas Objects Debug:', objects.map(obj => ({
+       id: obj.id,
+       type: obj.type,
+       templateId: (obj as any).templateId,
+       isEditable: (obj as any).isEditable,
+       templateRole: (obj as any).templateRole,
+       left: obj.left,
+       top: obj.top,
+       visible: obj.visible
+     })))
+   }
+   
+   // Check template image loading status
+   const checkTemplateImageStatus = () => {
+     if (!canvasRef.current) return
+     
+     const objects = canvasRef.current.getObjects()
+     const imageObjects = objects.filter(obj => obj.type === 'image')
+     const placeholderObjects = objects.filter(obj => (obj as any).isImagePlaceholder)
+     
+     console.log('📊 Template Image Status:')
+     console.log(`- Total objects: ${objects.length}`)
+     console.log(`- Image objects: ${imageObjects.length}`)
+     console.log(`- Image placeholders: ${placeholderObjects.length}`)
+     
+     placeholderObjects.forEach((obj, index) => {
+       console.log(`- Placeholder ${index + 1}:`, {
+         id: obj.id,
+         pendingImageUrl: (obj as any).pendingImageUrl,
+         templateId: (obj as any).templateId,
+         isEditable: (obj as any).isEditable
+       })
+     })
+   }
 
   // Enhanced background image functionality with proper layer management
   const setBackgroundImage = (file: File, options: BackgroundImageOptions = {}) => {
@@ -1136,33 +1484,33 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
         
         console.log('🎯 Template area bounds for background:', { left: objLeft, top: objTop, width: objWidth, height: objHeight })
         
-        // Create background image that will be clipped to the template area
-        const fabricImage = new fabric.Image(img, {
-          left: objLeft + objWidth / 2,
-          top: objTop + objHeight / 2,
-          width: objWidth,  // Set explicit width to match template area
-          height: objHeight, // Set explicit height to match template area
-          originX: 'center',
-          originY: 'center',
-          selectable: false,
-          evented: false,
-          lockMovementX: true,
-          lockMovementY: true,
-          lockRotation: true,
-          lockScalingX: true,
-          lockScalingY: true,
-          hasControls: false,
-          hasBorders: false,
-          opacity: opacity,
-          templateRole: 'template-background',
-          isEditable: false,
-          isRequired: false,
-          // Enhanced metadata
-          linkedObjectId: selectedObject.id,
-          backgroundFitMode: fitMode,
-          backgroundPosition: position,
-          zIndex: -1, // Ensure background stays behind template objects
-        })
+                 // Create background image that will be clipped to the template area
+         const fabricImage = new fabric.Image(img, {
+           left: objLeft + objWidth / 2,
+           top: objTop + objHeight / 2,
+           width: objWidth,  // Set explicit width to match template area
+           height: objHeight, // Set explicit height to match template area
+           originX: 'center',
+           originY: 'center',
+           selectable: true,  // Allow selection for group movement
+           evented: true,     // Allow events for group movement
+           lockMovementX: false,  // Allow movement when part of group
+           lockMovementY: false,  // Allow movement when part of group
+           lockRotation: true,    // Keep rotation locked
+           lockScalingX: true,    // Keep scaling locked
+           lockScalingY: true,    // Keep scaling locked
+           hasControls: false,    // No individual controls
+           hasBorders: false,     // No individual borders
+           opacity: opacity,
+           templateRole: 'template-background',
+           isEditable: false,
+           isRequired: false,
+           // Enhanced metadata
+           linkedObjectId: selectedObject.id,
+           backgroundFitMode: fitMode,
+           backgroundPosition: position,
+           zIndex: -1, // Ensure background stays behind template objects
+         })
 
         // Calculate scaling to cover the template area
         let scaleX, scaleY
@@ -1265,53 +1613,168 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
     }
 
     console.log('🎨 Setting background preset for selected template area:', preset.name)
+    console.log('🎯 Selected object type:', selectedObject.type)
+    console.log('🎯 Selected object:', selectedObject)
 
-    // Get the selected object's bounds
-    const objBounds = selectedObject.getBoundingRect()
+    // Handle both single objects and groups
+    let targetObject = selectedObject
+    let objBounds: any
+    
+    if (selectedObject.type === 'group') {
+      // If it's a group, find the main template object (usually the largest one)
+      const groupObjects = (selectedObject as fabric.Group).getObjects()
+      console.log('🎯 Group contains objects:', groupObjects.length)
+      
+      // Find the largest object in the group (likely the main template background)
+      let largestObject = groupObjects[0]
+      let largestArea = 0
+      
+      groupObjects.forEach(obj => {
+        const area = obj.width! * obj.height!
+        if (area > largestArea) {
+          largestArea = area
+          largestObject = obj
+        }
+      })
+      
+      targetObject = largestObject
+      objBounds = targetObject.getBoundingRect()
+      console.log('🎯 Using largest object in group as template area:', largestObject.type, largestObject.id)
+    } else {
+      objBounds = selectedObject.getBoundingRect()
+    }
+
     const objLeft = objBounds.left
     const objTop = objBounds.top
     const objWidth = objBounds.width
     const objHeight = objBounds.height
     
     console.log('🎯 Template area bounds for background preset:', { left: objLeft, top: objTop, width: objWidth, height: objHeight })
+    
+    // Debug: Show the template area visually
+    const debugRect = new fabric.Rect({
+      left: objLeft + objWidth / 2,
+      top: objTop + objHeight / 2,
+      width: objWidth,
+      height: objHeight,
+      fill: 'rgba(255, 0, 0, 0.2)',
+      stroke: 'red',
+      strokeWidth: 2,
+      originX: 'center',
+      originY: 'center',
+      selectable: false,
+      evented: false
+    })
+    
+    // Add debug rectangle temporarily
+    canvasRef.current!.add(debugRect)
+    canvasRef.current!.sendToBack(debugRect)
+    
+    // Remove debug rectangle after 3 seconds
+    setTimeout(() => {
+      if (canvasRef.current) {
+        canvasRef.current.remove(debugRect)
+        canvasRef.current.renderAll()
+      }
+    }, 3000)
 
     // Create background from preset using template area dimensions
     const backgroundObject = backgroundService.createBackgroundFromPreset(preset, objWidth, objHeight)
     
-    // Position the background to cover only the template area
-    backgroundObject.set({
-      left: objLeft + objWidth / 2,  // Center of template area
-      top: objTop + objHeight / 2,   // Center of template area
-      originX: 'center',
-      originY: 'center',
-      selectable: false,
-      evented: false,
-      lockMovementX: true,
-      lockMovementY: true,
-      lockRotation: true,
-      lockScalingX: true,
-      lockScalingY: true,
-      hasControls: false,
-      hasBorders: false,
-      templateRole: 'template-background', // Template-specific
-      isEditable: false,
-      isRequired: false,
-      linkedObjectId: selectedObject.id,
-      zIndex: -100 // Behind template objects but above canvas
-    })
+         // Position the background to cover only the template area
+     backgroundObject.set({
+       left: objLeft + objWidth / 2,  // Center of template area
+       top: objTop + objHeight / 2,   // Center of template area
+       originX: 'center',
+       originY: 'center',
+       selectable: true,  // Allow selection for group movement
+       evented: true,     // Allow events for group movement
+       lockMovementX: false,  // Allow movement when part of group
+       lockMovementY: false,  // Allow movement when part of group
+       lockRotation: true,    // Keep rotation locked
+       lockScalingX: true,    // Keep scaling locked
+       lockScalingY: true,    // Keep scaling locked
+       hasControls: false,    // No individual controls
+       hasBorders: false,     // No individual borders
+       templateRole: 'template-background', // Template-specific
+       isEditable: false,
+       isRequired: false,
+       linkedObjectId: selectedObject.id,
+       zIndex: -100 // Behind template objects but above canvas
+     })
 
     // Remove existing background images for this template
     const existingBackgrounds = canvasRef.current!.getObjects().filter(obj => 
       (obj as any).templateRole === 'template-background' && 
-      (obj as any).linkedObjectId === selectedObject.id
+      (obj as any).linkedObjectId === targetObject.id
     )
     existingBackgrounds.forEach(bg => canvasRef.current!.remove(bg))
 
     // Add new background and position it correctly
     canvasRef.current!.add(backgroundObject)
     canvasRef.current!.sendToBack(backgroundObject)
-    canvasRef.current!.bringToFront(selectedObject)
+    canvasRef.current!.bringToFront(targetObject)
     canvasRef.current!.renderAll()
+    
+    // Handle image loading if this is an image placeholder
+    if ((backgroundObject as any).isImagePlaceholder && (backgroundObject as any).imagePromise) {
+      console.log('🔄 Handling image promise for background object')
+      
+      // Wait for the image to load and then replace the placeholder
+      ;(backgroundObject as any).imagePromise.then((fabricImage: fabric.Image) => {
+        console.log('✅ Image loaded, replacing placeholder')
+        
+        // Copy the positioning and properties from the placeholder
+        fabricImage.set({
+          left: backgroundObject.left,
+          top: backgroundObject.top,
+          originX: backgroundObject.originX,
+          originY: backgroundObject.originY,
+          scaleX: backgroundObject.scaleX,
+          scaleY: backgroundObject.scaleY,
+          angle: backgroundObject.angle,
+          selectable: true,  // Allow selection for group movement
+          evented: true,     // Allow events for group movement
+          lockMovementX: false,  // Allow movement when part of group
+          lockMovementY: false,  // Allow movement when part of group
+          lockRotation: true,    // Keep rotation locked
+          lockScalingX: true,    // Keep scaling locked
+          lockScalingY: true,    // Keep scaling locked
+          hasControls: false,    // No individual controls
+          hasBorders: false     // No individual borders
+        })
+        
+        // Copy custom properties
+        ;(fabricImage as any).templateRole = (backgroundObject as any).templateRole
+        ;(fabricImage as any).isEditable = (backgroundObject as any).isEditable
+        ;(fabricImage as any).isRequired = (backgroundObject as any).isRequired
+        ;(fabricImage as any).linkedObjectId = (backgroundObject as any).linkedObjectId
+        ;(fabricImage as any).zIndex = (backgroundObject as any).zIndex
+        
+        // Replace the placeholder with the actual image
+        if (canvasRef.current) {
+          const canvas = canvasRef.current
+          const index = canvas.getObjects().indexOf(backgroundObject)
+          if (index !== -1) {
+            canvas.remove(backgroundObject)
+            canvas.insertAt(fabricImage, index)
+            canvas.sendToBack(fabricImage)
+            canvas.renderAll()
+            console.log('✅ Background image replaced placeholder successfully')
+          } else {
+            console.error('❌ Could not find placeholder in canvas objects')
+          }
+        } else {
+          console.error('❌ Canvas reference is null during image replacement')
+        }
+      }).catch((error: any) => {
+        console.error('❌ Failed to load background image:', error)
+        console.error('❌ Error details:', error.message)
+        // The placeholder will remain as a fallback
+      })
+    } else {
+      console.log('ℹ️ Background object is not an image placeholder or missing imagePromise')
+    }
 
     console.log('✅ Template background preset applied successfully:', preset.name)
     console.log('📍 Background positioned at template center:', { 
@@ -1517,29 +1980,300 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
     canvasRef.current.sendToBack(guide)
   }
 
-  // Ensure all objects are selectable and movable after any modification
-  const ensureObjectInteraction = () => {
-    if (!canvasRef.current) return
-    
-    const allObjects = canvasRef.current.getObjects()
-    allObjects.forEach(obj => {
-      // Ensure all objects are interactive
-      obj.set({
-        selectable: true,
-        evented: true,
-        hasControls: true,
-        hasBorders: true,
-        lockMovementX: false,
-        lockMovementY: false,
-        lockRotation: false,
-        lockScalingX: false,
-        lockScalingY: false
-      })
-    })
-    
-    canvasRef.current.renderAll()
-    console.log('✅ All objects configured for interaction')
-  }
+     // Handle background group selection to ensure backgrounds move with other objects
+   const handleBackgroundGroupSelection = (selectedObjects: fabric.Object[]) => {
+     if (!canvasRef.current || selectedObjects.length < 2) return
+     
+     // Check if selection includes both background and template objects
+     const hasBackground = selectedObjects.some(obj => (obj as any).templateRole === 'template-background')
+     const hasTemplateObject = selectedObjects.some(obj => (obj as any).templateRole !== 'template-background')
+     
+     if (hasBackground && hasTemplateObject) {
+       console.log('🎯 Background selected with template objects - enabling group movement')
+       
+       // Ensure background can move with the group
+       selectedObjects.forEach(obj => {
+         if ((obj as any).templateRole === 'template-background') {
+           obj.set({
+             lockMovementX: false,
+             lockMovementY: false,
+             selectable: true,
+             evented: true
+           })
+         }
+       })
+     }
+   }
+   
+   // Move background image with template object when template is moved
+   const moveBackgroundWithTemplate = (templateObject: fabric.Object) => {
+     if (!canvasRef.current) return
+     
+     // Find the background linked to this template object
+     const background = canvasRef.current.getObjects().find(obj => 
+       (obj as any).templateRole === 'template-background' && 
+       (obj as any).linkedObjectId === templateObject.id
+     )
+     
+     if (background) {
+       // Calculate the movement delta
+       const deltaX = (templateObject.left || 0) - (templateObject.originalLeft || templateObject.left || 0)
+       const deltaY = (templateObject.top || 0) - (templateObject.originalTop || templateObject.top || 0)
+       
+       // Move the background by the same amount
+       background.set({
+         left: (background.left || 0) + deltaX,
+         top: (background.top || 0) + deltaY
+       })
+       
+       // Store current position as original for next movement
+       templateObject.set({
+         originalLeft: templateObject.left,
+         originalTop: templateObject.top
+       })
+       
+       canvasRef.current.renderAll()
+     }
+   }
+   
+   // Preserve template layout during image replacement
+   const preserveTemplateLayout = () => {
+     if (!canvasRef.current) return
+     
+     console.log('🔒 Preserving template layout...')
+     
+     // Get all template objects (excluding backgrounds)
+     const templateObjects = canvasRef.current.getObjects().filter(obj => 
+       (obj as any).templateRole && 
+       (obj as any).templateRole !== 'template-background' &&
+       (obj as any).templateId
+     )
+     
+     // Ensure all template objects maintain their exact positions
+     templateObjects.forEach(obj => {
+       // Store current position if not already stored
+       if ((obj as any).originalLeft === undefined) {
+         obj.set({
+           originalLeft: obj.left,
+           originalTop: obj.top
+         })
+       }
+       
+       // Ensure the object stays in its exact position
+       obj.set({
+         left: (obj as any).originalLeft || obj.left,
+         top: (obj as any).originalTop || obj.top,
+         // Keep all other properties intact
+         width: obj.width,
+         height: obj.height,
+         scaleX: obj.scaleX,
+         scaleY: obj.scaleY,
+         angle: obj.angle,
+         originX: obj.originX,
+         originY: obj.originY
+       })
+       
+       // Ensure proper interaction settings without disrupting layout
+       obj.set({
+         selectable: true,
+         evented: true,
+         hasControls: (obj as any).isEditable !== false,
+         hasBorders: (obj as any).isEditable !== false,
+         lockMovementX: false,
+         lockMovementY: false,
+         lockRotation: false,
+         lockScalingX: false,
+         lockScalingY: false
+       })
+     })
+     
+     console.log(`🔒 Template layout preserved for ${templateObjects.length} objects`)
+   }
+   
+   // Lock template layout temporarily to prevent movement during operations
+   const lockTemplateLayout = () => {
+     if (!canvasRef.current) return
+     
+     console.log('🔒 Locking template layout temporarily...')
+     
+     const templateObjects = canvasRef.current.getObjects().filter(obj => 
+       (obj as any).templateRole && 
+       (obj as any).templateRole !== 'template-background' &&
+       (obj as any).templateId
+     )
+     
+     templateObjects.forEach(obj => {
+       // Temporarily lock movement to prevent drift
+       obj.set({
+         lockMovementX: true,
+         lockMovementY: true
+       })
+     })
+   }
+   
+   // Unlock template layout after operations complete
+   const unlockTemplateLayout = () => {
+     if (!canvasRef.current) return
+     
+     console.log('🔓 Unlocking template layout...')
+     
+     const templateObjects = canvasRef.current.getObjects().filter(obj => 
+       (obj as any).templateRole && 
+       (obj as any).templateRole !== 'template-background' &&
+       (obj as any).templateId
+     )
+     
+     templateObjects.forEach(obj => {
+       // Restore movement capabilities
+       obj.set({
+         lockMovementX: false,
+         lockMovementY: false
+       })
+     })
+   }
+   
+   // Ensure all objects are selectable and movable after any modification
+   const ensureObjectInteraction = () => {
+     if (!canvasRef.current) return
+     
+     const allObjects = canvasRef.current.getObjects()
+     allObjects.forEach(obj => {
+       // Ensure all objects are interactive
+       obj.set({
+         selectable: true,
+         evented: true,
+         hasControls: true,
+         hasBorders: true,
+         lockMovementX: false,
+         lockMovementY: false,
+         lockRotation: false,
+         lockScalingX: false,
+         lockScalingY: false
+       })
+     })
+     
+     canvasRef.current.renderAll()
+     console.log('✅ All objects configured for interaction')
+   }
+
+   // Set the current drawing tool and update canvas cursor
+   const setCurrentTool = (tool: string) => {
+     if (!canvasRef.current) return
+     
+     // Reset drawing state when changing tools
+     isDrawing = false
+     startPoint = null
+     currentShape = null
+     
+     // Store the current tool on the canvas for the drawing handlers
+     ;(canvasRef.current as any).currentTool = tool
+     
+     // Update cursor based on tool
+     switch (tool) {
+       case 'select':
+         canvasRef.current.defaultCursor = 'default'
+         canvasRef.current.selection = true
+         break
+       case 'text':
+         canvasRef.current.defaultCursor = 'text'
+         canvasRef.current.selection = false
+         break
+       case 'rectangle':
+         canvasRef.current.defaultCursor = 'crosshair'
+         canvasRef.current.selection = false
+         break
+       case 'circle':
+         canvasRef.current.defaultCursor = 'crosshair'
+         canvasRef.current.selection = false
+         break
+       default:
+         canvasRef.current.defaultCursor = 'default'
+         canvasRef.current.selection = true
+     }
+     
+     console.log('🛠️ Tool changed to:', tool, 'Canvas ref:', canvasRef.current)
+     console.log('🛠️ Canvas currentTool property:', (canvasRef.current as any).currentTool)
+   }
+
+   // Add image inside a selected shape (circle or rectangle)
+   const addImageInShape = () => {
+     if (!canvasRef.current) return
+     
+     const selectedObject = canvasRef.current.getActiveObject()
+     if (!selectedObject) {
+       alert('Please select a shape (circle or rectangle) first, then click "Add Image in Shape"')
+       return
+     }
+     
+     // Check if the selected object is a shape
+     if (selectedObject.type !== 'rect' && selectedObject.type !== 'circle') {
+       alert('Please select a circle or rectangle shape first')
+       return
+     }
+     
+     // Create a file input for image selection
+     const input = document.createElement('input')
+     input.type = 'file'
+     input.accept = 'image/*'
+     input.style.display = 'none'
+     
+     input.onchange = (e) => {
+       const file = (e.target as HTMLInputElement).files?.[0]
+       if (!file) return
+       
+       const reader = new FileReader()
+       reader.onload = (e) => {
+         const img = new Image()
+         img.onload = () => {
+           // Get the shape dimensions
+           const shapeBounds = selectedObject.getBoundingRect()
+           const shapeWidth = selectedObject.width || shapeBounds.width
+           const shapeHeight = selectedObject.height || shapeBounds.height
+           
+           // Calculate the scaling to cover the entire shape
+           const imgWidth = img.width
+           const imgHeight = img.height
+           
+           // Scale to cover the entire shape (use max to ensure full coverage)
+           const scaleX = shapeWidth / imgWidth
+           const scaleY = shapeHeight / imgHeight
+           const scale = Math.max(scaleX, scaleY)
+           
+           // Create a fabric image pattern with proper scaling
+           const pattern = new fabric.Pattern({
+             source: img,
+             repeat: 'no-repeat',
+             patternTransform: [scale, 0, 0, scale, 0, 0] // [scaleX, skewX, skewY, scaleY, offsetX, offsetY]
+           })
+           
+           // Apply the image pattern as the fill of the existing shape
+           selectedObject.set({
+             fill: pattern,
+             selectable: true,
+             evented: true,
+             hasControls: true,
+             hasBorders: true
+           })
+           
+           // Ensure the shape maintains its original properties
+           selectedObject.setCoords()
+           canvasRef.current?.renderAll()
+           
+           // Select the shape for editing
+           canvasRef.current?.setActiveObject(selectedObject)
+           
+           console.log('✅ Image pattern applied to shape successfully with proper scaling')
+         }
+         img.src = e.target?.result as string
+       }
+       reader.readAsDataURL(file)
+     }
+     
+     // Trigger file selection
+     document.body.appendChild(input)
+     input.click()
+     document.body.removeChild(input)
+   }
 
   return {
     canvas: canvasRef.current,
@@ -1550,6 +2284,8 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
     addRectangle,
     addCircle,
     addImage,
+    addImageInShape,
+    setCurrentTool,
     deleteSelected,
     exportToPNG,
     // Template functionality
@@ -1574,7 +2310,18 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
     zoomOut,
     resetZoom,
     fitToCanvas,
-    // Debug functionality
-    debugCanvasObjects
-  }
+         // Debug functionality
+     debugCanvasObjects,
+     checkTemplateImageStatus,
+     // Image loading functionality
+     loadPendingImages,
+     retryImageLoad,
+     // Background group selection handling
+     handleBackgroundGroupSelection,
+     moveBackgroundWithTemplate,
+     // Template layout preservation
+     preserveTemplateLayout,
+     lockTemplateLayout,
+     unlockTemplateLayout
+   }
 }
