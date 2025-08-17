@@ -333,7 +333,7 @@ export default function QuoteForm() {
                         type="button"
                         variant="outline"
                         onClick={() => document.getElementById('file-upload')?.click()}
-                        className="border-white border-opacity-30 text-white hover:bg-white hover:bg-opacity-10"
+                        className="border-white border-opacity-30 text-black hover:bg-white hover:bg-opacity-10"
                       >
                         Choose Files
                       </Button>

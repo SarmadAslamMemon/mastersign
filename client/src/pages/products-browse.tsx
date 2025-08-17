@@ -177,7 +177,15 @@ export default function ProductsBrowsePage() {
               {/* Header */}
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold">Browse {selectedCategory}</h2>
-                <div className="text-sm text-gray-500">{filtered.length} results</div>
+                <div className="flex items-center space-x-4">
+                  <div className="text-sm text-gray-500">{filtered.length} results</div>
+                  <button 
+                    onClick={() => window.location.href = '/enhanced-editor'}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  >
+                    Start Designing
+                  </button>
+                </div>
               </div>
 
               {/* Grid */}

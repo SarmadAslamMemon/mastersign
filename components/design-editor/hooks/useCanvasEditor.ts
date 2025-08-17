@@ -14,7 +14,7 @@ interface UseCanvasEditorProps {
 export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: UseCanvasEditorProps) => {
   const canvasRef = useRef<fabric.Canvas | null>(null)
   const [selectedObjects, setSelectedObjects] = useState<fabric.Object[]>([])
-  const [zoom, setZoom] = useState(1)
+  const [zoom, setZoom] = useState(0.8) // Start at 80% zoom instead of 100% - this is the default zoom level
   const [panX, setPanX] = useState(0)
   const [panY, setPanY] = useState(0)
   const [currentTemplate, setCurrentTemplate] = useState<Template | null>(null)
@@ -48,7 +48,9 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
 
     canvasRef.current = canvas
 
-
+    // Apply initial zoom (80%) - this is the default zoom level for the application
+    canvas.setZoom(0.8)
+    console.log('🔍 Initial zoom set to 80%')
 
     // Enhanced selection tracking with better UX
     canvas.on('selection:created', () => {
@@ -259,6 +261,19 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
           })))
         }
       }
+      
+      // Handle clicking on template elements - switch to selector cursor
+      if (e.target && e.target.selectable) {
+        // Switch to select tool when clicking on template elements
+        ;(canvasRef.current as any).currentTool = 'select'
+        canvasRef.current.defaultCursor = 'move'
+        canvasRef.current.selection = true
+        console.log('🎯 Clicked on template element, switched to selector mode')
+      } else if (!e.target) {
+        // Clicked outside template elements (empty canvas space) - show arrow cursor
+        canvasRef.current.defaultCursor = 'default'
+        console.log('⬆️ Clicked outside template, showing arrow cursor')
+      }
     })
 
     // Handle drawing shapes - mouse move
@@ -268,19 +283,22 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       const currentTool = (canvasRef.current as any).currentTool || 'select'
       const pointer = canvas.getPointer(e.e)
       
-      if (currentTool === 'rectangle') {
+      // Update shape dimensions while drawing
+      if (currentShape.type === 'rect') {
+        const rect = currentShape as fabric.Rect
         const width = Math.abs(pointer.x - startPoint.x)
         const height = Math.abs(pointer.y - startPoint.y)
         const left = Math.min(pointer.x, startPoint.x)
         const top = Math.min(pointer.y, startPoint.y)
         
-        currentShape.set({
+        rect.set({
           left: left,
           top: top,
           width: width,
           height: height
         })
-      } else if (currentTool === 'circle') {
+      } else if (currentShape.type === 'circle') {
+        const circle = currentShape as fabric.Circle
         const radius = Math.sqrt(
           Math.pow(pointer.x - startPoint.x, 2) + 
           Math.pow(pointer.y - startPoint.y, 2)
@@ -289,11 +307,48 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
         const centerX = (startPoint.x + pointer.x) / 2
         const centerY = (startPoint.y + pointer.y) / 2
         
-        currentShape.set({
-          left: centerX,
-          top: centerY,
+        circle.set({
+          left: centerX - radius,
+          top: centerY - radius,
           radius: radius
         })
+      }
+      
+      canvas.renderAll()
+    })
+    
+    // Enhanced mouse move handler for cursor management
+    canvas.on('mouse:move', (e) => {
+      if (!canvasRef.current) return
+      
+      const currentTool = (canvasRef.current as any).currentTool || 'select'
+      
+      // Only handle cursor changes when not drawing
+      if (isDrawing) return
+      
+      if (e.target) {
+        // Hovering over an object
+        if (e.target.type === 'image' && (e.target as any).isEditable) {
+          // Show pointer cursor for editable images
+          canvasRef.current.defaultCursor = 'pointer'
+        } else if (e.target.selectable) {
+          // Show move cursor for selectable objects
+          canvasRef.current.defaultCursor = 'move'
+        } else {
+          // Show default cursor for non-selectable objects
+          canvasRef.current.defaultCursor = 'default'
+        }
+      } else {
+        // Not hovering over any object - show cursor based on current tool
+        if (currentTool === 'select') {
+          canvasRef.current.defaultCursor = 'default' // Arrow cursor
+        } else if (currentTool === 'text') {
+          canvasRef.current.defaultCursor = 'text'
+        } else if (currentTool === 'rectangle' || currentTool === 'circle') {
+          canvasRef.current.defaultCursor = 'crosshair'
+        } else {
+          canvasRef.current.defaultCursor = 'default'
+        }
       }
       
       canvas.renderAll()
@@ -320,10 +375,10 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       
       // Reset to select tool after drawing
       ;(canvasRef.current as any).currentTool = 'select'
-      canvasRef.current.defaultCursor = 'default'
+      canvasRef.current.defaultCursor = 'default' // Arrow cursor
       canvasRef.current.selection = true
       
-      console.log('✅ Shape drawn and tool reset to select')
+      console.log('✅ Shape drawn and tool reset to select with arrow cursor')
     })
 
     // Add hover effects for editable images
@@ -343,6 +398,7 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       if (e.target && e.target.type === 'image') {
         const imageObj = e.target as fabric.Image
         if ((imageObj as any).isEditable) {
+          // Reset to default cursor (arrow) when not hovering over objects
           canvas.defaultCursor = 'default'
           // Restore original opacity
           imageObj.set('opacity', (imageObj as any).originalOpacity || 1)
@@ -432,6 +488,8 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       canvas.defaultCursor = 'default'
       canvas.hoverCursor = 'move'
     })
+
+
 
     return () => {
       canvas.dispose()
@@ -780,8 +838,57 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
   }
 
   const exportToPNG = (): string | null => {
-    if (!canvasRef.current) return null
-    return canvasRef.current.toDataURL('image/png')
+    console.log('🔍 exportToPNG function called')
+    console.log('🔍 canvasRef.current exists:', !!canvasRef.current)
+    
+    if (!canvasRef.current) {
+      console.error('❌ Canvas reference is null, cannot export')
+      return null
+    }
+    
+    try {
+      console.log('🔍 Canvas reference found, starting export...')
+      
+      // Ensure canvas is properly rendered
+      console.log('🔍 Rendering canvas...')
+      canvasRef.current.renderAll()
+      console.log('🔍 Canvas rendered successfully')
+      
+      // Get canvas dimensions
+      const canvas = canvasRef.current
+      const canvasWidth = canvas.width || width
+      const canvasHeight = canvas.height || height
+      
+      console.log('📐 Exporting canvas with dimensions:', canvasWidth, 'x', canvasHeight)
+      console.log('📐 Canvas width property:', canvas.width)
+      console.log('📐 Canvas height property:', canvas.height)
+      console.log('📐 Hook width prop:', width)
+      console.log('📐 Hook height prop:', height)
+      
+      // Export with high quality settings
+      console.log('🔍 Calling canvas.toDataURL...')
+      const dataUrl = canvas.toDataURL({
+        format: 'png',
+        quality: 1.0,
+        multiplier: 2 // Higher resolution export
+      })
+      
+      console.log('🔍 toDataURL result received')
+      console.log('🔍 Data URL starts with:', dataUrl ? dataUrl.substring(0, 50) + '...' : 'null')
+      
+      if (dataUrl) {
+        console.log('✅ PNG export successful, data URL length:', dataUrl.length)
+        return dataUrl
+      } else {
+        console.error('❌ Failed to generate PNG data URL')
+        return null
+      }
+    } catch (error) {
+      console.error('❌ Error during PNG export:', error)
+      console.error('❌ Error details:', error instanceof Error ? error.message : 'Unknown error')
+      console.error('❌ Error stack:', error instanceof Error ? error.stack : 'No stack trace')
+      return null
+    }
   }
 
      // Enhanced template loading functionality
@@ -1205,9 +1312,9 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
 
   const resetZoom = () => {
     if (!canvasRef.current) return
-    canvasRef.current.setZoom(1)
-    canvasRef.current.setViewportTransform([1, 0, 0, 1, 0, 0])
-    setZoom(1)
+    canvasRef.current.setZoom(0.8) // Reset to 80% instead of 100%
+    canvasRef.current.setViewportTransform([0.8, 0, 0, 0.8, 0, 0]) // Apply 80% zoom
+    setZoom(0.8) // Update state to 80%
     setPanX(0)
     setPanY(0)
   }
@@ -1484,6 +1591,33 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
         
         console.log('🎯 Template area bounds for background:', { left: objLeft, top: objTop, width: objWidth, height: objHeight })
         
+        // Debug: Show the template area visually (temporary)
+        const debugRect = new fabric.Rect({
+          left: objLeft + objWidth / 2,
+          top: objTop + objHeight / 2,
+          width: objWidth,
+          height: objHeight,
+          fill: 'rgba(255, 0, 0, 0.2)',
+          stroke: 'red',
+          strokeWidth: 2,
+          originX: 'center',
+          originY: 'center',
+          selectable: false,
+          evented: false
+        })
+        
+        // Add debug rectangle temporarily
+        canvasRef.current!.add(debugRect)
+        canvasRef.current!.sendToBack(debugRect)
+        
+        // Remove debug rectangle after 3 seconds
+        setTimeout(() => {
+          if (canvasRef.current) {
+            canvasRef.current.remove(debugRect)
+            canvasRef.current.renderAll()
+          }
+        }, 3000)
+        
                  // Create background image that will be clipped to the template area
          const fabricImage = new fabric.Image(img, {
            left: objLeft + objWidth / 2,
@@ -1510,36 +1644,101 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
            backgroundFitMode: fitMode,
            backgroundPosition: position,
            zIndex: -1, // Ensure background stays behind template objects
+           // Add clipping path to ensure the image stays within template bounds
+           clipPath: new fabric.Rect({
+             left: -objWidth / 2,
+             top: -objHeight / 2,
+             width: objWidth,
+             height: objHeight,
+             originX: 'left',
+             originY: 'top'
+           })
          })
 
         // Calculate scaling to cover the template area
         let scaleX, scaleY
         
         if (fitMode === 'cover') {
-          // Scale to cover template area, maintaining aspect ratio
+          // For cover mode: scale to cover the entire template area
+          // Calculate scales for both dimensions
           const scaleX1 = objWidth / img.width
           const scaleY1 = objHeight / img.height
+          
+          // Use the larger scale to ensure coverage
+          // This is crucial for different orientations:
+          // - Portrait image + Landscape template: use height scale
+          // - Landscape image + Portrait template: use width scale
           const scale = Math.max(scaleX1, scaleY1)
           scaleX = scale
           scaleY = scale
+          
+          // Calculate the actual dimensions of the scaled image
+          const scaledImgWidth = img.width * scale
+          const scaledImgHeight = img.height * scale
+          
+          // Position the image so it covers the template area completely
+          // The image should be centered on the template area
+          fabricImage.set({
+            left: objLeft + objWidth / 2,
+            top: objTop + objHeight / 2,
+            originX: 'center',
+            originY: 'center'
+          })
+          
+          console.log('🎯 Cover mode scaling:', {
+            originalImage: { width: img.width, height: img.height },
+            templateArea: { width: objWidth, height: objHeight },
+            calculatedScale: scale,
+            scaleX1,
+            scaleY1,
+            scaledImage: { width: scaledImgWidth, height: scaledImgHeight },
+            position: { left: fabricImage.left, top: fabricImage.top }
+          })
+          
         } else if (fitMode === 'contain') {
-          // Scale to fit within template area, maintaining aspect ratio
+          // For contain mode: scale to fit within template area
           const scaleX1 = objWidth / img.width
           const scaleY1 = objHeight / img.height
           const scale = Math.min(scaleX1, scaleY1)
           scaleX = scale
           scaleY = scale
+          
+          // Center the image within the template bounds
+          fabricImage.set({
+            left: objLeft + objWidth / 2,
+            top: objTop + objHeight / 2,
+            originX: 'center',
+            originY: 'center'
+          })
+          
         } else if (fitMode === 'stretch') {
-          // Stretch to fill template area
+          // For stretch mode: fill template area exactly
           scaleX = objWidth / img.width
           scaleY = objHeight / img.height
+          
+          // Position to fill exactly
+          fabricImage.set({
+            left: objLeft,
+            top: objTop,
+            originX: 'left',
+            originY: 'top'
+          })
+          
         } else {
-          // Default to cover
+          // Default to smart fit - similar to cover but with better positioning
           const scaleX1 = objWidth / img.width
           const scaleY1 = objHeight / img.height
           const scale = Math.max(scaleX1, scaleY1)
           scaleX = scale
           scaleY = scale
+          
+          // Smart positioning - center the image
+          fabricImage.set({
+            left: objLeft + objWidth / 2,
+            top: objTop + objHeight / 2,
+            originX: 'center',
+            originY: 'center'
+          })
         }
         
         // Apply scaling and ensure proper dimensions
@@ -1575,9 +1774,39 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
         canvasRef.current!.add(fabricImage)
         canvasRef.current!.sendToBack(fabricImage)
         
+        // Debug: Show the background image bounds (temporary)
+        const bgDebugRect = new fabric.Rect({
+          left: fabricImage.left!,
+          top: fabricImage.top!,
+          width: (fabricImage.width! * fabricImage.scaleX!),
+          height: (fabricImage.height! * fabricImage.scaleY!),
+          fill: 'rgba(0, 255, 0, 0.2)',
+          stroke: 'green',
+          strokeWidth: 2,
+          originX: 'center',
+          originY: 'center',
+          selectable: false,
+          evented: false
+        })
+        
+        // Add debug rectangle temporarily
+        canvasRef.current!.add(bgDebugRect)
+        canvasRef.current!.sendToBack(bgDebugRect)
+        
+        // Remove debug rectangle after 3 seconds
+        setTimeout(() => {
+          if (canvasRef.current) {
+            canvasRef.current.remove(bgDebugRect)
+            canvasRef.current.renderAll()
+          }
+        }, 3000)
+        
         // Ensure the template objects are above the background
         canvasRef.current!.bringToFront(selectedObject)
         canvasRef.current!.renderAll()
+        
+        // Reset cursor to default (arrow) after background operation
+        canvasRef.current!.defaultCursor = 'default'
         
         console.log('✅ Template background image set successfully')
         console.log('🎯 Background image details:', {
@@ -1751,6 +1980,11 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
         ;(fabricImage as any).linkedObjectId = (backgroundObject as any).linkedObjectId
         ;(fabricImage as any).zIndex = (backgroundObject as any).zIndex
         
+        // Log debug information if available
+        if ((fabricImage as any).debugInfo) {
+          console.log('🔍 Background image debug info:', (fabricImage as any).debugInfo)
+        }
+        
         // Replace the placeholder with the actual image
         if (canvasRef.current) {
           const canvas = canvasRef.current
@@ -1783,6 +2017,11 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       width: objWidth,
       height: objHeight
     })
+    
+    // Reset cursor to default (arrow) after background preset operation
+    if (canvasRef.current) {
+      canvasRef.current.defaultCursor = 'default'
+    }
   }
 
   // Remove background image functionality
@@ -1809,6 +2048,9 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       backgroundImages.forEach(bg => canvasRef.current!.remove(bg))
       canvasRef.current!.renderAll()
       console.log('✅ Template background image removed')
+      
+      // Reset cursor to default (arrow) after background removal
+      canvasRef.current!.defaultCursor = 'default'
     } else {
       console.log('ℹ️ No background image found for selected template')
       alert('No background image found for the selected template.')
@@ -1829,6 +2071,9 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
       allBackgrounds.forEach(bg => canvasRef.current!.remove(bg))
       canvasRef.current!.renderAll()
       console.log('✅ All template backgrounds removed')
+      
+      // Reset cursor to default (arrow) after removing all backgrounds
+      canvasRef.current!.defaultCursor = 'default'
     } else {
       console.log('ℹ️ No template backgrounds found')
     }
@@ -2195,6 +2440,35 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
      console.log('🛠️ Canvas currentTool property:', (canvasRef.current as any).currentTool)
    }
 
+   // Enhanced cursor management function
+   const updateCursor = (cursor: string, target?: fabric.Object) => {
+     if (!canvasRef.current) return
+     
+     // Update cursor based on context
+     if (target) {
+       // When hovering over objects, show appropriate cursor
+       if (target.type === 'image' && (target as any).isEditable) {
+         canvasRef.current.defaultCursor = 'pointer'
+       } else if (target.selectable) {
+         canvasRef.current.defaultCursor = 'move'
+       } else {
+         canvasRef.current.defaultCursor = cursor
+       }
+     } else {
+       // When not hovering over objects, show default cursor
+       canvasRef.current.defaultCursor = cursor
+     }
+     
+     canvasRef.current.renderAll()
+   }
+
+   // Reset cursor to default (arrow) after background operations
+   const resetCursorToDefault = () => {
+     if (!canvasRef.current) return
+     canvasRef.current.defaultCursor = 'default'
+     canvasRef.current.renderAll()
+   }
+
    // Add image inside a selected shape (circle or rectangle)
    const addImageInShape = () => {
      if (!canvasRef.current) return
@@ -2322,6 +2596,8 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
      // Template layout preservation
      preserveTemplateLayout,
      lockTemplateLayout,
-     unlockTemplateLayout
+     unlockTemplateLayout,
+     updateCursor,
+     resetCursorToDefault
    }
 }

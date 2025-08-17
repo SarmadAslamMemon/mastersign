@@ -5,13 +5,13 @@ import {
   Undo, 
   Redo, 
   Image, 
-  Palette, 
-  Settings,
   ZoomIn,
   ZoomOut,
   Maximize,
   Eye,
-  EyeOff
+  EyeOff,
+  PanelLeft,
+  PanelRight
 } from 'lucide-react'
 import { BackgroundImageService, BackgroundPreset } from '../services/BackgroundImageService'
 
@@ -23,15 +23,19 @@ interface EnhancedTopBarProps {
   onZoomIn: () => void
   onZoomOut: () => void
   onResetZoom: () => void
-  onSetBackgroundImage: (file: File) => void
   onSetBackgroundPreset: (preset: BackgroundPreset) => void
   onGenerateRandomTestImage: () => void
   onAddImageInShape: () => void
+  onToggleLeftSidebar?: () => void
+  onToggleRightPanel?: () => void
+  showLeftSidebar?: boolean
+  showRightPanel?: boolean
   canUndo: boolean
   canRedo: boolean
   currentZoom: number
   selectedObjectCount: number
   currentTool: string
+  isSaving?: boolean
 }
 
 export const EnhancedTopBar: React.FC<EnhancedTopBarProps> = ({
@@ -42,81 +46,96 @@ export const EnhancedTopBar: React.FC<EnhancedTopBarProps> = ({
   onZoomIn,
   onZoomOut,
   onResetZoom,
-  onSetBackgroundImage,
   onSetBackgroundPreset,
   onGenerateRandomTestImage,
   onAddImageInShape,
+  onToggleLeftSidebar,
+  onToggleRightPanel,
+  showLeftSidebar = true,
+  showRightPanel = true,
   canUndo,
   canRedo,
   currentZoom,
   selectedObjectCount,
-  currentTool
+  currentTool,
+  isSaving
 }) => {
-  const [showBackgroundGallery, setShowBackgroundGallery] = useState(false)
-  const [showImageUpload, setShowImageUpload] = useState(false)
   const [lastAppliedBackground, setLastAppliedBackground] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
   const backgroundService = BackgroundImageService.getInstance()
-  const backgroundPresets = backgroundService.getBackgroundPresets()
-
-  const handleBackgroundImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (file) {
-      onSetBackgroundImage(file)
-      setShowImageUpload(false)
-    }
-  }
-
-  const handlePresetSelect = (preset: BackgroundPreset) => {
-    onSetBackgroundPreset(preset)
-    setLastAppliedBackground(preset.name)
-    setShowBackgroundGallery(false)
-    
-    // Clear the indicator after 2 seconds
-    setTimeout(() => setLastAppliedBackground(null), 2000)
-  }
 
   // Create a default background preset for the Background button
-  const handleBackgroundButtonClick = () => {
-    const defaultBackground: BackgroundPreset = {
-      id: 'default-background',
-      name: 'Default Background',
-      type: 'solid',
-      value: '#f8f9fa'
+  const handleBackgroundButtonClick = async () => {
+    try {
+      setIsLoading(true)
+      const defaultBackground: BackgroundPreset = {
+        id: 'default-background',
+        name: 'Default Background',
+        type: 'solid',
+        value: '#f8f9fa'
+      }
+      await onSetBackgroundPreset(defaultBackground)
+      setLastAppliedBackground('Default Background')
+      
+      // Clear the indicator after 2 seconds
+      setTimeout(() => setLastAppliedBackground(null), 2000)
+    } catch (error) {
+      console.error('Error applying default background:', error)
+      alert('Failed to apply default background. Please try again.')
+    } finally {
+      setIsLoading(false)
     }
-    onSetBackgroundPreset(defaultBackground)
-    setLastAppliedBackground('Default Background')
-    
-    // Clear the indicator after 2 seconds
-    setTimeout(() => setLastAppliedBackground(null), 2000)
-  }
-
-  // Create a test background preset for the Test BG button
-  const handleTestBGButtonClick = () => {
-    const testBackground: BackgroundPreset = {
-      id: 'test-background',
-      name: 'Test Background',
-      type: 'gradient',
-      value: 'test-gradient'
-    }
-    onSetBackgroundPreset(testBackground)
-    setLastAppliedBackground('Test Background')
-    
-    // Clear the indicator after 2 seconds
-    setTimeout(() => setLastAppliedBackground(null), 2000)
   }
 
   return (
-    <div className="bg-white border-b border-gray-200 px-4 py-3">
+    <div className="bg-white border-b border-gray-200 px-6 py-3 relative">
+      {/* Global Loading Indicator */}
+      {isLoading && (
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 animate-pulse" />
+      )}
+      
+      {/* Main Toolbar */}
       <div className="flex items-center justify-between">
         {/* Left Section - Main Controls */}
         <div className="flex items-center space-x-3">
+          {/* Sidebar Toggle Buttons - Mobile Only */}
+          {onToggleLeftSidebar && (
+            <button
+              onClick={onToggleLeftSidebar}
+              className="md:hidden flex items-center space-x-2 px-3 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
+              title="Toggle left sidebar"
+            >
+              <PanelLeft className="w-4 h-4" />
+              <span className="text-sm font-medium">Templates</span>
+            </button>
+          )}
+          
+          {onToggleRightPanel && (
+            <button
+              onClick={onToggleRightPanel}
+              className="lg:hidden flex items-center space-x-2 px-3 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
+              title="Toggle properties panel"
+            >
+              <PanelRight className="w-4 h-4" />
+              <span className="text-sm font-medium">Properties</span>
+            </button>
+          )}
+
           {/* Save & Export */}
           <button
             onClick={onSave}
-            className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            disabled={isSaving}
+            className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${
+              isSaving 
+                ? 'bg-gray-400 text-white cursor-not-allowed' 
+                : 'bg-blue-600 text-white hover:bg-blue-700'
+            }`}
+            title={isSaving ? 'Saving...' : 'Save design as PNG'}
           >
             <Save className="w-4 h-4" />
-            <span className="text-sm font-medium">Save</span>
+            <span className="text-sm font-medium">
+              {isSaving ? 'Saving...' : 'Save'}
+            </span>
           </button>
           
           <button
@@ -164,65 +183,19 @@ export const EnhancedTopBar: React.FC<EnhancedTopBarProps> = ({
           {/* Background Button - Now works like a preset */}
           <button
             onClick={handleBackgroundButtonClick}
+            disabled={isLoading}
             className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-200 ${
               lastAppliedBackground === 'Default Background'
                 ? 'bg-green-100 text-green-700 border-2 border-green-300'
                 : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
-            }`}
+            } ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
             title="Apply a light gray background to the selected template"
           >
             <Image className="w-4 h-4" />
-            <span className="text-sm font-medium">Background</span>
+            <span className="text-sm font-medium">
+              {isLoading ? 'Applying...' : 'Background'}
+            </span>
             {lastAppliedBackground === 'Default Background' && (
-              <span className="text-xs bg-green-500 text-white px-2 py-1 rounded-full">✓</span>
-            )}
-          </button>
-
-          {/* Background Presets */}
-          <div className="relative">
-            <button
-              onClick={() => setShowBackgroundGallery(!showBackgroundGallery)}
-              className="flex items-center space-x-2 px-3 py-2 bg-orange-100 text-orange-700 rounded-md hover:bg-orange-200 transition-colors"
-            >
-              <Palette className="w-4 h-4" />
-              <span className="text-sm font-medium">Presets</span>
-            </button>
-            
-            {showBackgroundGallery && (
-              <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-md shadow-lg p-4 z-50 min-w-[300px]">
-                <h3 className="text-sm font-medium text-gray-900 mb-3">Background Presets</h3>
-                <div className="grid grid-cols-2 gap-2">
-                  {backgroundPresets.map((preset) => (
-                    <button
-                      key={preset.id}
-                      onClick={() => handlePresetSelect(preset)}
-                      className="p-2 text-left border border-gray-200 rounded-md hover:bg-gray-50 transition-colors"
-                    >
-                      <div className="w-full h-16 rounded mb-2" style={{
-                        background: preset.type === 'gradient' ? preset.value as string : preset.value as string
-                      }} />
-                      <div className="text-xs font-medium text-gray-900">{preset.name}</div>
-                      <div className="text-xs text-gray-500 capitalize">{preset.type}</div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Test BG Button - Now works like a preset */}
-          <button
-            onClick={handleTestBGButtonClick}
-            className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-200 ${
-              lastAppliedBackground === 'Test Background'
-                ? 'bg-green-100 text-green-700 border-2 border-green-300'
-                : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
-            }`}
-            title="Apply a test gradient background to the selected template"
-          >
-            <Image className="w-4 h-4" />
-            <span className="text-sm font-medium">Test BG</span>
-            {lastAppliedBackground === 'Test Background' && (
               <span className="text-xs bg-green-500 text-white px-2 py-1 rounded-full">✓</span>
             )}
           </button>
@@ -268,16 +241,6 @@ export const EnhancedTopBar: React.FC<EnhancedTopBarProps> = ({
           </div>
         </div>
       </div>
-
-      {/* Background Click Handler */}
-      {showBackgroundGallery && (
-        <div 
-          className="fixed inset-0 z-40" 
-          onClick={() => {
-            setShowBackgroundGallery(false)
-          }}
-        />
-      )}
     </div>
   )
 }

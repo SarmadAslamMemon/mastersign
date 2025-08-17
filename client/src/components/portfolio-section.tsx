@@ -192,6 +192,20 @@ export default function PortfolioSection() {
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </motion.div>
+          
+          <motion.div className="text-center mt-6" variants={fadeInUp}>
+            <Button 
+              asChild
+              size="lg"
+              variant="outline"
+              className="border-2 border-[var(--master-blue)] text-[var(--master-blue)] hover:bg-[var(--master-blue)] hover:text-white px-8 py-3 transition-all duration-300"
+            >
+              <a href="/enhanced-editor">
+                🎨 Start Designing Your Own
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </a>
+            </Button>
+          </motion.div>
         </motion.div>
 
         {/* Customer Success Quote */}

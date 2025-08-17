@@ -343,14 +343,58 @@ export class BackgroundImageService {
           
           console.log('📐 Calculated scaling:', { scaleX, scaleY, targetWidth: width, targetHeight: height })
           
+          // For cover mode: use the scale that ensures FULL coverage
+          // The issue: Math.max(scaleX, scaleY) doesn't always work for different orientations
+          
+          // Calculate what the image dimensions would be with each scale
+          const widthWithScaleX = loadedImage.width! * scaleX
+          const heightWithScaleX = loadedImage.height! * scaleX
+          const widthWithScaleY = loadedImage.width! * scaleY
+          const heightWithScaleY = loadedImage.height! * scaleY
+          
+          console.log('📐 Scale analysis:', {
+            scaleX: { scale: scaleX, resultingWidth: widthWithScaleX, resultingHeight: heightWithScaleX },
+            scaleY: { scale: scaleY, resultingWidth: widthWithScaleY, resultingHeight: heightWithScaleY },
+            targetArea: { width, height }
+          })
+          
+          // Determine which scale will actually cover the entire target area
+          let finalScale: number
+          
+          if (widthWithScaleX >= width && heightWithScaleX >= height) {
+            // scaleX covers both dimensions
+            finalScale = scaleX
+            console.log('✅ Using scaleX - covers both dimensions')
+          } else if (widthWithScaleY >= width && heightWithScaleY >= height) {
+            // scaleY covers both dimensions
+            finalScale = scaleY
+            console.log('✅ Using scaleY - covers both dimensions')
+          } else {
+            // Neither scale covers both dimensions, use the larger one
+            finalScale = Math.max(scaleX, scaleY)
+            console.log('⚠️ Neither scale covers both dimensions, using larger scale')
+          }
+          
+          console.log('📐 Final scaling:', { 
+            scaleX, 
+            scaleY,
+            finalScale,
+            originalImage: { width: loadedImage.width, height: loadedImage.height },
+            targetArea: { width, height },
+            scaledImage: { 
+              width: loadedImage.width! * finalScale, 
+              height: loadedImage.height! * finalScale 
+            }
+          })
+          
           // Update the loaded image with the correct positioning and properties
           loadedImage.set({
             left: 0,
             top: 0,
             originX: 'center',
             originY: 'center',
-            scaleX: scaleX,
-            scaleY: scaleY,
+            scaleX: finalScale,
+            scaleY: finalScale,
             selectable: false,
             evented: false,
             // Apply the same clipping to the loaded image
@@ -363,6 +407,21 @@ export class BackgroundImageService {
               originY: 'top'
             })
           })
+          
+          // Add debug information to the image object
+          ;(loadedImage as any).debugInfo = {
+            originalDimensions: { width: loadedImage.width, height: loadedImage.height },
+            targetArea: { width, height },
+            scaleUsed: finalScale,
+            resultingDimensions: { 
+              width: loadedImage.width! * finalScale, 
+              height: loadedImage.height! * finalScale 
+            },
+            scaleAnalysis: {
+              scaleX: { scale: scaleX, coversBoth: widthWithScaleX >= width && heightWithScaleX >= height },
+              scaleY: { scale: scaleY, coversBoth: widthWithScaleY >= width && heightWithScaleY >= height }
+            }
+          }
           
           resolve(loadedImage)
         }, {

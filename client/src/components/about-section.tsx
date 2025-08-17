@@ -84,6 +84,17 @@ export default function AboutSection() {
                 </motion.div>
               ))}
             </motion.div>
+            
+            {/* Start Designing Button */}
+            <motion.div className="mt-8" variants={fadeInUp}>
+              <a 
+                href="/enhanced-editor"
+                className="inline-flex items-center space-x-2 bg-[var(--master-blue)] text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors font-semibold"
+              >
+                <span>🎨</span>
+                <span>Start Designing Your Sign</span>
+              </a>
+            </motion.div>
           </motion.div>
 
           {/* Image */}
