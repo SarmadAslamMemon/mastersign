@@ -118,8 +118,7 @@ export const EnhancedDesignEditor: React.FC<EnhancedDesignEditorProps> = ({
             textAlign: 'left'
           }
         }
-      ],
-      thumbnail: undefined
+      ]
     },
     // New T-Shirt/Banner Promotional Template
     {
@@ -272,8 +271,7 @@ export const EnhancedDesignEditor: React.FC<EnhancedDesignEditorProps> = ({
             fontFamily: 'Arial', fontSize: 16, fontWeight: 'normal', textAlign: 'left', text: 'Contact us:\n📞 (555) 123-4567\n📧 orders@tshirtpro.com\n🌐 www.tshirtpro.com'
           }
         }
-      ],
-      thumbnail: undefined
+      ]
     },
     // Custom Banner Template for testing background rendering
     {

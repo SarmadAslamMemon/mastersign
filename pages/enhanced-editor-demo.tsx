@@ -1,5 +1,5 @@
 import React from 'react'
-import { EnhancedDesignEditor } from '../components/design-editor/EnhancedDesignEditor'
+import { EnhancedDesignEditor } from '../components/design-editor'
 
 const EnhancedEditorDemo = () => {
   return (

@@ -1,276 +1,441 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
-import FaqsSection from "@/components/faqs-section";
-import { ProductCategory, PRODUCT_SUBCATEGORIES, Product } from "@/types/products";
+import { ProductCategory, Product } from "@/types/products";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { staggerContainer, fadeInUp } from "@/lib/animations";
-import { ChevronRight, Star, ShoppingCart, Eye } from "lucide-react";
-import { getCategoryImage } from "@/lib/image-utils";
-import { DUMMY_PRODUCTS, getProductsByCategory, getCategoryData } from "@/data/dummy-products";
+import { Star, ShoppingCart, Eye } from "lucide-react";
+import { useProducts } from "@/hooks/useSupabase";
 
-type Shape = "Rectangle" | "Square" | "Circle";
-
+// Category fallback images mapping
 const categoryFallbackImage: Record<ProductCategory, string> = {
-  [ProductCategory.BANNERS_FLAGS]: getCategoryImage('BANNERS_FLAGS'),
-  [ProductCategory.SIGNS]: getCategoryImage('SIGNS'),
-  [ProductCategory.VEHICLE_TRAILER]: getCategoryImage('VEHICLE_TRAILER'),
-  [ProductCategory.INDOOR_SIGNS]: getCategoryImage('INDOOR_SIGNS'),
-  [ProductCategory.OUTDOOR_SIGNS]: getCategoryImage('OUTDOOR_SIGNS'),
-  [ProductCategory.ELECTRIC_SIGNS]: getCategoryImage('ELECTRIC_SIGNS'),
-  [ProductCategory.LASER_ENGRAVING]: getCategoryImage('LASER_ENGRAVING'),
-  [ProductCategory.DECALS_STICKERS]: getCategoryImage('DECALS_STICKERS'),
-  [ProductCategory.EXPO_DISPLAY]: getCategoryImage('EXPO_DISPLAY'),
-  [ProductCategory.PRIVACY_SECURITY]: getCategoryImage('PRIVACY_SECURITY'),
-  [ProductCategory.MARKETING]: getCategoryImage('MARKETING'),
-  [ProductCategory.PROMO]: getCategoryImage('PROMO'),
-  [ProductCategory.ACCESSORIES]: getCategoryImage('ACCESSORIES'),
+  [ProductCategory.SIGNS]: "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Signs/category-signs.jpg",
+  [ProductCategory.BANNERS_FLAGS]: "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/category-banners.jpg",
+  [ProductCategory.VEHICLE_TRAILER]: "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Vehicle/category-vehicle.jpg",
+  [ProductCategory.LASER_ENGRAVING]: "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Laser%20Engraving/category-laser.jpg",
+  [ProductCategory.EXPO_DISPLAY]: "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Banners/category-banners.jpg",
+  [ProductCategory.DECALS_STICKERS]: "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Signs/category-signs.jpg",
+  [ProductCategory.PRIVACY_SECURITY]: "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Signs/category-signs.jpg",
+  [ProductCategory.MARKETING]: "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Signs/category-signs.jpg",
+  [ProductCategory.PROMO]: "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Signs/category-signs.jpg",
+  [ProductCategory.ELECTRIC_SIGNS]: "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Signs/category-signs.jpg",
+  [ProductCategory.INDOOR_SIGNS]: "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Signs/category-signs.jpg",
+  [ProductCategory.OUTDOOR_SIGNS]: "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Signs/category-signs.jpg",
+  [ProductCategory.ACCESSORIES]: "https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Signs/category-signs.jpg"
+};
+
+// Function to convert database category to display name
+function getCategoryDisplayName(category: ProductCategory): string {
+  const displayNames: Record<ProductCategory, string> = {
+    [ProductCategory.EXPO_DISPLAY]: "Expo Display",
+    [ProductCategory.LASER_ENGRAVING]: "Laser Engraving",
+    [ProductCategory.DECALS_STICKERS]: "Decals & Stickers",
+    [ProductCategory.BANNERS_FLAGS]: "Banners & Flags",
+    [ProductCategory.SIGNS]: "Signs",
+    [ProductCategory.PRIVACY_SECURITY]: "Privacy & Security Films",
+    [ProductCategory.MARKETING]: "Marketing",
+    [ProductCategory.PROMO]: "Promotional",
+    [ProductCategory.ELECTRIC_SIGNS]: "Electric Signs",
+    [ProductCategory.VEHICLE_TRAILER]: "Vehicle & Trailer",
+    [ProductCategory.INDOOR_SIGNS]: "Indoor Signs",
+    [ProductCategory.OUTDOOR_SIGNS]: "Outdoor Signs",
+    [ProductCategory.ACCESSORIES]: "Accessories"
+  };
+  return displayNames[category] || category;
+}
+
+// Function to validate and get a safe image URL
+function getSafeImageUrl(imageUrl: string | undefined, category: ProductCategory): string {
+  if (!imageUrl) {
+    return categoryFallbackImage[category] || categoryFallbackImage[ProductCategory.SIGNS];
+  }
+  
+  // Check if the image URL is valid
+  try {
+    new URL(imageUrl);
+    return imageUrl;
+  } catch {
+    // Invalid URL, use fallback
+    return categoryFallbackImage[category] || categoryFallbackImage[ProductCategory.SIGNS];
+  }
+}
+
+// Sub-categories mapping
+const PRODUCT_SUBCATEGORIES: Record<ProductCategory, string[]> = {
+  [ProductCategory.EXPO_DISPLAY]: [
+    "Trade Show Displays", "Banner Stands", "Custom Table Covers", 
+    "Event Tent Signs", "Trade Show Support Materials", "Pop-up Displays",
+    "Retractable Banners", "Table Covers", "Event Signage", "Display Accessories"
+  ],
+  [ProductCategory.LASER_ENGRAVING]: [
+    "Engraved Signs", "Laser Engraved Plaques and Awards", "Laser Engraved Metal",
+    "Laser Engraved Wood", "Laser Engraved Plastic", "Custom Promotional Products",
+    "Laser Cut Signs", "Engraved Plaques", "Metal Engraving", "Wood Engraving"
+  ],
+  [ProductCategory.DECALS_STICKERS]: [
+    "Custom Stickers", "Wall Decals", "Window Decals", "Floor Decals",
+    "Vinyl Lettering", "Custom Vinyl Decals", "Die-Cut Stickers",
+    "Vehicle Magnets", "Custom Magnets", "Vinyl Graphics", "Sticker Sheets",
+    "Wall Graphics", "Window Graphics", "Floor Graphics", "Vehicle Decals"
+  ],
+  [ProductCategory.BANNERS_FLAGS]: [
+    "Vinyl Banners", "Flags", "Custom Flags", "Flag Poles and Accessories",
+    "Pole Banners", "Event and Promotional Banners", "Banners for Sports Teams",
+    "Outdoor Banners", "Indoor Banners", "Flag Poles", "Banner Stands",
+    "Promotional Banners", "Sports Banners", "Event Banners"
+  ],
+  [ProductCategory.SIGNS]: [
+    "Channel Letters", "Monument Signs", "Directional Signs", "Neon Signs",
+    "Illuminated Signs", "Dimensional Signs", "Building Signs", "Lobby Signs",
+    "Door Signs", "A-Frame Signs", "Reflective Signs", "Safety Signs",
+    "Wayfinding Signs", "ADA Compliant Signs", "Custom Signs", "Floor Graphics",
+    "Wall Graphics", "Pylon Signs", "Yard Signs", "Real Estate Signs",
+    "Hanging Signs", "Temporary and Event Signage"
+  ],
+  [ProductCategory.PRIVACY_SECURITY]: [
+    "Window Privacy Films", "Security Window Films", "Decorative Window Films",
+    "Solar Control Films"
+  ],
+  [ProductCategory.MARKETING]: [
+    "Branding Packages", "Digital Marketing Materials", "Print Marketing",
+    "Trade Show Materials", "Promotional Items", "Business Cards",
+    "Brochures", "Flyers", "Posters", "Banners", "Vehicle Graphics"
+  ],
+  [ProductCategory.PROMO]: [
+    "Promotional Products", "Trade Show Giveaways", "Custom Apparel",
+    "Branded Items", "Corporate Gifts", "Event Materials"
+  ],
+  [ProductCategory.ELECTRIC_SIGNS]: [
+    "LED Signs", "Neon Signs", "Digital Displays", "Message Centers",
+    "Electronic Signs", "Lighted Signs", "Illuminated Displays"
+  ],
+  [ProductCategory.VEHICLE_TRAILER]: [
+    "Vehicle Wraps", "Trailer Graphics", "Fleet Graphics", "Car Decals",
+    "Truck Graphics", "Van Wraps", "Motorcycle Graphics", "Boat Graphics"
+  ],
+  [ProductCategory.INDOOR_SIGNS]: [
+    "Lobby Signs", "Wall Murals", "Directional Signs", "Room Signs",
+    "Office Signs", "Retail Signs", "Restaurant Signs", "Healthcare Signs"
+  ],
+  [ProductCategory.OUTDOOR_SIGNS]: [
+    "Pylon Signs", "Yard Signs", "Building Signs", "Monument Signs",
+    "Pole Signs", "Channel Letters", "LED Signs", "Neon Signs"
+  ],
+  [ProductCategory.ACCESSORIES]: [
+    "Mounting Hardware", "Cleaning Supplies", "Installation Tools",
+    "Sign Accessories", "Lighting Components", "Electrical Components"
+  ]
 };
 
 function slugify(input: string) {
-  return input.toLowerCase().replace(/[\s/&]+/g, "-");
+  return input.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
 export default function ProductsBrowsePage() {
-  const params = (() => {
-    try { return new URLSearchParams(window.location.search); } catch { return new URLSearchParams(); }
-  })();
-  
-  const initialCategoryFromQuery: ProductCategory | undefined = (() => {
-    const c = params.get("category");
-    if (!c) return undefined;
-    const decodedCategory = decodeURIComponent(c);
-    // Find exact match with the enum values
-    const match = Object.values(ProductCategory).find((v) => v === decodedCategory);
-    return match as ProductCategory | undefined;
-  })();
+  const params = new URLSearchParams(window.location.search);
+  const [selectedCategory, setSelectedCategory] = useState<ProductCategory>(
+    (params.get('category') as ProductCategory) || ProductCategory.SIGNS
+  );
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>('');
 
-  const [selectedCategory, setSelectedCategory] = useState<ProductCategory>(initialCategoryFromQuery || ProductCategory.SIGNS);
-  const subCategoriesForInitial = PRODUCT_SUBCATEGORIES[initialCategoryFromQuery || ProductCategory.SIGNS] || [];
-  
-  const initialSub = (() => {
-    const s = params.get("sub");
-    if (!s) return "all";
-    const match = subCategoriesForInitial.find((x) => x.toLowerCase() === decodeURIComponent(s).toLowerCase());
-    return match || "all";
-  })();
-  
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string>(initialSub);
-  const [search, setSearch] = useState<string>("");
+  // Fetch real products from Supabase
+  const { products, loading, error, fetchProductsByCategory } = useProducts();
 
-  // Get subcategories for the selected category (for the sidebar selector)
+  useEffect(() => {
+    // Fetch products for the selected category
+    console.log('🔄 Category changed to:', selectedCategory);
+    fetchProductsByCategory(selectedCategory);
+  }, [selectedCategory, fetchProductsByCategory]);
+
   const subCategories = PRODUCT_SUBCATEGORIES[selectedCategory] || [];
 
   const items: Product[] = useMemo(() => {
-    // Get real products from dummy data for the selected category
-    const categoryProducts = getProductsByCategory(selectedCategory);
+    if (loading) return [];
+    if (error) return [];
+
+    console.log(`🔄 Transforming ${products.length} products from Supabase`);
+    console.log('📊 Product categories found:', [...new Set(products.map(p => p.category))]);
+
+    // Remove duplicates by ID and transform Supabase products
+    const uniqueProducts = products.filter((product, index, self) => 
+      index === self.findIndex(p => p.id === product.id)
+    );
     
-    // If we have real products, use them; otherwise fall back to synthetic ones
-    if (categoryProducts.length > 0) {
-      return categoryProducts;
-    }
-    
-    // Fallback: synthesize demo items from subcategories
-    const subCategories = PRODUCT_SUBCATEGORIES[selectedCategory] || [];
-    const baseImage = categoryFallbackImage[selectedCategory];
-    const fallbackProducts = subCategories.map((sub, index) => {
-      const sizes: Array<"Small" | "Medium" | "Large"> = ["Small", "Medium", "Large"];
-      const shapes: Shape[] = ["Rectangle", "Square", "Circle"];
-      return {
-        id: `${slugify(selectedCategory)}-${slugify(sub)}`,
-        name: sub,
-        category: selectedCategory,
-        subCategory: sub,
-        description: `Professional ${sub.toLowerCase()} for your business needs.`,
-        price: 99.99 + (index * 50),
-        image: baseImage,
-        thumbnail: baseImage,
-        sizes: [],
-        shapes: [],
-        materials: ['High Quality Material'],
-        features: ['Professional Grade', 'Custom Design'],
-        specifications: {
-          weight: 1,
-          material: 'Premium Material',
-          finish: 'Professional',
-          durability: '5+ Years',
-          installation: 'Professional Required',
-          warranty: '2 Years'
-        },
-        inStock: true,
-        rating: 4.5,
-        reviewCount: 25,
-        tags: [sub.toLowerCase(), 'professional', 'custom'],
-        createdAt: new Date(),
-        updatedAt: new Date()
-      } as Product;
-    });
-    
-    return fallbackProducts;
-  }, [selectedCategory]);
+    console.log(`🔄 After removing duplicates: ${uniqueProducts.length} products`);
+
+    // Transform Supabase products to match Product interface
+    return uniqueProducts.map((supabaseProduct) => ({
+      id: supabaseProduct.id,
+      name: supabaseProduct.name,
+      category: supabaseProduct.category as ProductCategory,
+      subCategory: supabaseProduct.sub_category,
+      description: supabaseProduct.short_description || supabaseProduct.long_description,
+      price: supabaseProduct.pricing?.base_price || 99.99,
+      image: getSafeImageUrl(supabaseProduct.images?.[0], selectedCategory),
+      thumbnail: getSafeImageUrl(supabaseProduct.images?.[0], selectedCategory),
+      sizes: [],
+      shapes: [],
+      materials: ['High Quality Material'],
+      features: ['Professional Grade', 'Custom Design'],
+      specifications: supabaseProduct.specifications || {
+        weight: 1,
+        material: 'Premium Material',
+        finish: 'Professional',
+        durability: '5+ Years',
+        installation: 'Professional Required',
+        warranty: '2 Years'
+      },
+      inStock: true,
+      rating: supabaseProduct.rating || 4.5,
+      reviewCount: supabaseProduct.review_count || 25,
+      tags: supabaseProduct.tags || [supabaseProduct.sub_category?.toLowerCase(), 'professional', 'custom'],
+      createdAt: new Date(supabaseProduct.created_at),
+      updatedAt: new Date(supabaseProduct.updated_at)
+    }));
+  }, [products, loading, error, selectedCategory]);
 
   const filtered = useMemo(() => {
-    return items.filter((it) => {
-      if (selectedSubCategory !== "all" && it.subCategory !== selectedSubCategory) return false;
-      if (search && !it.name.toLowerCase().includes(search.toLowerCase())) return false;
-      return true;
-    });
-  }, [items, selectedSubCategory, search]);
+    let filteredItems = items;
 
-  const handleCategoryChange = (cat: ProductCategory) => {
-    setSelectedCategory(cat);
-    setSelectedSubCategory("all");
+    // Filter by sub-category
+    if (selectedSubCategory && selectedSubCategory !== "all") {
+      filteredItems = filteredItems.filter(item => 
+        item.subCategory === selectedSubCategory
+      );
+    }
+
+    // Filter by search term
+    if (searchTerm) {
+      filteredItems = filteredItems.filter(item =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.subCategory.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    return filteredItems;
+  }, [items, selectedSubCategory, searchTerm]);
+
+  const handleCategoryChange = (category: ProductCategory) => {
+    console.log('🎯 Category button clicked:', category);
+    setSelectedCategory(category);
+    setSelectedSubCategory('');
+    setSearchTerm('');
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navigation />
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
+            <p className="mt-4 text-lg text-gray-600">Loading products...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navigation />
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center">
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+              <p className="font-bold">Error loading products</p>
+              <p>{error}</p>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen bg-gray-50">
       <Navigation />
+      
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Our Product Catalog
+          </h1>
+          <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+            Discover our comprehensive range of professional signage solutions, 
+            from custom banners to illuminated signs and everything in between.
+          </p>
+        </div>
+      </div>
 
-      <main className="flex-1">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex gap-8">
-            {/* Sidebar */}
-            <aside className="w-64 flex-shrink-0 hidden lg:block">
-              <div className="sticky top-20">
-                <h3 className="text-lg font-semibold mb-3">Categories</h3>
-                <div className="space-y-1">
-                  {Object.values(ProductCategory).map((cat) => (
-                    <button
-                      key={cat}
-                      onClick={() => handleCategoryChange(cat)}
-                      className={`w-full text-left px-3 py-2 rounded-md transition-colors ${cat === selectedCategory ? "bg-blue-50 text-blue-700" : "hover:bg-gray-50"}`}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-
-                <div className="mt-6">
-                  <h4 className="text-sm font-medium text-gray-600 mb-2">Subcategory</h4>
-                  <Select value={selectedSubCategory} onValueChange={(v) => setSelectedSubCategory(v)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="All" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All</SelectItem>
-                      {subCategories.map((s) => (
-                        <SelectItem key={s} value={s}>{s}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </aside>
-
-            {/* Content */}
-            <section className="flex-1">
-              {/* Filters */}
-              <motion.div className="mb-6" initial="initial" whileInView="animate" viewport={{ once: true }} variants={staggerContainer}>
-                <motion.div variants={fadeInUp} className="max-w-md">
-                  <Input placeholder="Search by name..." value={search} onChange={(e) => setSearch(e.target.value)} />
-                </motion.div>
-              </motion.div>
-
-              {/* Header */}
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold">Browse {selectedCategory}</h2>
-                <div className="flex items-center space-x-4">
-                  <div className="text-sm text-gray-500">{filtered.length} results</div>
-                  <button 
-                    onClick={() => window.location.href = '/enhanced-editor'}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-                  >
-                    Start Designing
-                  </button>
-                </div>
-              </div>
-
-              {/* Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {filtered.length > 0 ? (
-                  filtered.map((item) => (
-                    <div key={item.id}>
-                      <Card className="overflow-hidden group cursor-pointer hover:shadow-lg transition-all duration-300" onClick={() => (window.location.href = `/product/${slugify(item.name)}`)}>
-                        <div className="relative overflow-hidden">
-                          <img src={item.image} alt={item.name} className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-                          
-                          {/* Product Badges */}
-                          <div className="absolute top-2 left-2 flex gap-2">
-                            {item.tags.includes('featured') && (
-                              <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">Featured</span>
-                            )}
-                            {!item.inStock && (
-                              <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full">Out of Stock</span>
-                            )}
-                          </div>
-                          
-                          {/* Quick Actions */}
-                          <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button className="bg-white/90 hover:bg-white p-2 rounded-full shadow-md">
-                              <Eye className="w-4 h-4 text-gray-600" />
-                            </button>
-                            <button className="bg-white/90 hover:bg-white p-2 rounded-full shadow-md">
-                              <ShoppingCart className="w-4 h-4 text-gray-600" />
-                            </button>
-                          </div>
-                        </div>
-                        
-                        <div className="p-4">
-                          <div className="flex items-center justify-between mb-2">
-                            <div className="text-xs text-blue-600 font-medium">{item.category}</div>
-                            <div className="flex items-center gap-1 text-xs text-gray-500">
-                              <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                              <span>{item.rating}</span>
-                              <span>({item.reviewCount})</span>
-                            </div>
-                          </div>
-                          
-                          <div className="font-semibold text-sm mb-2 line-clamp-2">{item.name}</div>
-                          
-                          <div className="text-xs text-gray-600 mb-2 line-clamp-2">{item.description}</div>
-                          
-                          <div className="flex items-center justify-between">
-                            <div className="text-lg font-bold text-blue-600">${item.price.toFixed(2)}</div>
-                            <div className="flex items-center gap-1 text-xs text-gray-500">
-                              <span>{item.subCategory}</span>
-                              <ChevronRight className="w-3 h-3" />
-                            </div>
-                          </div>
-                        </div>
-                      </Card>
-                    </div>
-                  ))
-                ) : (
-                  <div className="col-span-full text-center py-12">
-                    <div className="text-gray-500">
-                      <p className="text-lg font-medium mb-2">No products found for {selectedCategory}</p>
-                      <p className="text-sm">Try selecting a different category or check the console for debugging information.</p>
-                      <div className="mt-4 p-4 bg-gray-50 rounded-lg text-left">
-                        <p className="text-xs font-mono">
-                          Debug Info:<br/>
-                          Selected Category: {selectedCategory}<br/>
-                          Category Type: {typeof selectedCategory}<br/>
-                          Available Products: {DUMMY_PRODUCTS.length}<br/>
-                          Available Categories: {[...new Set(DUMMY_PRODUCTS.map(p => p.category))].join(', ')}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </section>
+      <div className="container mx-auto px-4 py-8">
+        {/* Category Selection */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-4">Select Category</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {Object.values(ProductCategory).map((category) => (
+              <button
+                key={category}
+                onClick={() => handleCategoryChange(category)}
+                className={`p-4 rounded-lg border-2 transition-all duration-200 ${
+                  selectedCategory === category
+                    ? 'border-blue-600 bg-blue-50 text-blue-700'
+                    : 'border-gray-200 bg-white hover:border-gray-300'
+                }`}
+              >
+                <div className="text-sm font-medium">{getCategoryDisplayName(category)}</div>
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* FAQ */}
-        <FaqsSection />
-      </main>
+        {/* Search and Filter */}
+        <div className="mb-8 flex flex-col md:flex-row gap-4">
+          <div className="flex-1">
+            <Input
+              placeholder="Search products..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full"
+            />
+          </div>
+          <Select value={selectedSubCategory || "all"} onValueChange={(value) => setSelectedSubCategory(value === "all" ? "" : value)}>
+            <SelectTrigger className="w-full md:w-48">
+              <SelectValue placeholder="All Sub-categories" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Sub-categories</SelectItem>
+              {subCategories.map((subCategory) => (
+                <SelectItem key={subCategory} value={subCategory}>
+                  {subCategory}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Results Count */}
+        <div className="mb-6">
+          <p className="text-gray-600">
+            Showing {filtered.length} of {items.length} products in {getCategoryDisplayName(selectedCategory)}
+          </p>
+        </div>
+
+        {/* Products Grid */}
+        {filtered.length > 0 ? (
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            initial="initial"
+            animate="animate"
+            variants={staggerContainer}
+          >
+            {filtered.map((product, index) => (
+              <motion.div 
+                key={product.id}
+                variants={fadeInUp}
+                className="group cursor-pointer"
+                onClick={() => window.location.href = `/product/${product.id}`}
+              >
+                <Card className="h-full overflow-hidden hover:shadow-lg transition-all duration-300">
+                  <div className="relative overflow-hidden">
+                    <img 
+                      src={product.image} 
+                      alt={product.name}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        // Fallback to category image if product image fails
+                        const target = e.target as HTMLImageElement;
+                        console.log(`🖼️ Image failed to load: ${product.image}, using fallback for category: ${product.category}`);
+                        target.src = categoryFallbackImage[product.category];
+                        // Prevent infinite error loop
+                        target.onerror = null;
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+                  </div>
+                  
+                  <div className="p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm text-blue-600 font-medium">
+                        {product.subCategory}
+                      </span>
+                      <div className="flex items-center">
+                        <Star className="h-4 w-4 text-yellow-400 fill-current" />
+                        <span className="text-sm text-gray-600 ml-1">
+                          {product.rating}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <h3 className="font-semibold text-lg mb-2 group-hover:text-blue-600 transition-colors">
+                      {product.name}
+                    </h3>
+                    
+                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                      {product.description}
+                    </p>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-xl font-bold text-blue-600">
+                        ${product.price}
+                      </span>
+                      <div className="flex gap-2">
+                        <button className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
+                          <Eye className="h-4 w-4 text-gray-600" />
+                        </button>
+                        <button className="p-2 rounded-full bg-blue-100 hover:bg-blue-200 transition-colors">
+                          <ShoppingCart className="h-4 w-4 text-blue-600" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+          <div className="text-center py-12">
+            <div className="text-gray-400 text-6xl mb-4">🔍</div>
+            <h3 className="text-xl font-semibold text-gray-600 mb-2">No products found</h3>
+            <p className="text-gray-500">
+              Try adjusting your search terms or category selection.
+            </p>
+          </div>
+        )}
+      </div>
 
       <Footer />
     </div>
   );
 }
+
+// Animation variants
+const staggerContainer = {
+  initial: {},
+  animate: {
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const fadeInUp = {
+  initial: {
+    opacity: 0,
+    y: 20
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5
+    }
+  }
+};

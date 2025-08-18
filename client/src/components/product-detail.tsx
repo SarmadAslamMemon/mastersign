@@ -103,7 +103,8 @@ export default function ProductDetailComponent({ product }: ProductDetailProps) 
             {/* Main Image */}
             <div className="relative bg-white rounded-xl overflow-hidden shadow-lg mb-6">
               <img 
-                src={product.images[selectedImageIndex]?.url || product.images[0]?.url}
+                key={selectedImageIndex}
+                src={product.images[selectedImageIndex]?.url}
                 alt={product.images[selectedImageIndex]?.alt || product.name}
                 className="w-full h-96 object-cover"
               />

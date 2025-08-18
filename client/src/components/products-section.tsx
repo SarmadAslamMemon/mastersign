@@ -4,8 +4,13 @@ import { Button } from "@/components/ui/button";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { ProductCategory, PRODUCT_SUBCATEGORIES } from "@/types/products";
 import { getImageUrl } from "@/lib/image-utils";
+import { useProducts } from "@/hooks/useSupabase";
+import { useEffect, useState } from "react";
 
 export default function ProductsSection() {
+  const { products, loading } = useProducts();
+  const [featuredProducts, setFeaturedProducts] = useState<any[]>([]);
+
   // All parent categories with their featured sub-categories
   const allCategories = [
     {
@@ -45,130 +50,96 @@ export default function ProductsSection() {
     },
     {
       category: ProductCategory.PRIVACY_SECURITY,
-      title: "Privacy/Security Films",
-      featuredSubCategories: ["Window Privacy Films", "Security Window Films", "Decorative Films"],
-      image: getImageUrl("Indoor-Outdoor Displays/IMG_20230621_000909.jpg"),
+      title: "Privacy & Security Films",
+      featuredSubCategories: ["Window Privacy Films", "Security Films", "Decorative Films"],
+      image: getImageUrl("Window Tint & Frost/IMG_20230503_200206_01.jpg"),
       popular: false
     },
     {
       category: ProductCategory.MARKETING,
       title: "Marketing",
-      featuredSubCategories: ["Branding for Businesses", "Digital Printing", "Marketing Signage"],
+      featuredSubCategories: ["Business Branding", "Multi-Location Programs", "Sign Design"],
       image: getImageUrl("Business Signage/Dancology.jpg"),
-      popular: true
+      popular: false
     },
     {
       category: ProductCategory.PROMO,
-      title: "Promo",
-      featuredSubCategories: ["Custom Promotional Products", "Trophies & Awards", "Wearables"],
+      title: "Promotional",
+      featuredSubCategories: ["Custom Products", "Trophies & Awards", "Promotional Items"],
       image: getImageUrl("Clothes/FullSizeR.jpg"),
       popular: false
     },
     {
       category: ProductCategory.ELECTRIC_SIGNS,
       title: "Electric Signs",
-      featuredSubCategories: ["LED Digital Signs", "Neon Signs", "Backlit Signs"],
+      featuredSubCategories: ["LED Signs", "Neon Signs", "Digital Displays"],
       image: getImageUrl("Channel Letters/20241112_194813.jpg"),
       popular: true
     },
     {
       category: ProductCategory.VEHICLE_TRAILER,
       title: "Vehicle & Trailer",
-      featuredSubCategories: ["Vehicle Graphics and Wraps", "Vehicle Decals", "Trailer Graphics"],
+      featuredSubCategories: ["Vehicle Wraps", "Trailer Graphics", "Fleet Branding"],
       image: getImageUrl("Vehicle Graphics/20240309_133150.jpg"),
-      popular: true
+      popular: false
     },
     {
       category: ProductCategory.INDOOR_SIGNS,
       title: "Indoor Signs",
-      featuredSubCategories: ["Wall Murals", "Lobby Signs", "Floor Graphics"],
+      featuredSubCategories: ["Office Signs", "Retail Signs", "Healthcare Signs"],
       image: getImageUrl("Office Signage/20230120_165654.jpg"),
       popular: false
     },
     {
       category: ProductCategory.OUTDOOR_SIGNS,
       title: "Outdoor Signs",
-      featuredSubCategories: ["Yard Signs", "Real Estate Signs", "Pylon Signs"],
-      image: getImageUrl("Indoor-Outdoor Displays/Exterior Sign.jpg"),
+      featuredSubCategories: ["Monument Signs", "Building Signs", "Safety Signs"],
+      image: getImageUrl("Monument Signs/Monument Sign.JPG"),
       popular: true
     },
     {
       category: ProductCategory.ACCESSORIES,
       title: "Accessories",
-      featuredSubCategories: ["Mounting Hardware", "Display Stands", "Flag Poles"],
+      featuredSubCategories: ["Mounting Hardware", "Display Stands", "Installation Tools"],
       image: getImageUrl("Fabricated Signs/20230616_154312.jpg"),
       popular: false
     }
   ];
 
-  const customerFavorites = [
-    {
-      title: "Retractable Banners",
-      category: ProductCategory.EXPO_DISPLAY,
-      reviews: 3769,
-      image: getImageUrl("Banners/MAIN - Banner.jpg"),
-      rating: 4.8
-    },
-    {
-      title: "Real Estate Signs",
-      category: ProductCategory.OUTDOOR_SIGNS,
-      reviews: 4728,
-      image: getImageUrl("Indoor-Outdoor Displays/Exterior Sign.jpg"),
-      rating: 4.9
-    },
-    {
-      title: "LED Digital Signs",
-      category: ProductCategory.ELECTRIC_SIGNS,
-      reviews: 2231,
-      image: getImageUrl("Channel Letters/20241112_194813.jpg"),
-      rating: 4.7
-    },
-    {
-      title: "Vehicle Wraps",
-      category: ProductCategory.VEHICLE_TRAILER,
-      reviews: 2438,
-      image: getImageUrl("Vehicle Graphics/20240309_133150.jpg"),
-      rating: 4.9
-    },
-    {
-      title: "Custom Banners",
-      category: ProductCategory.BANNERS_FLAGS,
-      reviews: 1699,
-      image: getImageUrl("Banners/MAIN - Banner.jpg"),
-      rating: 4.6
+  // Get featured products from Supabase data
+  useEffect(() => {
+    if (products.length > 0) {
+      // Get one featured product from each category
+      const featured = allCategories.map(cat => {
+        const categoryProducts = products.filter(p => p.category === cat.category);
+        return categoryProducts[0] || null;
+      }).filter(Boolean);
+      
+      setFeaturedProducts(featured);
     }
-  ];
+  }, [products]);
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Products Grid */}
+    <section className="py-20 bg-gray-50">
+      <div className="container mx-auto px-4">
+        {/* Header */}
         <motion.div 
           className="text-center mb-16"
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
-          variants={staggerContainer}
+          variants={fadeInUp}
         >
-          <motion.div className="flex items-center justify-center gap-3 mb-4" variants={fadeInUp}>
-            <img src={getImageUrl("app-logo-sub.png")} alt="Master Signs" className="h-8 w-auto" />
-            <span className="text-sm uppercase tracking-wide text-blue-600 font-semibold">Our Products</span>
-          </motion.div>
-          <motion.h2 
-            className="text-4xl lg:text-5xl font-bold text-black mb-3"
-            variants={fadeInUp}
-          >
-            Complete Signage Solutions
-          </motion.h2>
-          <motion.p 
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
-            variants={fadeInUp}
-          >
-            Professional signage solutions for every business need. Trusted by thousands of customers for over 15 years.
-          </motion.p>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Our Product Categories
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Discover our comprehensive range of professional signage solutions, 
+            from custom banners to illuminated signs and everything in between.
+          </p>
         </motion.div>
 
-        {/* All Categories Grid */}
+        {/* Categories Grid */}
         <motion.div 
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-20"
           initial="initial"
@@ -201,21 +172,26 @@ export default function ProductsSection() {
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
                 </div>
                 <div className="p-4 flex-1 flex flex-col">
-                  <h3 className="font-bold text-black mb-3 text-sm">{category.title}</h3>
-                  
-                  {/* Featured Sub-categories */}
-                  <div className="space-y-1 mb-3 flex-1">
-                    {category.featuredSubCategories.map((subCategory: string, subIndex: number) => (
-                      <div key={subIndex} className="flex items-center justify-between text-xs">
-                        <span className="text-gray-500 truncate">{subCategory}</span>
-                        <ChevronRight className="h-3 w-3 text-gray-400 group-hover:text-blue-600 transition-colors flex-shrink-0 ml-1" />
+                  <h3 className="font-semibold text-lg mb-2 group-hover:text-blue-600 transition-colors">
+                    {category.title}
+                  </h3>
+                  <div className="text-sm text-gray-600 mb-4 flex-1">
+                    {category.featuredSubCategories.map((sub, idx) => (
+                      <div key={idx} className="flex items-center text-xs mb-1">
+                        <ChevronRight className="h-3 w-3 text-blue-500 mr-1" />
+                        {sub}
                       </div>
                     ))}
                   </div>
-                  
-                  {/* Product count */}
-                  <div className="text-xs text-blue-600 font-medium mt-auto">
-                    {PRODUCT_SUBCATEGORIES[category.category]?.length || 0} products
+                  <div className="mt-auto">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full group-hover:bg-blue-600 group-hover:text-white transition-colors"
+                    >
+                      View Products
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -223,152 +199,103 @@ export default function ProductsSection() {
           ))}
         </motion.div>
 
-        {/* Customer Favorites */}
-        <motion.div 
-          className="mb-20"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          variants={staggerContainer}
-        >
-          <motion.h3 
-            className="text-3xl font-bold text-black text-center mb-12"
+        {/* Featured Products Section */}
+        {featuredProducts.length > 0 && (
+          <motion.div 
+            className="mb-16"
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
             variants={fadeInUp}
           >
-            Customer Favorites
-          </motion.h3>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-            {customerFavorites.map((item, index) => (
-              <motion.div 
-                key={index}
-                className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer"
-                variants={fadeInUp}
-                whileHover={{ y: -3 }}
-              >
-                <div className="relative">
-                  <img 
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-4">
-                  <div className="text-xs text-blue-600 font-medium mb-1">{item.category}</div>
-                  <h4 className="font-semibold text-black mb-2 text-sm">{item.title}</h4>
-                  <div className="flex items-center space-x-2 text-sm">
-                    <div className="flex items-center">
-                      <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                      <span className="ml-1">{item.rating}</span>
-                    </div>
-                    <span className="text-gray-500">({item.reviews.toLocaleString()})</span>
+            <h3 className="text-3xl font-bold text-center mb-12">Featured Products</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredProducts.slice(0, 6).map((product, index) => (
+                <motion.div 
+                  key={product.id}
+                  className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+                  variants={fadeInUp}
+                  whileHover={{ y: -5 }}
+                  onClick={() => window.location.href = `/product/${product.id}`}
+                >
+                  <div className="relative overflow-hidden">
+                    <img 
+                      src={product.images?.[0] || category.image} 
+                      alt={product.name}
+                      className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm text-blue-600 font-medium">
+                        {product.sub_category}
+                      </span>
+                      <div className="flex items-center">
+                        <Star className="h-4 w-4 text-yellow-400 fill-current" />
+                        <span className="text-sm text-gray-600 ml-1">
+                          {product.rating || 4.5}
+                        </span>
+                      </div>
+                    </div>
+                    <h4 className="font-semibold text-lg mb-2">{product.name}</h4>
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                      {product.short_description}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xl font-bold text-blue-600">
+                        ${product.pricing?.base_price || 99.99}
+                      </span>
+                      <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                        View Details
+                      </Button>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
 
-        {/* Services Overview */}
+        {/* CTA Section */}
         <motion.div 
-          className="bg-gray-50 rounded-3xl p-8 lg:p-12"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          variants={staggerContainer}
-        >
-          <motion.div className="text-center mb-12" variants={fadeInUp}>
-            <h3 className="text-3xl font-bold text-black mb-4">
-              Why Choose Master Signs?
-            </h3>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              We provide end-to-end signage solutions with professional design, quality materials, and expert installation.
-            </p>
-          </motion.div>
-
-          <motion.div 
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-            variants={staggerContainer}
-          >
-            {[
-              {
-                title: "Design & Consultation",
-                description: "Professional design services with expert consultation",
-                icon: "🎨"
-              },
-              {
-                title: "Quality Materials",
-                description: "Premium materials built to last in any environment",
-                icon: "🏆"
-              },
-              {
-                title: "Expert Installation",
-                description: "Professional installation by certified technicians",
-                icon: "🔧"
-              },
-              {
-                title: "Fast Turnaround",
-                description: "Quick production and delivery times",
-                icon: "⚡"
-              },
-              {
-                title: "Warranty & Support",
-                description: "Comprehensive warranty and ongoing support",
-                icon: "🛡️"
-              },
-              {
-                title: "Local Service",
-                description: "Family-owned business serving the community",
-                icon: "🏠"
-              }
-            ].map((service, index) => (
-              <motion.div 
-                key={index}
-                className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300"
-                variants={fadeInUp}
-                whileHover={{ y: -3 }}
-              >
-                <div className="text-3xl mb-4">{service.icon}</div>
-                <h4 className="font-bold text-black mb-2">{service.title}</h4>
-                <p className="text-gray-600 text-sm">{service.description}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <motion.div className="text-center mt-12" variants={fadeInUp}>
-            <Button 
-              size="lg"
-              className="btn-primary bg-blue-600 text-white hover:bg-blue-700 px-8 py-3"
-              data-testid="button-view-all-products"
-            >
-              Get Your Free Quote
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </motion.div>
-        </motion.div>
-
-        {/* Expert Services Call-out */}
-        <motion.div 
-          className="text-center mt-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-3xl p-8 lg:p-12 text-white"
+          className="text-center"
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
           variants={fadeInUp}
         >
-          <h3 className="text-3xl font-bold mb-4">The Experts in Custom Signs</h3>
-          <p className="text-xl mb-8 max-w-3xl mx-auto text-blue-100">
-            For over 15 years, Master Signs has fulfilled custom, affordable signs for thousands of customers. 
-            Our mission is to empower you to spread your message with quality craftsmanship and innovative solutions.
-          </p>
-          <Button 
-            size="lg"
-            variant="outline"
-            className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 bg-white/10 backdrop-blur-sm"
-            data-testid="button-shop-custom-signs"
-          >
-            Start Your Project
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
+          <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-12 text-white">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4">
+              Ready to Get Started?
+            </h3>
+            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+              Browse our complete product catalog or get in touch for custom solutions 
+              tailored to your specific needs.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg" 
+                variant="secondary"
+                onClick={() => window.location.href = '/products'}
+                className="bg-white text-blue-600 hover:bg-gray-100"
+              >
+                Browse All Products
+              </Button>
+              <Button 
+                size="lg" 
+                onClick={() => {
+                  const element = document.getElementById('quote');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-blue-600 transition-all duration-300"
+              >
+                Get Custom Quote
+              </Button>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

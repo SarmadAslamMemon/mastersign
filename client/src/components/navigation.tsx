@@ -161,14 +161,11 @@ export default function Navigation() {
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
             <motion.div 
-              className="flex items-center space-x-3"
+              className="flex items-center cursor-pointer"
               {...fadeInUp}
+              onClick={() => window.location.href = '/'}
             >
-              <img src={getImageUrl("app-logo-sub.png")} alt="Master Signs" className="w-12 h-12 rounded-xl object-contain" />
-              <div>
-                <h1 className="text-2xl font-bold text-black">Master Signs</h1>
-                <p className="text-sm text-blue-600">Make Your Statement</p>
-              </div>
+              <img src={getImageUrl("app-logo-sub.png")} alt="Master Signs" className="w-28 h-16 rounded-xl object-contain" />
             </motion.div>
 
             {/* Search Bar */}
@@ -391,3 +388,5 @@ export default function Navigation() {
     </>
   );
 }
+
+

@@ -2,9 +2,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
-import { Quote, Send, Upload } from "lucide-react";
+import { Quote, Send, Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,22 +11,28 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
-import { insertQuoteRequestSchema } from "@shared/schema";
+import { useQuoteRequests, useStorage } from "@/hooks/useSupabase";
 import { fadeInUp, staggerContainer, magneticHover } from "@/lib/animations";
 
-const formSchema = insertQuoteRequestSchema.extend({
+const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
+  phone: z.string().optional(),
+  company: z.string().optional(),
   serviceType: z.string().min(1, "Please select a service type"),
+  timeline: z.string().optional(),
+  budget: z.string().optional(),
+  description: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
 export default function QuoteForm() {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [uploading, setUploading] = useState(false);
   const { toast } = useToast();
-  const queryClient = useQueryClient();
+  const { createQuoteRequest } = useQuoteRequests();
+  const { uploadFile, getPublicUrl } = useStorage();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -40,36 +45,67 @@ export default function QuoteForm() {
       timeline: "",
       budget: "",
       description: "",
-      files: [],
     },
   });
 
-  const createQuoteMutation = useMutation({
-    mutationFn: async (data: FormData) => {
-      const response = await apiRequest("POST", "/api/quote-requests", data);
-      return response.json();
-    },
-    onSuccess: () => {
+  const onSubmit = async (data: FormData) => {
+    try {
+      setUploading(true);
+      
+      // Upload files to Supabase Storage
+      const fileUrls: string[] = [];
+      if (uploadedFiles.length > 0) {
+        for (const file of uploadedFiles) {
+          const fileName = `${Date.now()}-${file.name}`;
+          const { error: uploadError } = await uploadFile(
+            import.meta.env.VITE_SUPABASE_STORAGE_BUCKET || 'uploads',
+            `quote-requests/${fileName}`,
+            file
+          );
+          
+          if (uploadError) {
+            throw new Error(`Failed to upload ${file.name}: ${uploadError.message}`);
+          }
+          
+          const publicUrl = getPublicUrl(
+            import.meta.env.VITE_SUPABASE_STORAGE_BUCKET || 'uploads',
+            `quote-requests/${fileName}`
+          );
+          fileUrls.push(publicUrl);
+        }
+      }
+
+      // Create quote request with file URLs
+      const quoteData = {
+        ...data,
+        files: fileUrls,
+        status: 'pending'
+      };
+
+      const { error } = await createQuoteRequest(quoteData);
+      
+      if (error) {
+        throw new Error(error.message);
+      }
+
       toast({
         title: "Quote Request Submitted!",
         description: "We'll respond within 24 hours with your personalized quote.",
       });
+      
       form.reset();
       setUploadedFiles([]);
-      queryClient.invalidateQueries({ queryKey: ["/api/quote-requests"] });
-    },
-    onError: (error) => {
+      
+    } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to submit quote request. Please try again.",
+        description: error instanceof Error ? error.message : "Failed to submit quote request. Please try again.",
         variant: "destructive",
       });
       console.error("Quote submission error:", error);
-    },
-  });
-
-  const onSubmit = (data: FormData) => {
-    createQuoteMutation.mutate(data);
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -363,12 +399,12 @@ export default function QuoteForm() {
                     <motion.div {...magneticHover}>
                       <Button 
                         type="submit"
-                        disabled={createQuoteMutation.isPending}
+                        disabled={uploading}
                         className="ripple bg-[var(--master-blue)] text-white px-12 py-4 rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-2xl"
                         data-testid="button-submit-quote"
                       >
                         <Send className="h-5 w-5 mr-2" />
-                        {createQuoteMutation.isPending ? "Sending..." : "Send My Quote Request"}
+                        {uploading ? "Sending..." : "Send My Quote Request"}
                       </Button>
                     </motion.div>
                     <p className="text-gray-400 text-sm mt-4">We'll respond within 24 hours with your personalized quote</p>
