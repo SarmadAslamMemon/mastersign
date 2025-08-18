@@ -102,7 +102,7 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
 
          // Enhanced object interaction with smooth movement
      canvas.on('object:moving', (e) => {
-       console.log('🚀 Object moving:', e.target?.id)
+       console.log('🚀 Object moving:', (e.target as any)?.id)
        
        // Show alignment guides
        showAlignmentGuides(e.target)
@@ -114,7 +114,7 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
      })
 
     canvas.on('object:scaling', (e) => {
-      console.log('📏 Object scaling:', e.target?.id)
+      console.log('📏 Object scaling:', (e.target as any)?.id)
       
       // Maintain aspect ratio for certain objects
       if (e.target && (e.target as any).maintainAspectRatio) {
@@ -128,7 +128,7 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
     })
 
     canvas.on('object:rotating', (e) => {
-      console.log('🔄 Object rotating:', e.target?.id)
+      console.log('🔄 Object rotating:', (e.target as any)?.id)
       
       // Snap to common angles (0, 45, 90, 135, 180, 225, 270, 315)
       if (e.target) {
@@ -1593,15 +1593,15 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
         
         // Debug: Show the template area visually (temporary)
         const debugRect = new fabric.Rect({
-          left: objLeft + objWidth / 2,
-          top: objTop + objHeight / 2,
+          left: objLeft,
+          top: objTop,
           width: objWidth,
           height: objHeight,
           fill: 'rgba(255, 0, 0, 0.2)',
           stroke: 'red',
           strokeWidth: 2,
-          originX: 'center',
-          originY: 'center',
+          originX: 'left',
+          originY: 'top',
           selectable: false,
           evented: false
         })
@@ -1620,12 +1620,12 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
         
                  // Create background image that will be clipped to the template area
          const fabricImage = new fabric.Image(img, {
-           left: objLeft + objWidth / 2,
-           top: objTop + objHeight / 2,
+           left: objLeft,
+           top: objTop,
            width: objWidth,  // Set explicit width to match template area
            height: objHeight, // Set explicit height to match template area
-           originX: 'center',
-           originY: 'center',
+           originX: 'left',
+           originY: 'top',
            selectable: true,  // Allow selection for group movement
            evented: true,     // Allow events for group movement
            lockMovementX: false,  // Allow movement when part of group
@@ -1646,13 +1646,24 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
            zIndex: -1, // Ensure background stays behind template objects
            // Add clipping path to ensure the image stays within template bounds
            clipPath: new fabric.Rect({
-             left: -objWidth / 2,
-             top: -objHeight / 2,
+             left: 0,
+             top: 0,
              width: objWidth,
              height: objHeight,
              originX: 'left',
              originY: 'top'
            })
+         })
+         
+         console.log('🎨 Created background image with properties:', {
+           left: fabricImage.left,
+           top: fabricImage.top,
+           width: fabricImage.width,
+           height: fabricImage.height,
+           originX: fabricImage.originX,
+           originY: fabricImage.originY,
+           templateRole: (fabricImage as any).templateRole,
+           linkedObjectId: (fabricImage as any).linkedObjectId
          })
 
         // Calculate scaling to cover the template area
@@ -1774,6 +1785,10 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
         canvasRef.current!.add(fabricImage)
         canvasRef.current!.sendToBack(fabricImage)
         
+        console.log('✅ Background image added to canvas')
+        console.log('📍 Canvas objects count:', canvasRef.current!.getObjects().length)
+        console.log('📍 Background image in canvas:', canvasRef.current!.getObjects().includes(fabricImage))
+        
         // Debug: Show the background image bounds (temporary)
         const bgDebugRect = new fabric.Rect({
           left: fabricImage.left!,
@@ -1783,8 +1798,8 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
           fill: 'rgba(0, 255, 0, 0.2)',
           stroke: 'green',
           strokeWidth: 2,
-          originX: 'center',
-          originY: 'center',
+          originX: 'left',
+          originY: 'top',
           selectable: false,
           evented: false
         })
@@ -1882,15 +1897,15 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
     
     // Debug: Show the template area visually
     const debugRect = new fabric.Rect({
-      left: objLeft + objWidth / 2,
-      top: objTop + objHeight / 2,
+      left: objLeft,
+      top: objTop,
       width: objWidth,
       height: objHeight,
       fill: 'rgba(255, 0, 0, 0.2)',
       stroke: 'red',
       strokeWidth: 2,
-      originX: 'center',
-      originY: 'center',
+      originX: 'left',
+      originY: 'top',
       selectable: false,
       evented: false
     })
@@ -1910,27 +1925,40 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
     // Create background from preset using template area dimensions
     const backgroundObject = backgroundService.createBackgroundFromPreset(preset, objWidth, objHeight)
     
-         // Position the background to cover only the template area
-     backgroundObject.set({
-       left: objLeft + objWidth / 2,  // Center of template area
-       top: objTop + objHeight / 2,   // Center of template area
-       originX: 'center',
-       originY: 'center',
-       selectable: true,  // Allow selection for group movement
-       evented: true,     // Allow events for group movement
-       lockMovementX: false,  // Allow movement when part of group
-       lockMovementY: false,  // Allow movement when part of group
-       lockRotation: true,    // Keep rotation locked
-       lockScalingX: true,    // Keep scaling locked
-       lockScalingY: true,    // Keep scaling locked
-       hasControls: false,    // No individual controls
-       hasBorders: false,     // No individual borders
-       templateRole: 'template-background', // Template-specific
-       isEditable: false,
-       isRequired: false,
-       linkedObjectId: selectedObject.id,
-       zIndex: -100 // Behind template objects but above canvas
-     })
+    console.log('🎨 Background object created:', {
+      type: backgroundObject.type,
+      dimensions: { width: backgroundObject.width, height: backgroundObject.height },
+      position: { left: backgroundObject.left, top: backgroundObject.top },
+      isImagePlaceholder: (backgroundObject as any).isImagePlaceholder
+    })
+    
+    // Position the background to cover only the template area
+    backgroundObject.set({
+      left: objLeft,  // Top-left of template area
+      top: objTop,    // Top-left of template area
+      originX: 'left',
+      originY: 'top',
+      selectable: true,  // Allow selection for group movement
+      evented: true,     // Allow events for group movement
+      lockMovementX: false,  // Allow movement when part of group
+      lockMovementY: false,  // Allow movement when part of group
+      lockRotation: true,    // Keep rotation locked
+      lockScalingX: true,    // Keep scaling locked
+      lockScalingY: true,    // Keep scaling locked
+      hasControls: false,    // No individual controls
+      hasBorders: false,     // No individual borders
+      templateRole: 'template-background', // Template-specific
+      isEditable: false,
+      isRequired: false,
+      linkedObjectId: selectedObject.id,
+      zIndex: -100 // Behind template objects but above canvas
+    })
+    
+    console.log('🎨 Background object positioned:', {
+      finalLeft: backgroundObject.left,
+      finalTop: backgroundObject.top,
+      finalDimensions: { width: backgroundObject.width, height: backgroundObject.height }
+    })
 
     // Remove existing background images for this template
     const existingBackgrounds = canvasRef.current!.getObjects().filter(obj => 
@@ -1945,32 +1973,57 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
     canvasRef.current!.bringToFront(targetObject)
     canvasRef.current!.renderAll()
     
+    console.log('🎨 Background added to canvas:', {
+      canvasObjects: canvasRef.current!.getObjects().length,
+      backgroundObject: {
+        type: backgroundObject.type,
+        left: backgroundObject.left,
+        top: backgroundObject.top,
+        width: backgroundObject.width,
+        height: backgroundObject.height,
+        visible: backgroundObject.visible
+      }
+    })
+    
     // Handle image loading if this is an image placeholder
     if ((backgroundObject as any).isImagePlaceholder && (backgroundObject as any).imagePromise) {
       console.log('🔄 Handling image promise for background object')
+      console.log('📍 Placeholder position:', { left: backgroundObject.left, top: backgroundObject.top, width: backgroundObject.width, height: backgroundObject.height })
       
       // Wait for the image to load and then replace the placeholder
       ;(backgroundObject as any).imagePromise.then((fabricImage: fabric.Image) => {
         console.log('✅ Image loaded, replacing placeholder')
+        console.log('📍 Loaded image dimensions:', { width: fabricImage.width, height: fabricImage.height })
         
-        // Copy the positioning and properties from the placeholder
+        // CRITICAL FIX: The image should be positioned to cover the template area
+        // We need to position it at the template coordinates, not at (0,0)
         fabricImage.set({
-          left: backgroundObject.left,
-          top: backgroundObject.top,
-          originX: backgroundObject.originX,
-          originY: backgroundObject.originY,
-          scaleX: backgroundObject.scaleX,
-          scaleY: backgroundObject.scaleY,
-          angle: backgroundObject.angle,
-          selectable: true,  // Allow selection for group movement
-          evented: true,     // Allow events for group movement
-          lockMovementX: false,  // Allow movement when part of group
-          lockMovementY: false,  // Allow movement when part of group
-          lockRotation: true,    // Keep rotation locked
-          lockScalingX: true,    // Keep scaling locked
-          lockScalingY: true,    // Keep scaling locked
-          hasControls: false,    // No individual controls
-          hasBorders: false     // No individual borders
+          left: backgroundObject.left,  // Position at template area coordinates
+          top: backgroundObject.top,    // Position at template area coordinates
+          originX: 'left',
+          originY: 'top',
+          // Keep the scaling calculated by BackgroundImageService
+          scaleX: (fabricImage as any).calculatedScale || (fabricImage as any).debugInfo?.scaleUsed || 1,
+          scaleY: (fabricImage as any).calculatedScale || (fabricImage as any).debugInfo?.scaleUsed || 1,
+          angle: 0,
+          selectable: true,
+          evented: true,
+          lockMovementX: false,
+          lockMovementY: false,
+          lockRotation: true,
+          lockScalingX: true,
+          lockScalingY: true,
+          hasControls: false,
+          hasBorders: false
+        })
+        
+        console.log('🎯 CRITICAL FIX: Image positioned correctly:', {
+          left: fabricImage.left,
+          top: fabricImage.top,
+          scaleX: fabricImage.scaleX,
+          scaleY: fabricImage.scaleY,
+          calculatedScale: (fabricImage as any).calculatedScale,
+          debugInfoScale: (fabricImage as any).debugInfo?.scaleUsed
         })
         
         // Copy custom properties
@@ -1990,13 +2043,22 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
           const canvas = canvasRef.current
           const index = canvas.getObjects().indexOf(backgroundObject)
           if (index !== -1) {
+            console.log('🔄 Replacing placeholder at index:', index)
             canvas.remove(backgroundObject)
             canvas.insertAt(fabricImage, index)
             canvas.sendToBack(fabricImage)
             canvas.renderAll()
             console.log('✅ Background image replaced placeholder successfully')
+            console.log('📍 Final image position:', { left: fabricImage.left, top: fabricImage.top, width: fabricImage.width, height: fabricImage.height })
+            console.log('🎯 Final image scaling:', { scaleX: fabricImage.scaleX, scaleY: fabricImage.scaleY })
+            console.log('🎯 Expected scaling:', (fabricImage as any).calculatedScale || (fabricImage as any).debugInfo?.scaleUsed)
           } else {
             console.error('❌ Could not find placeholder in canvas objects')
+            // Add the image anyway if placeholder is missing
+            canvas.add(fabricImage)
+            canvas.sendToBack(fabricImage)
+            canvas.renderAll()
+            console.log('✅ Background image added as fallback')
           }
         } else {
           console.error('❌ Canvas reference is null during image replacement')
@@ -2005,9 +2067,15 @@ export const useCanvasEditor = ({ canvasId, width, height, onObjectModified }: U
         console.error('❌ Failed to load background image:', error)
         console.error('❌ Error details:', error.message)
         // The placeholder will remain as a fallback
+        console.log('ℹ️ Keeping placeholder as fallback background')
       })
     } else {
       console.log('ℹ️ Background object is not an image placeholder or missing imagePromise')
+      console.log('🔍 Background object type:', backgroundObject.type)
+      console.log('🔍 Background object properties:', { 
+        isImagePlaceholder: (backgroundObject as any).isImagePlaceholder,
+        hasImagePromise: !!(backgroundObject as any).imagePromise
+      })
     }
 
     console.log('✅ Template background preset applied successfully:', preset.name)

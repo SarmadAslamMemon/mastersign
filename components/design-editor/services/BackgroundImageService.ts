@@ -312,12 +312,12 @@ export class BackgroundImageService {
         strokeWidth: 2,
         selectable: false,
         evented: false,
-        originX: 'center',
-        originY: 'center',
+        originX: 'left',
+        originY: 'top',
         // Ensure the background is clipped to the template area
         clipPath: new fabric.Rect({
-          left: -width / 2,
-          top: -height / 2,
+          left: 0,
+          top: 0,
           width: width,
           height: height,
           originX: 'left',
@@ -329,78 +329,62 @@ export class BackgroundImageService {
       ;(placeholder as any).imageUrl = preset.value
       ;(placeholder as any).isImagePlaceholder = true
       
-      // Create a promise that resolves when the image is loaded
-      const imagePromise = new Promise<fabric.Image>((resolve, reject) => {
-        console.log('🔄 Starting to load image:', preset.value)
-        
-        fabric.Image.fromURL(preset.value as string, (loadedImage: fabric.Image) => {
-          console.log('✅ Background image loaded successfully:', preset.value)
-          console.log('📏 Image dimensions:', { width: loadedImage.width, height: loadedImage.height })
+              // Create a promise that resolves when the image is loaded
+        const imagePromise = new Promise<fabric.Image>((resolve, reject) => {
+          console.log('🔄 Starting to load image:', preset.value)
           
-          // Calculate proper scaling to fit the target dimensions
-          const scaleX = width / loadedImage.width!
-          const scaleY = height / loadedImage.height!
+          let timeoutId: NodeJS.Timeout
           
-          console.log('📐 Calculated scaling:', { scaleX, scaleY, targetWidth: width, targetHeight: height })
+          // Add error handling with timeout
+          timeoutId = setTimeout(() => {
+            console.error('❌ Image loading timeout for:', preset.value)
+            reject(new Error('Image loading timeout'))
+          }, 10000) // 10 second timeout
           
-          // For cover mode: use the scale that ensures FULL coverage
-          // The issue: Math.max(scaleX, scaleY) doesn't always work for different orientations
-          
-          // Calculate what the image dimensions would be with each scale
-          const widthWithScaleX = loadedImage.width! * scaleX
-          const heightWithScaleX = loadedImage.height! * scaleX
-          const widthWithScaleY = loadedImage.width! * scaleY
-          const heightWithScaleY = loadedImage.height! * scaleY
-          
-          console.log('📐 Scale analysis:', {
-            scaleX: { scale: scaleX, resultingWidth: widthWithScaleX, resultingHeight: heightWithScaleX },
-            scaleY: { scale: scaleY, resultingWidth: widthWithScaleY, resultingHeight: heightWithScaleY },
-            targetArea: { width, height }
-          })
-          
-          // Determine which scale will actually cover the entire target area
-          let finalScale: number
-          
-          if (widthWithScaleX >= width && heightWithScaleX >= height) {
-            // scaleX covers both dimensions
-            finalScale = scaleX
-            console.log('✅ Using scaleX - covers both dimensions')
-          } else if (widthWithScaleY >= width && heightWithScaleY >= height) {
-            // scaleY covers both dimensions
-            finalScale = scaleY
-            console.log('✅ Using scaleY - covers both dimensions')
-          } else {
-            // Neither scale covers both dimensions, use the larger one
-            finalScale = Math.max(scaleX, scaleY)
-            console.log('⚠️ Neither scale covers both dimensions, using larger scale')
-          }
-          
-          console.log('📐 Final scaling:', { 
-            scaleX, 
-            scaleY,
-            finalScale,
-            originalImage: { width: loadedImage.width, height: loadedImage.height },
-            targetArea: { width, height },
-            scaledImage: { 
-              width: loadedImage.width! * finalScale, 
-              height: loadedImage.height! * finalScale 
-            }
-          })
-          
-          // Update the loaded image with the correct positioning and properties
+          fabric.Image.fromURL(preset.value as string, (loadedImage: fabric.Image) => {
+            // Clear the timeout since image loaded successfully
+            clearTimeout(timeoutId)
+            
+            console.log('✅ Background image loaded successfully:', preset.value)
+            console.log('📏 Image dimensions:', { width: loadedImage.width, height: loadedImage.height })
+            
+            // Calculate proper scaling to fit the target dimensions
+            const scaleX = width / loadedImage.width!
+            const scaleY = height / loadedImage.height!
+            
+            console.log('📐 Calculated scaling:', { scaleX, scaleY, targetWidth: width, targetHeight: height })
+            
+            // For cover mode: use the scale that ensures FULL coverage
+            // Use the larger scale to ensure the image covers the entire target area
+            const finalScale = Math.max(scaleX, scaleY)
+            
+            console.log('📐 Final scaling:', { 
+              scaleX, 
+              scaleY,
+              finalScale,
+              originalImage: { width: loadedImage.width, height: loadedImage.height },
+              targetArea: { width, height },
+              scaledImage: { 
+                width: loadedImage.width! * finalScale, 
+                height: loadedImage.height! * finalScale 
+              }
+            })
+            
+                      // Update the loaded image with the correct positioning and properties
+          // The image should be positioned to cover the entire target area
           loadedImage.set({
             left: 0,
             top: 0,
-            originX: 'center',
-            originY: 'center',
+            originX: 'left',
+            originY: 'top',
             scaleX: finalScale,
             scaleY: finalScale,
             selectable: false,
             evented: false,
-            // Apply the same clipping to the loaded image
+            // Apply clipping to ensure the image stays within the target area
             clipPath: new fabric.Rect({
-              left: -width / 2,
-              top: -height / 2,
+              left: 0,
+              top: 0,
               width: width,
               height: height,
               originX: 'left',
@@ -408,32 +392,37 @@ export class BackgroundImageService {
             })
           })
           
-          // Add debug information to the image object
-          ;(loadedImage as any).debugInfo = {
-            originalDimensions: { width: loadedImage.width, height: loadedImage.height },
-            targetArea: { width, height },
-            scaleUsed: finalScale,
-            resultingDimensions: { 
-              width: loadedImage.width! * finalScale, 
-              height: loadedImage.height! * finalScale 
-            },
-            scaleAnalysis: {
-              scaleX: { scale: scaleX, coversBoth: widthWithScaleX >= width && heightWithScaleX >= height },
-              scaleY: { scale: scaleY, coversBoth: widthWithScaleY >= width && heightWithScaleY >= height }
-            }
-          }
+          // Store the calculated scale for later use
+          ;(loadedImage as any).calculatedScale = finalScale
           
-          resolve(loadedImage)
-        }, {
-          crossOrigin: 'anonymous'
+          console.log('🎨 Loaded image configured:', {
+            position: { left: loadedImage.left, top: loadedImage.top },
+            scale: { scaleX: loadedImage.scaleX, scaleY: loadedImage.scaleY },
+            dimensions: { width: loadedImage.width, height: loadedImage.height },
+            targetArea: { width, height },
+            finalScale
+          })
+            
+            // Add debug information to the image object
+            ;(loadedImage as any).debugInfo = {
+              originalDimensions: { width: loadedImage.width, height: loadedImage.height },
+              targetArea: { width, height },
+              scaleUsed: finalScale,
+              resultingDimensions: { 
+                width: loadedImage.width! * finalScale, 
+                height: loadedImage.height! * finalScale 
+              },
+              scaleAnalysis: {
+                scaleX: { scale: scaleX, coversBoth: scaleX >= 1 },
+                scaleY: { scale: scaleY, coversBoth: scaleY >= 1 }
+              }
+            }
+            
+            resolve(loadedImage)
+          }, {
+            crossOrigin: 'anonymous'
+          })
         })
-        
-        // Add error handling
-        setTimeout(() => {
-          console.error('❌ Image loading timeout for:', preset.value)
-          reject(new Error('Image loading timeout'))
-        }, 10000) // 10 second timeout
-      })
       
       // Store the promise on the placeholder
       ;(placeholder as any).imagePromise = imagePromise

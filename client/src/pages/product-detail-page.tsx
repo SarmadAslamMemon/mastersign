@@ -1,452 +1,126 @@
+import React, { useEffect, useState } from "react";
 import { useRoute } from "wouter";
-import ProductDetailComponent from "@/components/product-detail";
 import Navigation from "@/components/navigation";
-import { ProductDetail as ProductDetailType, ProductCategory, Product } from "@/types/products";
-import { DUMMY_PRODUCTS } from "@/data/dummy-products";
+import Footer from "@/components/footer";
+import { ProductCategory } from "@/types/products";
+import { useProducts } from "@/hooks/useSupabase";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Star, ShoppingCart, Heart, Share2, Truck, Shield, Clock, CheckCircle } from "lucide-react";
 
-// Helper function to find product by slug
-const findProductBySlug = (slug: string): Product | undefined => {
-  return DUMMY_PRODUCTS.find(product => {
-    const productSlug = product.name.toLowerCase().replace(/[\s/&]+/g, "-");
-    return productSlug === slug;
-  });
-};
-
-// Convert Product to ProductDetailType
-const convertToProductDetail = (product: Product): ProductDetailType => {
-  return {
-    id: product.id,
-    name: product.name,
-    category: product.category,
-    subCategory: product.subCategory,
-    shortDescription: product.description.substring(0, 100) + "...",
-    longDescription: product.description,
-    images: [
-      {
-        id: "main",
-        url: product.image,
-        alt: product.name
-      },
-      {
-        id: "thumbnail",
-        url: product.thumbnail,
-        alt: product.name
-      }
-    ],
-    rating: product.rating,
-    reviewCount: product.reviewCount,
-    questionCount: Math.floor(product.reviewCount / 5), // Estimate questions based on reviews
-    features: product.features,
-    specifications: [
-      {
-        id: "size",
-        name: "Size",
-        type: "select",
-        options: product.sizes.map(size => size.name),
-        required: true
-      },
-      {
-        id: "material",
-        name: "Material",
-        type: "select",
-        options: product.materials,
-        required: true
-      },
-      {
-        id: "finish",
-        name: "Finish",
-        type: "select",
-        options: ["Matte", "Gloss", "Satin"],
-        required: true
-      },
-      {
-        id: "quantity",
-        name: "Quantity",
-        type: "number",
-        min: 1,
-        max: 100,
-        step: 1,
-        unit: "pieces",
-        required: true
-      },
-      {
-        id: "custom_text",
-        name: "Custom Text",
-        type: "text",
-        required: false
-      }
-    ],
+// Product detail type matching Supabase schema
+interface ProductDetailType {
+  id: string;
+  name: string;
+  category: string;
+  sub_category: string;
+  short_description: string;
+  long_description: string;
+  images: Array<{
+    id: string;
+    url: string;
+    alt: string;
+  }>;
+  rating: number;
+  review_count: number;
+  question_count: number;
+  features: string[];
+  specifications: any;
     pricing: {
-      basePrice: product.price,
-      discountPercentage: 0,
-      bulkPricing: [
-        { minQuantity: 5, discount: 10 },
-        { minQuantity: 10, discount: 20 },
-        { minQuantity: 25, discount: 30 }
-      ]
-    },
-    availability: product.inStock ? "In Stock" : "Out of Stock",
-    estimatedDelivery: "3-5 business days",
-    tags: product.tags
+    base_price: number;
+    currency: string;
+    unit: string;
   };
-};
-
-// Sample product data for demonstration (fallback)
-const sampleProduct: ProductDetailType = {
-  id: "vinyl-banner-001",
-  name: "Premium Vinyl Banner",
-  category: ProductCategory.BANNERS_FLAGS,
-  subCategory: "Vinyl Banners",
-  shortDescription: "High-quality vinyl banner perfect for outdoor advertising",
-  longDescription: "Our premium vinyl banner is crafted from high-quality materials designed to withstand outdoor elements. Perfect for trade shows, outdoor events, and long-term advertising campaigns. Features include UV-resistant printing, reinforced grommets, and fade-resistant colors that maintain their vibrancy even in direct sunlight.",
-  images: [
-    {
-      id: "img1",
-      url: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      alt: "Vinyl Banner Front View"
-    },
-    {
-      id: "img2", 
-      url: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      alt: "Vinyl Banner Detail"
-    },
-    {
-      id: "img3",
-      url: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600", 
-      alt: "Vinyl Banner Installation"
-    }
-  ],
-  rating: 4.8,
-  reviewCount: 127,
-  questionCount: 23,
-  features: [
-    "UV-resistant printing",
-    "Reinforced grommets",
-    "Fade-resistant colors",
-    "Weatherproof material",
-    "Quick installation"
-  ],
-  specifications: [
-    {
-      id: "size",
-      name: "Size",
-      type: "select",
-      options: ["3' x 6'", "4' x 8'", "5' x 10'", "6' x 12'", "Custom Size"],
-      required: true
-    },
-    {
-      id: "material",
-      name: "Material",
-      type: "select", 
-      options: ["13 oz Vinyl", "18 oz Vinyl", "Premium Mesh", "Fabric"],
-      required: true
-    },
-    {
-      id: "finish",
-      name: "Finish",
-      type: "select",
-      options: ["Matte", "Gloss", "Satin"],
-      required: true
-    },
-    {
-      id: "quantity",
-      name: "Quantity",
-      type: "number",
-      min: 1,
-      max: 100,
-      step: 1,
-      unit: "pieces",
-      required: true
-    },
-    {
-      id: "custom_text",
-      name: "Custom Text",
-      type: "text",
-      required: false
-    }
-  ],
-  pricing: {
-    basePrice: 89.99,
-    discountPercentage: 15,
-    bulkPricing: [
-      { minQuantity: 5, discount: 10 },
-      { minQuantity: 10, discount: 20 },
-      { minQuantity: 25, discount: 30 }
-    ]
-  },
-  availability: "In Stock",
-  estimatedDelivery: "3-5 business days",
-  tags: ["outdoor", "advertising", "trade-show", "durable", "customizable"]
-};
-
-const channelLettersProduct: ProductDetailType = {
-  id: "channel-letters-001",
-  name: "LED Channel Letters",
-  category: ProductCategory.SIGNS,
-  subCategory: "Channel Letters",
-  shortDescription: "Professional LED channel letters for business signage",
-  longDescription: "Our LED channel letters provide exceptional visibility day and night. Each letter is custom-fabricated with premium materials and energy-efficient LED lighting. Perfect for storefronts, office buildings, and any business requiring professional exterior signage.",
-  images: [
-    {
-      id: "img1",
-      url: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      alt: "Channel Letters Front View"
-    },
-    {
-      id: "img2",
-      url: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600", 
-      alt: "Channel Letters Detail"
-    }
-  ],
-  rating: 4.9,
-  reviewCount: 89,
-  questionCount: 15,
-  features: [
-    "Energy-efficient LED lighting",
-    "Weather-resistant construction",
-    "Custom lettering",
-    "Easy installation",
-    "Long lifespan"
-  ],
-  specifications: [
-    {
-      id: "letter_height",
-      name: "Letter Height",
-      type: "select",
-      options: ["12\"", "18\"", "24\"", "36\"", "48\"", "Custom"],
-      required: true
-    },
-    {
-      id: "lighting_type",
-      name: "Lighting Type",
-      type: "select",
-      options: ["Face-lit", "Halo-lit", "Non-lit"],
-      required: true
-    },
-    {
-      id: "color",
-      name: "Color",
-      type: "text",
-      required: true
-    },
-    {
-      id: "quantity",
-      name: "Number of Letters",
-      type: "number",
-      min: 1,
-      max: 50,
-      step: 1,
-      unit: "letters",
-      required: true
-    }
-  ],
-  pricing: {
-    basePrice: 299.99,
-    discountPercentage: 10,
-    bulkPricing: [
-      { minQuantity: 3, discount: 15 },
-      { minQuantity: 5, discount: 25 }
-    ]
-  },
-  availability: "In Stock",
-  estimatedDelivery: "7-10 business days",
-  tags: ["led", "business", "exterior", "custom", "professional"]
-};
-
-const vehicleWrapProduct: ProductDetailType = {
-  id: "vehicle-wrap-001", 
-  name: "Full Vehicle Wrap",
-  category: ProductCategory.VEHICLE_TRAILER,
-  subCategory: "Vehicle Graphics and Wraps",
-  shortDescription: "Complete vehicle wrap for maximum advertising impact",
-  longDescription: "Transform your vehicle into a mobile billboard with our premium full vehicle wrap. Using high-quality vinyl materials and professional installation techniques, we create eye-catching designs that turn heads wherever you go. Perfect for businesses looking to maximize their advertising reach.",
-  images: [
-    {
-      id: "img1",
-      url: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      alt: "Vehicle Wrap Front View"
-    },
-    {
-      id: "img2",
-      url: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      alt: "Vehicle Wrap Side View"
-    }
-  ],
-  rating: 4.7,
-  reviewCount: 156,
-  questionCount: 34,
-  features: [
-    "Full vehicle coverage",
-    "High-quality vinyl material",
-    "Professional installation",
-    "UV-resistant printing",
-    "Easy removal"
-  ],
-  specifications: [
-    {
-      id: "vehicle_type",
-      name: "Vehicle Type",
-      type: "select",
-      options: ["Sedan", "SUV", "Truck", "Van", "Commercial Vehicle", "Custom"],
-      required: true
-    },
-    {
-      id: "wrap_type",
-      name: "Wrap Type",
-      type: "select",
-      options: ["Full Wrap", "Partial Wrap", "Decals Only"],
-      required: true
-    },
-    {
-      id: "design_complexity",
-      name: "Design Complexity",
-      type: "select",
-      options: ["Simple", "Moderate", "Complex", "Custom Design"],
-      required: true
-    },
-    {
-      id: "duration",
-      name: "Duration",
-      type: "select",
-      options: ["1-3 months", "3-6 months", "6-12 months", "Permanent"],
-      required: true
-    }
-  ],
-  pricing: {
-    basePrice: 2499.99,
-    discountPercentage: 5,
-    bulkPricing: [
-      { minQuantity: 2, discount: 10 },
-      { minQuantity: 5, discount: 20 }
-    ]
-  },
-  availability: "In Stock",
-  estimatedDelivery: "10-14 business days",
-  tags: ["vehicle", "advertising", "mobile", "professional", "custom"]
-};
-
-// Mock database for demonstration
-const productDatabase: Record<string, ProductDetailType> = {
-  "expo-display-001": {
-    ...sampleProduct,
-    id: "expo-display-001",
-    name: "Trade Show Display",
-    category: ProductCategory.EXPO_DISPLAY,
-    subCategory: "Trade Show Displays"
-  },
-  "laser-engraving-001": {
-    ...sampleProduct,
-    id: "laser-engraving-001", 
-    name: "Laser Engraved Plaque",
-    category: ProductCategory.LASER_ENGRAVING,
-    subCategory: "Laser Engraved Plaques and Awards"
-  },
-  "decals-stickers-001": {
-    ...sampleProduct,
-    id: "decals-stickers-001",
-    name: "Custom Vinyl Decals",
-    category: ProductCategory.DECALS_STICKERS,
-    subCategory: "Custom Stickers"
-  },
-  "banners-flags-001": {
-    ...sampleProduct,
-    id: "banners-flags-001",
-    name: "Custom Flag",
-    category: ProductCategory.BANNERS_FLAGS,
-    subCategory: "Flags"
-  },
-  "signs-001": {
-    ...sampleProduct,
-    id: "signs-001",
-    name: "Monument Sign",
-    category: ProductCategory.SIGNS,
-    subCategory: "Monument Signs"
-  },
-  "privacy-security-films-001": {
-    ...sampleProduct,
-    id: "privacy-security-films-001",
-    name: "Window Privacy Film",
-    category: ProductCategory.PRIVACY_SECURITY,
-    subCategory: "Window Privacy Films"
-  },
-  "marketing-001": {
-    ...sampleProduct,
-    id: "marketing-001",
-    name: "Business Branding Package",
-    category: ProductCategory.MARKETING,
-    subCategory: "Branding for Businesses"
-  },
-  "promo-001": {
-    ...sampleProduct,
-    id: "promo-001",
-    name: "Custom Promotional Products",
-    category: ProductCategory.PROMO,
-    subCategory: "Custom Promotional Products"
-  },
-  "electric-signs-001": {
-    ...sampleProduct,
-    id: "electric-signs-001",
-    name: "LED Digital Sign",
-    category: ProductCategory.ELECTRIC_SIGNS,
-    subCategory: "LED and Digital Signs"
-  },
-
-  "indoor-signs-001": {
-    ...sampleProduct,
-    id: "indoor-signs-001",
-    name: "Wall Mural",
-    category: ProductCategory.INDOOR_SIGNS,
-    subCategory: "Wall Murals and Graphics"
-  },
-  "outdoor-signs-001": {
-    ...sampleProduct,
-    id: "outdoor-signs-001",
-    name: "Yard Sign",
-    category: ProductCategory.OUTDOOR_SIGNS,
-    subCategory: "Yard Signs"
-  },
-  "accessories-001": {
-    ...sampleProduct,
-    id: "accessories-001",
-    name: "Sign Mounting Hardware",
-    category: ProductCategory.ACCESSORIES,
-    subCategory: "Mounting Hardware for Signs and Banners"
-  }
-};
+  tags: string[];
+  availability: string;
+  estimated_delivery: string;
+  created_at: string;
+  updated_at: string;
+}
 
 export default function ProductDetailPage() {
   const [, params] = useRoute("/product/:id");
-  const productSlug = params?.id;
+  const productId = params?.id;
+  const { fetchProductById, loading } = useProducts();
+  const [product, setProduct] = useState<ProductDetailType | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [error, setError] = useState<string | null>(null);
 
-  // Find the actual product from our dummy data
-  let product: ProductDetailType | null = null;
-  
-  if (productSlug) {
-    const foundProduct = findProductBySlug(productSlug);
-    if (foundProduct) {
-      product = convertToProductDetail(foundProduct);
-    } else {
-      // Try to find in the old database as fallback
-      product = productDatabase[productSlug] || null;
+  useEffect(() => {
+    if (productId) {
+      loadProduct();
     }
-  }
+  }, [productId]);
 
-  if (!product) {
+  const loadProduct = async () => {
+    if (!productId) return;
+    
+    try {
+      const productData = await fetchProductById(productId);
+      if (productData) {
+        // Transform Supabase data to match ProductDetailType interface
+        const transformedProduct: ProductDetailType = {
+          id: productData.id,
+          name: productData.name,
+          category: productData.category,
+          sub_category: productData.sub_category,
+          short_description: productData.short_description || productData.long_description,
+          long_description: productData.long_description || productData.short_description,
+          images: (productData.images || []).map((url: string, index: number) => ({
+            id: `img-${index}`,
+            url: url,
+            alt: `${productData.name} - Image ${index + 1}`
+          })),
+          rating: productData.rating || 4.5,
+          review_count: productData.review_count || 0,
+          question_count: productData.question_count || 0,
+          features: productData.features ? Object.values(productData.features) : ['Professional Grade', 'Custom Design', 'High Quality Materials'],
+          specifications: productData.specifications || {},
+          pricing: productData.pricing || { base_price: 99.99, currency: 'USD', unit: 'piece' },
+          tags: productData.tags || [],
+          availability: productData.availability || 'In Stock',
+          estimated_delivery: productData.estimated_delivery || '3-5 business days',
+          created_at: productData.created_at,
+          updated_at: productData.updated_at
+        };
+        setProduct(transformedProduct);
+      } else {
+        setError('Product not found');
+      }
+    } catch (err) {
+      setError('Failed to load product');
+      console.error('Error loading product:', err);
+    }
+  };
+
+  if (loading) {
     return (
       <div className="min-h-screen bg-gray-50">
         <Navigation />
-        <div className="flex items-center justify-center min-h-[calc(100vh-80px)]">
+        <div className="container mx-auto px-4 py-8">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Product Not Found</h1>
-            <p className="text-gray-600 mb-8">The product you're looking for doesn't exist or has been removed.</p>
-            <a 
-              href="/"
-              className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Return to Home
-            </a>
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
+            <p className="mt-4 text-lg text-gray-600">Loading product...</p>
           </div>
         </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error || !product) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navigation />
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center">
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+              <p className="font-bold">Error loading product</p>
+              <p>{error || 'Product not found'}</p>
+          </div>
+        </div>
+        </div>
+        <Footer />
       </div>
     );
   }
@@ -454,7 +128,219 @@ export default function ProductDetailPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />
-      <ProductDetailComponent product={product} />
+      
+      <div className="container mx-auto px-4 py-8">
+        {/* Breadcrumb */}
+        <nav className="flex mb-8" aria-label="Breadcrumb">
+          <ol className="inline-flex items-center space-x-1 md:space-x-3">
+            <li className="inline-flex items-center">
+              <a href="/" className="text-gray-700 hover:text-blue-600">Home</a>
+            </li>
+            <li>
+              <div className="flex items-center">
+                <span className="mx-2 text-gray-400">/</span>
+                <a href="/products" className="text-gray-700 hover:text-blue-600">Products</a>
+              </div>
+            </li>
+            <li>
+              <div className="flex items-center">
+                <span className="mx-2 text-gray-400">/</span>
+                <a href={`/products?category=${encodeURIComponent(product.category)}`} className="text-gray-700 hover:text-blue-600">
+                  {product.category.replace('_', ' ')}
+                </a>
+              </div>
+            </li>
+            <li aria-current="page">
+              <div className="flex items-center">
+                <span className="mx-2 text-gray-400">/</span>
+                <span className="text-gray-500">{product.name}</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Product Images */}
+          <div className="space-y-4">
+            <div className="aspect-square bg-white rounded-lg overflow-hidden">
+              <img
+                src={product.images[selectedImageIndex]?.url || '/placeholder-image.jpg'}
+                alt={product.images[selectedImageIndex]?.alt || product.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            
+            {/* Thumbnail Images */}
+            {product.images.length > 1 && (
+              <div className="grid grid-cols-4 gap-2">
+                {product.images.map((image, index) => (
+                  <button
+                    key={image.id}
+                    onClick={() => setSelectedImageIndex(index)}
+                    className={`aspect-square bg-white rounded-lg overflow-hidden border-2 ${
+                      selectedImageIndex === index ? 'border-blue-600' : 'border-gray-200'
+                    }`}
+                  >
+                    <img
+                      src={image.url}
+                      alt={image.alt}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Product Info */}
+          <div className="space-y-6">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-sm text-blue-600 font-medium">
+                  {product.sub_category}
+                </span>
+                <span className="text-sm text-gray-500">•</span>
+                <span className="text-sm text-gray-500">
+                  {product.category.replace('_', ' ')}
+                </span>
+              </div>
+              
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                {product.name}
+              </h1>
+              
+              <div className="flex items-center gap-4 mb-4">
+                <div className="flex items-center">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`h-5 w-5 ${
+                        i < Math.floor(product.rating)
+                          ? 'text-yellow-400 fill-current'
+                          : 'text-gray-300'
+                      }`}
+                    />
+                  ))}
+                  <span className="ml-2 text-sm text-gray-600">
+                    {product.rating} ({product.review_count} reviews)
+                  </span>
+                </div>
+                
+                <button className="text-gray-400 hover:text-gray-600">
+                  <Share2 className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Price */}
+            <div className="bg-gray-50 rounded-lg p-6">
+              <div className="flex items-baseline gap-2 mb-2">
+                <span className="text-3xl font-bold text-gray-900">
+                  ${product.pricing.base_price}
+                </span>
+                <span className="text-gray-500">per {product.pricing.unit}</span>
+              </div>
+              
+              <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
+                <CheckCircle className="h-4 w-4 text-green-500" />
+                <span>{product.availability}</span>
+              </div>
+              
+              <div className="flex gap-3">
+                <Button size="lg" className="flex-1 bg-blue-600 hover:bg-blue-700">
+                  <ShoppingCart className="mr-2 h-5 w-5" />
+                  Add to Cart
+                </Button>
+                <Button size="lg" variant="outline">
+                  <Heart className="h-5 w-5" />
+                </Button>
+              </div>
+            </div>
+
+            {/* Features */}
+            {product.features.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold mb-3">Key Features</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {product.features.map((feature, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span className="text-sm text-gray-600">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Specifications */}
+            {product.specifications && Object.keys(product.specifications).length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold mb-3">Specifications</h3>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {Object.entries(product.specifications).map(([key, value]) => (
+                      <div key={key} className="flex justify-between">
+                        <span className="text-sm font-medium text-gray-600 capitalize">
+                          {key.replace(/([A-Z])/g, ' $1').trim()}:
+                        </span>
+                        <span className="text-sm text-gray-900">{String(value)}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Delivery & Support */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="text-center p-4 bg-white rounded-lg border">
+                <Truck className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                <h4 className="font-semibold text-sm">Fast Delivery</h4>
+                <p className="text-xs text-gray-600">{product.estimated_delivery}</p>
+              </div>
+              <div className="text-center p-4 bg-white rounded-lg border">
+                <Shield className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                <h4 className="font-semibold text-sm">Quality Guaranteed</h4>
+                <p className="text-xs text-gray-600">Professional grade materials</p>
+              </div>
+              <div className="text-center p-4 bg-white rounded-lg border">
+                <Clock className="h-8 w-8 text-orange-600 mx-auto mb-2" />
+                <h4 className="font-semibold text-sm">Quick Turnaround</h4>
+                <p className="text-xs text-gray-600">Fast production times</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Product Description */}
+        <div className="mt-16">
+          <h2 className="text-2xl font-bold mb-6">Product Description</h2>
+          <div className="bg-white rounded-lg p-6">
+            <p className="text-gray-700 leading-relaxed">
+              {product.long_description}
+            </p>
+          </div>
+        </div>
+
+        {/* Tags */}
+        {product.tags.length > 0 && (
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold mb-3">Tags</h3>
+            <div className="flex flex-wrap gap-2">
+              {product.tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <Footer />
     </div>
   );
 } 

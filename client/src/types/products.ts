@@ -1,18 +1,18 @@
 // Product Categories Enum
 export enum ProductCategory {
-  EXPO_DISPLAY = "Expo Display",
-  LASER_ENGRAVING = "Laser Engraving",
-  DECALS_STICKERS = "Decals Stickers",
-  BANNERS_FLAGS = "Banners Flags",
-  SIGNS = "Signs",
-  PRIVACY_SECURITY = "Privacy Security Films",
-  MARKETING = "Marketing",
-  PROMO = "Promo",
-  ELECTRIC_SIGNS = "Electric Signs",
-  VEHICLE_TRAILER = "Vehicle Trailer",
-  INDOOR_SIGNS = "Indoor Signs",
-  OUTDOOR_SIGNS = "Outdoor Signs",
-  ACCESSORIES = "Accessories"
+  EXPO_DISPLAY = "EXPO_DISPLAY",
+  LASER_ENGRAVING = "LASER_ENGRAVING",
+  DECALS_STICKERS = "DECALS_STICKERS",
+  BANNERS_FLAGS = "BANNERS_FLAGS",
+  SIGNS = "SIGNS",
+  PRIVACY_SECURITY = "PRIVACY_SECURITY",
+  MARKETING = "MARKETING",
+  PROMO = "PROMO",
+  ELECTRIC_SIGNS = "ELECTRIC_SIGNS",
+  VEHICLE_TRAILER = "VEHICLE_TRAILER",
+  INDOOR_SIGNS = "INDOOR_SIGNS",
+  OUTDOOR_SIGNS = "OUTDOOR_SIGNS",
+  ACCESSORIES = "ACCESSORIES"
 }
 
 // Product interfaces
