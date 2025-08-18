@@ -284,9 +284,13 @@ export default function ProductsSection() {
               </Button>
               <Button 
                 size="lg" 
-                variant="outline"
-                onClick={() => window.location.href = '/quote'}
-                className="border-white text-white hover:bg-white hover:text-blue-600"
+                onClick={() => {
+                  const element = document.getElementById('quote');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-blue-600 transition-all duration-300"
               >
                 Get Custom Quote
               </Button>

@@ -1,40 +1,67 @@
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
 import { MessageSquare, Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Skeleton } from "@/components/ui/skeleton";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
-import type { Testimonial } from "@shared/schema";
 
 export default function TestimonialsSection() {
-  const { data: testimonials, isLoading } = useQuery<Testimonial[]>({
-    queryKey: ["/api/testimonials/featured"],
-  });
+  // Static testimonials data - no API calls
+  const testimonials = [
+    {
+      id: "1",
+      name: "Sarah Mitchell",
+      company: "Mitchell & Co. Law",
+      content: "Master Signs transformed our office building with stunning LED signage. The quality and professionalism exceeded our expectations. Highly recommend!",
+      rating: 5,
+      avatar: "SM"
+    },
+    {
+      id: "2", 
+      name: "Michael Chen",
+      company: "Chen's Restaurant",
+      content: "Outstanding work on our vehicle wraps! The team was professional, creative, and delivered exactly what we envisioned. Our fleet looks amazing!",
+      rating: 5,
+      avatar: "MC"
+    },
+    {
+      id: "3",
+      name: "Emily Rodriguez",
+      company: "Rodriguez Real Estate",
+      content: "The laser engraving work on our office plaques is absolutely perfect. Attention to detail and craftsmanship is outstanding. Will definitely use again!",
+      rating: 5,
+      avatar: "ER"
+    },
+    {
+      id: "4",
+      name: "David Thompson",
+      company: "Thompson Auto Parts",
+      content: "Professional service from start to finish. Our storefront signs look incredible and have significantly increased our visibility. Great team!",
+      rating: 5,
+      avatar: "DT"
+    },
+    {
+      id: "5",
+      name: "Lisa Wang",
+      company: "Wang Design Studio",
+      content: "Master Signs helped us create a cohesive brand identity with beautiful signage throughout our studio. The quality and creativity are unmatched!",
+      rating: 5,
+      avatar: "LW"
+    },
+    {
+      id: "6",
+      name: "Robert Martinez",
+      company: "Martinez Construction",
+      content: "Reliable, professional, and exceptional quality. Our construction site safety signs are clear, durable, and perfectly executed. Highly satisfied!",
+      rating: 5,
+      avatar: "RM"
+    }
+  ];
 
   const trustStats = [
     { value: "4.9/5", label: "Average Rating" },
     { value: "150+", label: "5-Star Reviews" },
     { value: "98%", label: "Repeat Clients" }
   ];
-
-  if (isLoading) {
-    return (
-      <section id="testimonials" className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <Skeleton className="h-12 w-64 mx-auto mb-4" />
-            <Skeleton className="h-8 w-96 mx-auto" />
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[...Array(6)].map((_, i) => (
-              <Skeleton key={i} className="h-80 rounded-3xl" />
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section id="testimonials" className="py-24 bg-white">
