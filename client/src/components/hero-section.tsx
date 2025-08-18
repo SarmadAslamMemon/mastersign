@@ -2,8 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Play, Star, CheckCircle, Zap, Car, Settings, Palette, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { fadeInUp, staggerContainer, magneticHover } from "@/lib/animations";
-import heroBanner from "@/assets/Banners/MAIN - Banner.jpg";
-import heroShowcase from "@/assets/Fabricated Signs/20231114_212838.jpg";
+import { getImageUrl } from "@/lib/image-utils";
 
 export default function HeroSection() {
   const scrollToQuote = () => {
@@ -26,7 +25,7 @@ export default function HeroSection() {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
         style={{
-          backgroundImage: `url(${heroBanner})`
+          backgroundImage: `url(${getImageUrl("Banners/MAIN - Banner.jpg")})`
         }}
       />
       
@@ -128,7 +127,7 @@ export default function HeroSection() {
                   className="border-2 border-white text-blue-600 hover:bg-white hover:text-blue-600 font-semibold px-8 py-4 rounded-xl text-lg transition-all duration-300 shadow-lg"
                   data-testid="button-hero-editor"
                 >
-                  <a href="/products">
+                  <a href="/enhanced-editor">
                     <Palette className="mr-2 h-5 w-5" />
                     Start Designing
                   </a>
@@ -146,7 +145,7 @@ export default function HeroSection() {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img 
-                src={heroShowcase}
+                src={getImageUrl("Fabricated Signs/20231114_212838.jpg")}
                 alt="Showcase of our signage work"
                 className="w-full h-auto"
               />

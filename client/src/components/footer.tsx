@@ -111,6 +111,15 @@ export default function Footer() {
                   </button>
                 </li>
               ))}
+              <li>
+                <a 
+                  href="/enhanced-editor"
+                  className="inline-flex items-center space-x-2 bg-[var(--master-blue)] text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  <span>🎨</span>
+                  <span>Start Designing</span>
+                </a>
+              </li>
             </ul>
           </motion.div>
         </motion.div>

@@ -1,0 +1,382 @@
+{
+  "timestamp": "2025-08-12T22:36:30.617Z",
+  "summary": {
+    "totalFiles": 67,
+    "filesWithIssues": 6,
+    "filesWithoutIssues": 61,
+    "totalIssues": 6
+  },
+  "results": [
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\testimonials-section.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\TemplateBrowser.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\services-section.tsx",
+      "issues": [
+        {
+          "type": "local-asset-reference",
+          "count": 6,
+          "message": "Found 6 local asset reference(s)"
+        }
+      ],
+      "hasIssues": true
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\quote-form.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\products-section.tsx",
+      "issues": [
+        {
+          "type": "local-asset-reference",
+          "count": 13,
+          "message": "Found 13 local asset reference(s)"
+        }
+      ],
+      "hasIssues": true
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\product-detail.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\portfolio-section.tsx",
+      "issues": [
+        {
+          "type": "local-asset-reference",
+          "count": 6,
+          "message": "Found 6 local asset reference(s)"
+        }
+      ],
+      "hasIssues": true
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\navigation.tsx",
+      "issues": [
+        {
+          "type": "local-asset-reference",
+          "count": 1,
+          "message": "Found 1 local asset reference(s)"
+        }
+      ],
+      "hasIssues": true
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\hero-section.tsx",
+      "issues": [
+        {
+          "type": "local-asset-reference",
+          "count": 2,
+          "message": "Found 2 local asset reference(s)"
+        }
+      ],
+      "hasIssues": true
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\footer.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\faqs-section.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\CustomTemplateModal.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\client-reviews.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\about-section.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\tooltip.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\toggle.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\toggle-group.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\toaster.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\toast.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\textarea.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\tabs.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\table.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\switch.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\slider.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\skeleton.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\sidebar.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\sheet.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\separator.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\select.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\scroll-area.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\resizable.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\radio-group.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\progress.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\popover.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\pagination.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\navigation-menu.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\menubar.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\label.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\input.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\input-otp.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\hover-card.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\form.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\dropdown-menu.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\drawer.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\dialog.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\context-menu.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\command.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\collapsible.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\checkbox.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\chart.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\carousel.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\card.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\calendar.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\button.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\breadcrumb.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\badge.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\avatar.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\aspect-ratio.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\alert.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\alert-dialog.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\components\\ui\\accordion.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\pages\\signup.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\pages\\products-browse.tsx",
+      "issues": [
+        {
+          "type": "local-asset-reference",
+          "count": 7,
+          "message": "Found 7 local asset reference(s)"
+        }
+      ],
+      "hasIssues": true
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\pages\\product-detail-page.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\pages\\not-found.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\pages\\login.tsx",
+      "issues": [],
+      "hasIssues": false
+    },
+    {
+      "file": "C:\\Users\\faheem\\Desktop\\mastersign\\client\\src\\pages\\home.tsx",
+      "issues": [],
+      "hasIssues": false
+    }
+  ]
+}

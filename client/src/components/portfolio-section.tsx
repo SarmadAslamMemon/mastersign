@@ -3,12 +3,7 @@ import { ArrowRight, ExternalLink, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 
-import realEstateImg from "@/assets/Business Signage/20240118_151230.jpg";
-import restaurantImg from "@/assets/Business Signage/Hectors_Building.jpg";
-import healthcareImg from "@/assets/Office Signage/20231207_094933.jpg";
-import automotiveImg from "@/assets/Vehicle Graphics/20230410_173103.jpg";
-import constructionImg from "@/assets/Rigid Signs/20240424_104117.jpg";
-import financialImg from "@/assets/Business Signage/Liberty.JPG";
+import { getImageUrl } from "@/lib/image-utils";
 
 export default function PortfolioSection() {
   const portfolioItems = [
@@ -16,7 +11,7 @@ export default function PortfolioSection() {
       id: 1,
       title: "Apartment & Campus Signage",
       description: "Complete wayfinding system for luxury apartment complex with ADA-compliant directories and building identification.",
-      image: realEstateImg,
+      image: getImageUrl("Business Signage/20240118_151230.jpg"),
       category: "Real Estate",
       tags: ["LED Signs", "Wayfinding", "ADA Compliant"]
     },
@@ -24,7 +19,7 @@ export default function PortfolioSection() {
       id: 2,
       title: "Restaurant Chain Rebrand",
       description: "Full exterior and interior signage package including illuminated channel letters, menu boards, and promotional displays.",
-      image: restaurantImg,
+      image: getImageUrl("Business Signage/Hectors_Building.jpg"),
       category: "Restaurant",
       tags: ["Channel Letters", "Menu Boards", "Interior Signs"]
     },
@@ -32,7 +27,7 @@ export default function PortfolioSection() {
       id: 3,
       title: "Medical Center Directory",
       description: "Digital directory system with touch-screen navigation and integrated appointment scheduling for busy medical facility.",
-      image: healthcareImg,
+      image: getImageUrl("Office Signage/20231207_094933.jpg"),
       category: "Healthcare",
       tags: ["Digital Displays", "Interactive", "Healthcare"]
     },
@@ -40,7 +35,7 @@ export default function PortfolioSection() {
       id: 4,
       title: "Automotive Dealership",
       description: "Monument sign with LED lighting, vehicle wraps for sales team, and indoor promotional displays.",
-      image: automotiveImg,
+      image: getImageUrl("Vehicle Graphics/20230410_173103.jpg"),
       category: "Automotive",
       tags: ["Monument Signs", "Vehicle Wraps", "LED Lighting"]
     },
@@ -48,7 +43,7 @@ export default function PortfolioSection() {
       id: 5,
       title: "Construction Site Safety",
       description: "Comprehensive safety signage system including OSHA-compliant warning signs and project identification banners.",
-      image: constructionImg,
+      image: getImageUrl("Rigid Signs/20240424_104117.jpg"),
       category: "Construction",
       tags: ["Safety Signs", "Banners", "OSHA Compliant"]
     },
@@ -56,7 +51,7 @@ export default function PortfolioSection() {
       id: 6,
       title: "Banking Branch Identity",
       description: "Complete corporate identity package including exterior monument sign, interior graphics, and ATM wraps.",
-      image: financialImg,
+      image: getImageUrl("Business Signage/Liberty.JPG"),
       category: "Financial",
       tags: ["Corporate Identity", "Monument Signs", "Interior Graphics"]
     }
@@ -195,6 +190,20 @@ export default function PortfolioSection() {
             >
               Read All Case Studies
               <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </motion.div>
+          
+          <motion.div className="text-center mt-6" variants={fadeInUp}>
+            <Button 
+              asChild
+              size="lg"
+              variant="outline"
+              className="border-2 border-[var(--master-blue)] text-[var(--master-blue)] hover:bg-[var(--master-blue)] hover:text-white px-8 py-3 transition-all duration-300"
+            >
+              <a href="/enhanced-editor">
+                🎨 Start Designing Your Own
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </a>
             </Button>
           </motion.div>
         </motion.div>

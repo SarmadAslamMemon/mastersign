@@ -2,49 +2,32 @@ import React, { useMemo, useState } from "react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import FaqsSection from "@/components/faqs-section";
-import { ProductCategory, PRODUCT_SUBCATEGORIES } from "@/types/products";
+import { ProductCategory, PRODUCT_SUBCATEGORIES, Product } from "@/types/products";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { staggerContainer, fadeInUp } from "@/lib/animations";
-import { ChevronRight } from "lucide-react";
-
-// Import a few representative local images per category as fallbacks
-import bannersImg from "@/assets/Banners/MAIN - Banner.jpg";
-import signsImg from "@/assets/Business Signage/Performance.jpg";
-import vehiclesImg from "@/assets/Vehicle Graphics/20240309_133150.jpg";
-import indoorImg from "@/assets/Office Signage/20230120_165654.jpg";
-import outdoorImg from "@/assets/Indoor-Outdoor Displays/Exterior Sign.jpg";
-import electricImg from "@/assets/Channel Letters/20241112_194813.jpg";
-import laserImg from "@/assets/Laser Engraving/fish.jpg";
+import { ChevronRight, Star, ShoppingCart, Eye } from "lucide-react";
+import { getCategoryImage } from "@/lib/image-utils";
+import { DUMMY_PRODUCTS, getProductsByCategory, getCategoryData } from "@/data/dummy-products";
 
 type Shape = "Rectangle" | "Square" | "Circle";
 
-type BrowseItem = {
-  id: string;
-  title: string;
-  category: ProductCategory;
-  image: string;
-  size: "Small" | "Medium" | "Large";
-  shape: Shape;
-  subCategory: string;
-};
-
 const categoryFallbackImage: Record<ProductCategory, string> = {
-  [ProductCategory.BANNERS_FLAGS]: bannersImg,
-  [ProductCategory.SIGNS]: signsImg,
-  [ProductCategory.VEHICLE_TRAILER]: vehiclesImg,
-  [ProductCategory.INDOOR_SIGNS]: indoorImg,
-  [ProductCategory.OUTDOOR_SIGNS]: outdoorImg,
-  [ProductCategory.ELECTRIC_SIGNS]: electricImg,
-  [ProductCategory.LASER_ENGRAVING]: laserImg,
-  [ProductCategory.DECALS_STICKERS]: bannersImg,
-  [ProductCategory.EXPO_DISPLAY]: bannersImg,
-  [ProductCategory.PRIVACY_SECURITY]: indoorImg,
-  [ProductCategory.MARKETING]: signsImg,
-  [ProductCategory.PROMO]: bannersImg,
-  [ProductCategory.ACCESSORIES]: signsImg,
+  [ProductCategory.BANNERS_FLAGS]: getCategoryImage('BANNERS_FLAGS'),
+  [ProductCategory.SIGNS]: getCategoryImage('SIGNS'),
+  [ProductCategory.VEHICLE_TRAILER]: getCategoryImage('VEHICLE_TRAILER'),
+  [ProductCategory.INDOOR_SIGNS]: getCategoryImage('INDOOR_SIGNS'),
+  [ProductCategory.OUTDOOR_SIGNS]: getCategoryImage('OUTDOOR_SIGNS'),
+  [ProductCategory.ELECTRIC_SIGNS]: getCategoryImage('ELECTRIC_SIGNS'),
+  [ProductCategory.LASER_ENGRAVING]: getCategoryImage('LASER_ENGRAVING'),
+  [ProductCategory.DECALS_STICKERS]: getCategoryImage('DECALS_STICKERS'),
+  [ProductCategory.EXPO_DISPLAY]: getCategoryImage('EXPO_DISPLAY'),
+  [ProductCategory.PRIVACY_SECURITY]: getCategoryImage('PRIVACY_SECURITY'),
+  [ProductCategory.MARKETING]: getCategoryImage('MARKETING'),
+  [ProductCategory.PROMO]: getCategoryImage('PROMO'),
+  [ProductCategory.ACCESSORIES]: getCategoryImage('ACCESSORIES'),
 };
 
 function slugify(input: string) {
@@ -60,11 +43,8 @@ export default function ProductsBrowsePage() {
     const c = params.get("category");
     if (!c) return undefined;
     const decodedCategory = decodeURIComponent(c);
-    // Handle forward slashes by replacing them with underscores for matching
-    const normalizedCategory = decodedCategory.replace(/\//g, "_");
-    const match = Object.values(ProductCategory).find((v) => 
-      v.toLowerCase().replace(/\//g, "_") === normalizedCategory.toLowerCase()
-    );
+    // Find exact match with the enum values
+    const match = Object.values(ProductCategory).find((v) => v === decodedCategory);
     return match as ProductCategory | undefined;
   })();
 
@@ -80,38 +60,65 @@ export default function ProductsBrowsePage() {
   
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>(initialSub);
   const [search, setSearch] = useState<string>("");
-  const [size, setSize] = useState<"All" | "Small" | "Medium" | "Large">("All");
-  const [shape, setShape] = useState<"All" | Shape>("All");
 
+  // Get subcategories for the selected category (for the sidebar selector)
   const subCategories = PRODUCT_SUBCATEGORIES[selectedCategory] || [];
 
-  const items: BrowseItem[] = useMemo(() => {
+  const items: Product[] = useMemo(() => {
+    // Get real products from dummy data for the selected category
+    const categoryProducts = getProductsByCategory(selectedCategory);
+    
+    // If we have real products, use them; otherwise fall back to synthetic ones
+    if (categoryProducts.length > 0) {
+      return categoryProducts;
+    }
+    
+    // Fallback: synthesize demo items from subcategories
+    const subCategories = PRODUCT_SUBCATEGORIES[selectedCategory] || [];
     const baseImage = categoryFallbackImage[selectedCategory];
-    // synthesize demo items from subcategories
-    return subCategories.map((sub, index) => {
+    const fallbackProducts = subCategories.map((sub, index) => {
       const sizes: Array<"Small" | "Medium" | "Large"> = ["Small", "Medium", "Large"];
       const shapes: Shape[] = ["Rectangle", "Square", "Circle"];
       return {
         id: `${slugify(selectedCategory)}-${slugify(sub)}`,
-        title: sub,
+        name: sub,
         category: selectedCategory,
-        image: baseImage,
-        size: sizes[index % sizes.length],
-        shape: shapes[index % shapes.length],
         subCategory: sub,
-      } as BrowseItem;
+        description: `Professional ${sub.toLowerCase()} for your business needs.`,
+        price: 99.99 + (index * 50),
+        image: baseImage,
+        thumbnail: baseImage,
+        sizes: [],
+        shapes: [],
+        materials: ['High Quality Material'],
+        features: ['Professional Grade', 'Custom Design'],
+        specifications: {
+          weight: 1,
+          material: 'Premium Material',
+          finish: 'Professional',
+          durability: '5+ Years',
+          installation: 'Professional Required',
+          warranty: '2 Years'
+        },
+        inStock: true,
+        rating: 4.5,
+        reviewCount: 25,
+        tags: [sub.toLowerCase(), 'professional', 'custom'],
+        createdAt: new Date(),
+        updatedAt: new Date()
+      } as Product;
     });
-  }, [selectedCategory, subCategories]);
+    
+    return fallbackProducts;
+  }, [selectedCategory]);
 
   const filtered = useMemo(() => {
     return items.filter((it) => {
       if (selectedSubCategory !== "all" && it.subCategory !== selectedSubCategory) return false;
-      if (search && !it.title.toLowerCase().includes(search.toLowerCase())) return false;
-      if (size !== "All" && it.size !== size) return false;
-      if (shape !== "All" && it.shape !== shape) return false;
+      if (search && !it.name.toLowerCase().includes(search.toLowerCase())) return false;
       return true;
     });
-  }, [items, selectedSubCategory, search, size, shape]);
+  }, [items, selectedSubCategory, search]);
 
   const handleCategoryChange = (cat: ProductCategory) => {
     setSelectedCategory(cat);
@@ -161,59 +168,100 @@ export default function ProductsBrowsePage() {
             {/* Content */}
             <section className="flex-1">
               {/* Filters */}
-              <motion.div className="mb-6 grid grid-cols-1 md:grid-cols-4 gap-3" initial="initial" whileInView="animate" viewport={{ once: true }} variants={staggerContainer}>
-                <motion.div variants={fadeInUp} className="md:col-span-2">
+              <motion.div className="mb-6" initial="initial" whileInView="animate" viewport={{ once: true }} variants={staggerContainer}>
+                <motion.div variants={fadeInUp} className="max-w-md">
                   <Input placeholder="Search by name..." value={search} onChange={(e) => setSearch(e.target.value)} />
-                </motion.div>
-                <motion.div variants={fadeInUp}>
-                  <Select value={size} onValueChange={(v) => setSize(v as any)}>
-                    <SelectTrigger><SelectValue placeholder="Size" /></SelectTrigger>
-                    <SelectContent>
-                      {(["All", "Small", "Medium", "Large"] as const).map((s) => (
-                        <SelectItem key={s} value={s}>{s}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </motion.div>
-                <motion.div variants={fadeInUp}>
-                  <Select value={shape} onValueChange={(v) => setShape(v as any)}>
-                    <SelectTrigger><SelectValue placeholder="Shape" /></SelectTrigger>
-                    <SelectContent>
-                      {(["All", "Rectangle", "Square", "Circle"] as const).map((s) => (
-                        <SelectItem key={s} value={s}>{s}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
                 </motion.div>
               </motion.div>
 
               {/* Header */}
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold">Browse {selectedCategory}</h2>
-                <div className="text-sm text-gray-500">{filtered.length} results</div>
+                <div className="flex items-center space-x-4">
+                  <div className="text-sm text-gray-500">{filtered.length} results</div>
+                  <button 
+                    onClick={() => window.location.href = '/enhanced-editor'}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  >
+                    Start Designing
+                  </button>
+                </div>
               </div>
 
               {/* Grid */}
-              <motion.div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" initial="initial" whileInView="animate" viewport={{ once: true }} variants={staggerContainer}>
-                {filtered.map((item) => (
-                  <motion.div key={item.id} variants={fadeInUp}>
-                    <Card className="overflow-hidden group cursor-pointer" onClick={() => (window.location.href = `/product/${slugify(item.title)}`)}>
-                      <div className="relative overflow-hidden">
-                        <img src={item.image} alt={item.title} className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-                      </div>
-                      <div className="p-4">
-                        <div className="text-xs text-blue-600 font-medium mb-1">{item.category}</div>
-                        <div className="font-semibold text-sm mb-1">{item.title}</div>
-                        <div className="flex items-center justify-between text-xs text-gray-500">
-                          <span>{item.size}</span>
-                          <span className="flex items-center gap-1">{item.shape} <ChevronRight className="w-3 h-3" /></span>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {filtered.length > 0 ? (
+                  filtered.map((item) => (
+                    <div key={item.id}>
+                      <Card className="overflow-hidden group cursor-pointer hover:shadow-lg transition-all duration-300" onClick={() => (window.location.href = `/product/${slugify(item.name)}`)}>
+                        <div className="relative overflow-hidden">
+                          <img src={item.image} alt={item.name} className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                          
+                          {/* Product Badges */}
+                          <div className="absolute top-2 left-2 flex gap-2">
+                            {item.tags.includes('featured') && (
+                              <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">Featured</span>
+                            )}
+                            {!item.inStock && (
+                              <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full">Out of Stock</span>
+                            )}
+                          </div>
+                          
+                          {/* Quick Actions */}
+                          <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button className="bg-white/90 hover:bg-white p-2 rounded-full shadow-md">
+                              <Eye className="w-4 h-4 text-gray-600" />
+                            </button>
+                            <button className="bg-white/90 hover:bg-white p-2 rounded-full shadow-md">
+                              <ShoppingCart className="w-4 h-4 text-gray-600" />
+                            </button>
+                          </div>
                         </div>
+                        
+                        <div className="p-4">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="text-xs text-blue-600 font-medium">{item.category}</div>
+                            <div className="flex items-center gap-1 text-xs text-gray-500">
+                              <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                              <span>{item.rating}</span>
+                              <span>({item.reviewCount})</span>
+                            </div>
+                          </div>
+                          
+                          <div className="font-semibold text-sm mb-2 line-clamp-2">{item.name}</div>
+                          
+                          <div className="text-xs text-gray-600 mb-2 line-clamp-2">{item.description}</div>
+                          
+                          <div className="flex items-center justify-between">
+                            <div className="text-lg font-bold text-blue-600">${item.price.toFixed(2)}</div>
+                            <div className="flex items-center gap-1 text-xs text-gray-500">
+                              <span>{item.subCategory}</span>
+                              <ChevronRight className="w-3 h-3" />
+                            </div>
+                          </div>
+                        </div>
+                      </Card>
+                    </div>
+                  ))
+                ) : (
+                  <div className="col-span-full text-center py-12">
+                    <div className="text-gray-500">
+                      <p className="text-lg font-medium mb-2">No products found for {selectedCategory}</p>
+                      <p className="text-sm">Try selecting a different category or check the console for debugging information.</p>
+                      <div className="mt-4 p-4 bg-gray-50 rounded-lg text-left">
+                        <p className="text-xs font-mono">
+                          Debug Info:<br/>
+                          Selected Category: {selectedCategory}<br/>
+                          Category Type: {typeof selectedCategory}<br/>
+                          Available Products: {DUMMY_PRODUCTS.length}<br/>
+                          Available Categories: {[...new Set(DUMMY_PRODUCTS.map(p => p.category))].join(', ')}
+                        </p>
                       </div>
-                    </Card>
-                  </motion.div>
-                ))}
-              </motion.div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </section>
           </div>
         </div>

@@ -58,8 +58,95 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
   const handleBackgroundImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
-      onSetBackgroundImage(file)
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        alert('Please select a valid image file')
+        return
+      }
+      
+      // Validate file size (max 10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        alert('File size must be less than 10MB')
+        return
+      }
+      
+      // Compress image before uploading
+      compressAndUploadImage(file)
     }
+  }
+
+  // Compress image for better performance
+  const compressAndUploadImage = (file: File) => {
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    const img = new Image()
+    
+    img.onload = () => {
+      // Calculate new dimensions (max 800x600 for preview)
+      const maxWidth = 800
+      const maxHeight = 600
+      let { width, height } = img
+      
+      if (width > height) {
+        if (width > maxWidth) {
+          height = (height * maxWidth) / width
+          width = maxWidth
+        }
+      } else {
+        if (height > maxHeight) {
+          width = (width * maxHeight) / height
+          height = maxHeight
+        }
+      }
+      
+      canvas.width = width
+      canvas.height = height
+      
+      // Draw and compress
+      ctx?.drawImage(img, 0, 0, width, height)
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const compressedFile = new File([blob], file.name, { type: 'image/jpeg' })
+          onSetBackgroundImage(compressedFile)
+        } else {
+          onSetBackgroundImage(file)
+        }
+      }, 'image/jpeg', 0.7) // 70% quality for good compression
+    }
+    
+    img.src = URL.createObjectURL(file)
+  }
+
+  const handleTabChange = (tab: 'templates' | 'backgrounds' | 'recent') => {
+    setActiveTab(tab)
+    
+    // Fix canvas positioning issue by ensuring proper layout
+    setTimeout(() => {
+      const canvas = document.querySelector('canvas')
+      if (canvas) {
+        // Get the canvas container
+        const canvasContainer = canvas.closest('.flex-1')
+        if (canvasContainer) {
+          // Ensure proper positioning
+          canvasContainer.style.position = 'relative'
+          canvasContainer.style.overflow = 'visible'
+          canvasContainer.style.minHeight = '100%'
+        }
+        
+        // Reset canvas positioning
+        canvas.style.position = 'relative'
+        canvas.style.top = '0'
+        canvas.style.left = '0'
+        canvas.style.transform = 'none'
+        canvas.style.display = 'block'
+        
+        // Force a reflow
+        canvas.offsetHeight
+        
+        // Trigger window resize to force layout recalculation
+        window.dispatchEvent(new Event('resize'))
+      }
+    }, 150)
   }
 
   const renderTemplateCard = (template: Template) => (
@@ -106,7 +193,7 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
         
         {/* Dimensions Badge */}
         <div className="absolute top-2 right-2 bg-black bg-opacity-75 text-white text-xs px-2 py-1 rounded">
-          {template.width / 100}" × {template.height / 100}"
+          {template.dimensions.width / 100}" × {template.dimensions.height / 100}"
         </div>
       </div>
 
@@ -132,9 +219,31 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
       className="cursor-pointer border border-gray-200 rounded-md hover:border-gray-300 transition-colors"
       onClick={() => onSetBackgroundPreset(preset)}
     >
-      <div className="w-full h-20 rounded-t-md" style={{
-        background: preset.type === 'gradient' ? preset.value as string : preset.value as string
-      }} />
+      <div className="w-full h-20 rounded-t-md overflow-hidden">
+        {preset.thumbnail ? (
+          <img
+            src={preset.thumbnail}
+            alt={preset.name}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              // Fallback to color if image fails to load
+              const target = e.target as HTMLImageElement
+              target.style.display = 'none'
+              target.nextElementSibling?.classList.remove('hidden')
+            }}
+          />
+        ) : null}
+        <div 
+          className={`w-full h-full ${preset.thumbnail ? 'hidden' : ''}`}
+          style={{
+            background: preset.type === 'gradient' 
+              ? preset.value as string 
+              : preset.type === 'solid' 
+                ? preset.value as string 
+                : '#f0f0f0'
+          }}
+        />
+      </div>
       <div className="p-2">
         <div className="text-xs font-medium text-gray-900">{preset.name}</div>
         <div className="text-xs text-gray-500 capitalize">{preset.type}</div>
@@ -143,7 +252,7 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
   )
 
   return (
-    <div className="w-80 bg-white border-r border-gray-200 flex flex-col h-full">
+    <div className="w-full bg-white border-r border-gray-200 flex flex-col h-full">
       {/* Header */}
       <div className="p-4 border-b border-gray-200">
         <h2 className="text-lg font-semibold text-gray-900 mb-3">Design Studio</h2>
@@ -163,7 +272,7 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
         {/* Tab Navigation */}
         <div className="flex space-x-1 bg-gray-100 rounded-md p-1">
           <button
-            onClick={() => setActiveTab('templates')}
+            onClick={() => handleTabChange('templates')}
             className={`flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium rounded transition-colors ${
               activeTab === 'templates'
                 ? 'bg-white text-blue-600 shadow-sm'
@@ -174,7 +283,7 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
             Templates
           </button>
           <button
-            onClick={() => setActiveTab('backgrounds')}
+            onClick={() => handleTabChange('backgrounds')}
             className={`flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium rounded transition-colors ${
               activeTab === 'backgrounds'
                 ? 'bg-white text-blue-600 shadow-sm'
@@ -185,7 +294,7 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
             Backgrounds
           </button>
           <button
-            onClick={() => setActiveTab('recent')}
+            onClick={() => handleTabChange('recent')}
             className={`flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium rounded transition-colors ${
               activeTab === 'recent'
                 ? 'bg-white text-blue-600 shadow-sm'
@@ -199,9 +308,9 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
       </div>
 
       {/* Tab Content */}
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 overflow-y-auto">
         {activeTab === 'templates' && (
-          <div className="p-4">
+          <div key="templates-tab" className="p-4">
             {/* View Mode Toggle */}
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm text-gray-600">View:</span>
@@ -233,7 +342,7 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
         )}
 
         {activeTab === 'backgrounds' && (
-          <div className="p-4">
+          <div key="backgrounds-tab" className="p-4">
             {/* Background Image Upload */}
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -258,7 +367,7 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
         )}
 
         {activeTab === 'recent' && (
-          <div className="p-4">
+          <div key="recent-tab" className="p-4">
             <h3 className="text-sm font-medium text-gray-900 mb-3">Recent Templates</h3>
             <div className="space-y-2">
               {recentTemplates.map(renderTemplateCard)}
@@ -271,7 +380,7 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
       <div className="p-4 border-t border-gray-200">
         <button
           onClick={() => {/* Clear canvas logic */}}
-          className="w-full py-2 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md transition-colors text-sm font-medium"
+          className="w-full py-2 px-4 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-md transition-colors text-sm font-medium"
         >
           Start from Scratch
         </button>

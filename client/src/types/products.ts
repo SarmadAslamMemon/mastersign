@@ -1,18 +1,86 @@
 // Product Categories Enum
 export enum ProductCategory {
-  EXPO_DISPLAY = "Expo/Display",
+  EXPO_DISPLAY = "Expo Display",
   LASER_ENGRAVING = "Laser Engraving",
-  DECALS_STICKERS = "Decals/Stickers",
-  BANNERS_FLAGS = "Banners/Flags",
+  DECALS_STICKERS = "Decals Stickers",
+  BANNERS_FLAGS = "Banners Flags",
   SIGNS = "Signs",
-  PRIVACY_SECURITY = "Privacy/Security Films",
+  PRIVACY_SECURITY = "Privacy Security Films",
   MARKETING = "Marketing",
   PROMO = "Promo",
   ELECTRIC_SIGNS = "Electric Signs",
-  VEHICLE_TRAILER = "Vehicle & Trailer",
+  VEHICLE_TRAILER = "Vehicle Trailer",
   INDOOR_SIGNS = "Indoor Signs",
   OUTDOOR_SIGNS = "Outdoor Signs",
   ACCESSORIES = "Accessories"
+}
+
+// Product interfaces
+export interface Product {
+  id: string;
+  name: string;
+  category: ProductCategory;
+  subCategory: string;
+  description: string;
+  price: number;
+  image: string;
+  thumbnail: string;
+  sizes: ProductSize[];
+  shapes: ProductShape[];
+  materials: string[];
+  features: string[];
+  specifications: ProductSpecifications;
+  inStock: boolean;
+  rating: number;
+  reviewCount: number;
+  tags: string[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ProductSize {
+  id: string;
+  name: string;
+  width: number;
+  height: number;
+  unit: 'inches' | 'cm' | 'mm';
+  price: number;
+}
+
+export interface ProductShape {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+}
+
+export interface ProductSpecifications {
+  weight: number;
+  material: string;
+  finish: string;
+  durability: string;
+  installation: string;
+  warranty: string;
+}
+
+export interface CategoryData {
+  id: ProductCategory;
+  name: string;
+  description: string;
+  icon: string;
+  image: string;
+  featured: boolean;
+  productCount: number;
+  subCategories: SubCategoryData[];
+}
+
+export interface SubCategoryData {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  productCount: number;
+  featured: boolean;
 }
 
 // Sub-categories for each main category
@@ -98,93 +166,66 @@ export const PRODUCT_SUBCATEGORIES = {
     "Custom Promotional Products",
     "Custom Trophies, Awards, and Plaques",
     "Bumper Stickers",
-    "Stickers for Promotional Campaigns",
-    "Promotional Bags and Totes",
-    "Wearables"
+    "Custom Magnets",
+    "Promotional Items",
+    "Custom Apparel",
+    "Event Giveaways"
   ],
   [ProductCategory.ELECTRIC_SIGNS]: [
-    "Electronic Message Centers",
-    "LED and Digital Signs",
-    "Backlit Signs",
-    "Channel Letters",
+    "LED Signs",
     "Neon Signs",
-    "Illuminated Signage",
-    "Digital Printing for LED Displays",
-    "Monument Signs",
-    "Blade Signs",
-    "Business Signs",
-    "Push Thru Signs"
+    "Digital Displays",
+    "Backlit Signs",
+    "Channel Letter Signs",
+    "Electronic Message Centers",
+    "Video Walls",
+    "Interactive Displays"
   ],
   [ProductCategory.VEHICLE_TRAILER]: [
-    "Vehicle Graphics and Wraps",
-    "Custom Vehicle Magnets",
-    "Vehicle Decals",
-    "Trailer Graphics and Decals",
-    "Vehicle Wraps for Advertising"
+    "Vehicle Wraps",
+    "Vehicle Graphics",
+    "Trailer Graphics",
+    "Fleet Graphics",
+    "Vehicle Magnets",
+    "Window Tinting",
+    "Custom Vehicle Lettering",
+    "Commercial Vehicle Branding"
   ],
   [ProductCategory.INDOOR_SIGNS]: [
-    "Wall Murals and Graphics",
+    "Wall Signs",
     "Lobby Signs",
-    "Door Signs",
+    "Directional Signs",
+    "Office Signs",
+    "Retail Signs",
+    "Restaurant Signs",
+    "Healthcare Signs",
+    "Educational Signs",
     "Floor Graphics",
-    "Window Graphics and Decals",
-    "Custom Wall Stickers",
-    "Indoor Wayfinding and Directional Signs",
-    "Safety Signs for Indoor Spaces",
-    "Informational Signs"
+    "Ceiling Signs"
   ],
   [ProductCategory.OUTDOOR_SIGNS]: [
+    "Monument Signs",
+    "Pylon Signs",
     "Yard Signs",
     "Real Estate Signs",
-    "Pylon Signs",
-    "Monument Signs",
+    "Building Signs",
+    "Directional Signs",
+    "Safety Signs",
+    "Traffic Signs",
     "Outdoor Banners",
-    "Temporary Outdoor Signage",
-    "Reflective Signs for Outdoor Visibility",
-    "Building Signage",
-    "Post and Panel Signs",
-    "Event Signage for Outdoor Promotions"
+    "Flag Poles and Flags"
   ],
   [ProductCategory.ACCESSORIES]: [
-    "Mounting Hardware for Signs and Banners",
-    "Frames",
+    "Mounting Hardware",
     "Display Stands",
-    "Flag Poles and Accessories",
-    "Pole Banners",
-    "Custom Display Accessories",
-    "Poster Holders"
+    "Flag Poles",
+    "Sign Posts",
+    "Brackets and Mounts",
+    "Lighting Accessories",
+    "Installation Tools",
+    "Maintenance Supplies"
   ]
 };
-
-// Product Interface
-export interface Product {
-  id: string;
-  name: string;
-  category: ProductCategory;
-  subCategory: string;
-  description: string;
-  image: string;
-  price?: number;
-  popular?: boolean;
-  featured?: boolean;
-  tags: string[];
-  specifications?: {
-    material?: string;
-    size?: string;
-    finish?: string;
-    installation?: string;
-  };
-}
-
-// Category Interface
-export interface Category {
-  id: ProductCategory;
-  name: string;
-  description: string;
-  icon: string;
-  subCategories: string[];
-  featured?: boolean;
-}
 
 // Navigation Category Interface
 export interface NavigationCategory {

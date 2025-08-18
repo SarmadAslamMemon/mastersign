@@ -18,6 +18,7 @@ import QuickSignEditor from "../../pages/quick-sign-editor";
 import SignBoardEditorDemo from "../../pages/sign-board-editor-demo";
 import EnhancedEditorDemo from "../../pages/enhanced-editor-demo";
 import { SignEditor } from "../../components/design-editor";
+import DebugCategoriesPage from "@/pages/debug-categories";
 
 function Router() {
   return (
@@ -32,6 +33,7 @@ function Router() {
       <Route path="/sign-board-editor-demo" component={SignBoardEditorDemo} />
       <Route path="/enhanced-editor" component={EnhancedEditorDemo} />
       <Route path="/sign-editor" component={SignEditor} />
+      <Route path="/debug-categories" component={DebugCategoriesPage} />
       {/* Editor routes removed */}
       {/* Studio / test routes removed */}
       <Route path="/product/:id" component={ProductDetailPage} />

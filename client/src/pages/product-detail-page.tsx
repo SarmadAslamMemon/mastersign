@@ -1,9 +1,97 @@
 import { useRoute } from "wouter";
 import ProductDetailComponent from "@/components/product-detail";
 import Navigation from "@/components/navigation";
-import { ProductDetail as ProductDetailType, ProductCategory } from "@/types/products";
+import { ProductDetail as ProductDetailType, ProductCategory, Product } from "@/types/products";
+import { DUMMY_PRODUCTS } from "@/data/dummy-products";
 
-// Sample product data for demonstration
+// Helper function to find product by slug
+const findProductBySlug = (slug: string): Product | undefined => {
+  return DUMMY_PRODUCTS.find(product => {
+    const productSlug = product.name.toLowerCase().replace(/[\s/&]+/g, "-");
+    return productSlug === slug;
+  });
+};
+
+// Convert Product to ProductDetailType
+const convertToProductDetail = (product: Product): ProductDetailType => {
+  return {
+    id: product.id,
+    name: product.name,
+    category: product.category,
+    subCategory: product.subCategory,
+    shortDescription: product.description.substring(0, 100) + "...",
+    longDescription: product.description,
+    images: [
+      {
+        id: "main",
+        url: product.image,
+        alt: product.name
+      },
+      {
+        id: "thumbnail",
+        url: product.thumbnail,
+        alt: product.name
+      }
+    ],
+    rating: product.rating,
+    reviewCount: product.reviewCount,
+    questionCount: Math.floor(product.reviewCount / 5), // Estimate questions based on reviews
+    features: product.features,
+    specifications: [
+      {
+        id: "size",
+        name: "Size",
+        type: "select",
+        options: product.sizes.map(size => size.name),
+        required: true
+      },
+      {
+        id: "material",
+        name: "Material",
+        type: "select",
+        options: product.materials,
+        required: true
+      },
+      {
+        id: "finish",
+        name: "Finish",
+        type: "select",
+        options: ["Matte", "Gloss", "Satin"],
+        required: true
+      },
+      {
+        id: "quantity",
+        name: "Quantity",
+        type: "number",
+        min: 1,
+        max: 100,
+        step: 1,
+        unit: "pieces",
+        required: true
+      },
+      {
+        id: "custom_text",
+        name: "Custom Text",
+        type: "text",
+        required: false
+      }
+    ],
+    pricing: {
+      basePrice: product.price,
+      discountPercentage: 0,
+      bulkPricing: [
+        { minQuantity: 5, discount: 10 },
+        { minQuantity: 10, discount: 20 },
+        { minQuantity: 25, discount: 30 }
+      ]
+    },
+    availability: product.inStock ? "In Stock" : "Out of Stock",
+    estimatedDelivery: "3-5 business days",
+    tags: product.tags
+  };
+};
+
+// Sample product data for demonstration (fallback)
 const sampleProduct: ProductDetailType = {
   id: "vinyl-banner-001",
   name: "Premium Vinyl Banner",
@@ -328,9 +416,20 @@ const productDatabase: Record<string, ProductDetailType> = {
 
 export default function ProductDetailPage() {
   const [, params] = useRoute("/product/:id");
-  const productId = params?.id;
+  const productSlug = params?.id;
 
-  const product = productId ? productDatabase[productId] : null;
+  // Find the actual product from our dummy data
+  let product: ProductDetailType | null = null;
+  
+  if (productSlug) {
+    const foundProduct = findProductBySlug(productSlug);
+    if (foundProduct) {
+      product = convertToProductDetail(foundProduct);
+    } else {
+      // Try to find in the old database as fallback
+      product = productDatabase[productSlug] || null;
+    }
+  }
 
   if (!product) {
     return (

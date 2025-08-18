@@ -708,6 +708,126 @@ export const MOCK_TEMPLATES: Template[] = [
       { id: 'event', name: 'Event', texts: { 'title-text': 'EVENT CARD', 'description-text': 'Event details and information' } },
       { id: 'welcome', name: 'Welcome', texts: { 'title-text': 'WELCOME', 'description-text': 'Welcome message and details' } }
     ]
+  },
+  // CUSTOM BANNER TEMPLATE FOR TESTING BACKGROUND RENDERING
+  {
+    id: 'custom-banner-template',
+    name: 'Custom Banner Template',
+    description: 'A custom template with heading, banner area, and note section for testing background rendering',
+    category: 'marketing',
+    tags: ['custom', 'banner', 'heading', 'note', 'test'],
+    thumbnail: 'data:image/svg+xml;base64,' + btoa(`
+      <svg width="200" height="120" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="120" fill="#f0f0f0" stroke="#ccc" stroke-width="2"/>
+        <rect x="20" y="20" width="160" height="30" fill="#4A90E2" stroke="#2E5BBA" stroke-width="1"/>
+        <rect x="20" y="60" width="160" height="40" fill="#FF6B6B" stroke="#E53E3E" stroke-width="1"/>
+        <rect x="20" y="110" width="160" height="20" fill="#4ECDC4" stroke="#38B2AC" stroke-width="1"/>
+        <text x="100" y="37" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">HEADING</text>
+        <text x="100" y="80" text-anchor="middle" fill="white" font-family="Arial" font-size="10">BANNER</text>
+        <text x="100" y="123" text-anchor="middle" fill="white" font-family="Arial" font-size="8">NOTE</text>
+      </svg>
+    `),
+    dimensions: { width: 1200, height: 800 },
+    objects: [
+      {
+        id: 'main-banner-area',
+        type: 'rectangle',
+        templateRole: 'background',
+        isEditable: true,
+        isRequired: true,
+        placeholder: 'Main Banner Area',
+        properties: {
+          left: 600, top: 400, width: 1000, height: 600, angle: 0, scaleX: 1, scaleY: 1,
+          fill: '#f8f9fa', stroke: '#4A90E2', strokeWidth: 3, opacity: 1,
+          visible: true, selectable: true, evented: true, zIndex: 1
+        }
+      },
+      {
+        id: 'heading-text',
+        type: 'text',
+        templateRole: 'text',
+        isEditable: true,
+        isRequired: true,
+        placeholder: 'MAIN HEADING',
+        properties: {
+          left: 600, top: 150, width: 800, height: 80, angle: 0, scaleX: 1, scaleY: 1,
+          fill: '#2C3E50', opacity: 1, visible: true, selectable: true, evented: true, zIndex: 2
+        },
+        textProperties: {
+          fontFamily: 'Arial Black', fontSize: 64, fontWeight: 'bold', textAlign: 'center', text: 'MAIN HEADING'
+        }
+      },
+      {
+        id: 'subheading-text',
+        type: 'text',
+        templateRole: 'text',
+        isEditable: true,
+        isRequired: false,
+        placeholder: 'Subheading text goes here',
+        properties: {
+          left: 600, top: 250, width: 600, height: 40, angle: 0, scaleX: 1, scaleY: 1,
+          fill: '#7F8C8D', opacity: 1, visible: true, selectable: true, evented: true, zIndex: 2
+        },
+        textProperties: {
+          fontFamily: 'Arial', fontSize: 28, fontWeight: 'normal', textAlign: 'center', text: 'Subheading text goes here'
+        }
+      },
+      {
+        id: 'note-section',
+        type: 'rectangle',
+        templateRole: 'text',
+        isEditable: true,
+        isRequired: false,
+        placeholder: 'Note Section',
+        properties: {
+          left: 1000, top: 700, width: 300, height: 150, angle: 0, scaleX: 1, scaleY: 1,
+          fill: '#E8F5E8', stroke: '#4CAF50', strokeWidth: 2, opacity: 1,
+          visible: true, selectable: true, evented: true, zIndex: 2
+        }
+      },
+      {
+        id: 'note-text',
+        type: 'text',
+        templateRole: 'text',
+        isEditable: true,
+        isRequired: false,
+        placeholder: 'Important note text',
+        properties: {
+          left: 1000, top: 750, width: 250, height: 80, angle: 0, scaleX: 1, scaleY: 1,
+          fill: '#2E7D32', opacity: 1, visible: true, selectable: true, evented: true, zIndex: 3
+        },
+        textProperties: {
+          fontFamily: 'Arial', fontSize: 18, fontWeight: 'normal', textAlign: 'left', text: 'Important note text goes here. This section can contain additional information or reminders.'
+        }
+      },
+      {
+        id: 'banner-image',
+        type: 'image',
+        templateRole: 'background',
+        isEditable: true,
+        isRequired: false,
+        placeholder: 'Banner Image',
+        properties: {
+          left: 600, top: 500, width: 400, height: 200, angle: 0, scaleX: 1, scaleY: 1,
+          opacity: 1, visible: true, selectable: true, evented: true, zIndex: 2
+        },
+        imageProperties: {
+          src: 'https://qwwptkqqybufsbeeyvcr.supabase.co/storage/v1/object/public/Master%20Sign/assets/Business%20Signage/20240118_151230.jpg',
+          filters: []
+        }
+      }
+    ],
+    colorVariations: [
+      { id: 'blue', name: 'Professional Blue', preview: '#4A90E2', colors: { 'main-banner-area': '#f8f9fa' } },
+      { id: 'green', name: 'Nature Green', preview: '#4CAF50', colors: { 'main-banner-area': '#f1f8e9' } },
+      { id: 'purple', name: 'Royal Purple', preview: '#9C27B0', colors: { 'main-banner-area': '#f3e5f5' } },
+      { id: 'orange', name: 'Warm Orange', preview: '#FF9800', colors: { 'main-banner-area': '#fff3e0' } }
+    ],
+    textVariations: [
+      { id: 'business', name: 'Business', texts: { 'heading-text': 'BUSINESS BANNER', 'subheading-text': 'Professional business solutions' } },
+      { id: 'event', name: 'Event', texts: { 'heading-text': 'EVENT BANNER', 'subheading-text': 'Join us for an amazing event' } },
+      { id: 'promotion', name: 'Promotion', texts: { 'heading-text': 'SPECIAL OFFER', 'subheading-text': 'Limited time promotion' } }
+    ]
   }
 ]
 
