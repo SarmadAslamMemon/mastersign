@@ -111,7 +111,9 @@ export default function Footer() {
               ))}
               <li>
                 <a 
-                  href="/enhanced-editor"
+                  href="https://animated-cheesecake-a81f47.netlify.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center space-x-2 bg-[var(--master-blue)] text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   <span>🎨</span>

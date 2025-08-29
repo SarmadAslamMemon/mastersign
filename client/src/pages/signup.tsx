@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Eye, EyeOff, User, Mail, Phone, Lock, CheckCircle, Star, Shield, Award, Users, Palette } from "lucide-react";
+import { Eye, EyeOff, User, Mail, Phone, Lock, CheckCircle, Star, Shield, Award, Users, Palette, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,6 +23,7 @@ interface ValidationErrors {
   phone?: string;
   password?: string;
   confirmPassword?: string;
+  general?: string;
 }
 
 export default function SignupPage() {
@@ -115,12 +116,27 @@ export default function SignupPage() {
 
     setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      // Import Firebase auth function
+      const { registerUser } = await import('@/lib/firebase-auth');
+      
+      const result = await registerUser(formData.email, formData.password, {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        phone: formData.phone,
+        company: '' // Add company field if needed
+      });
+
+      if (result.success) {
+        setIsSuccess(true);
+      } else {
+        setErrors({ general: result.error });
+      }
+    } catch (error: any) {
+      setErrors({ general: error.message || 'Registration failed' });
+    } finally {
       setIsSubmitting(false);
-      setIsSuccess(true);
-      // In real app, you would handle the API response here
-    }, 2000);
+    }
   };
 
   const getPasswordStrength = (password: string) => {
@@ -264,13 +280,20 @@ export default function SignupPage() {
               <p className="text-gray-600">Join Master Signs and start creating amazing signage</p>
             </motion.div>
 
-            {/* Form */}
-            <motion.form 
-              className="bg-white rounded-2xl shadow-xl p-10 border border-gray-100"
-              variants={fadeInUp}
-              onSubmit={handleSubmit}
-            >
-              <div className="space-y-8">
+                         {/* Form */}
+             <motion.form 
+               className="bg-white rounded-2xl shadow-xl p-10 border border-gray-100"
+               variants={fadeInUp}
+               onSubmit={handleSubmit}
+             >
+               <div className="space-y-8">
+                 {/* General Error */}
+                 {errors.general && (
+                   <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-center space-x-3">
+                     <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0" />
+                     <p className="text-red-700 text-sm">{errors.general}</p>
+                   </div>
+                 )}
                 {/* Name Fields */}
                 <div className="grid grid-cols-2 gap-6">
                   <div>

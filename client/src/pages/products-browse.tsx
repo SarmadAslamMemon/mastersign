@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { Star, ShoppingCart, Eye } from "lucide-react";
-import { useProducts } from "@/hooks/useSupabase";
+import { useStaticProducts } from "@/hooks/useStaticData";
 
 // Category fallback images mapping
 const categoryFallbackImage: Record<ProductCategory, string> = {
@@ -61,6 +61,9 @@ function getSafeImageUrl(imageUrl: string | undefined, category: ProductCategory
     return categoryFallbackImage[category] || categoryFallbackImage[ProductCategory.SIGNS];
   }
 }
+
+// Test link for enhanced product detail page
+const ENHANCED_PRODUCT_TEST_LINK = "/product/sample-sign-001";
 
 // Sub-categories mapping
 const PRODUCT_SUBCATEGORIES: Record<ProductCategory, string[]> = {
@@ -141,8 +144,8 @@ export default function ProductsBrowsePage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('');
 
-  // Fetch real products from Supabase
-  const { products, loading, error, fetchProductsByCategory } = useProducts();
+  // Fetch products from static data
+  const { products, loading, error, fetchProductsByCategory } = useStaticProducts();
 
   useEffect(() => {
     // Fetch products for the selected category
@@ -156,46 +159,12 @@ export default function ProductsBrowsePage() {
     if (loading) return [];
     if (error) return [];
 
-    console.log(`🔄 Transforming ${products.length} products from Supabase`);
+    console.log(`🔄 Using ${products.length} static products`);
     console.log('📊 Product categories found:', [...new Set(products.map(p => p.category))]);
 
-    // Remove duplicates by ID and transform Supabase products
-    const uniqueProducts = products.filter((product, index, self) => 
-      index === self.findIndex(p => p.id === product.id)
-    );
-    
-    console.log(`🔄 After removing duplicates: ${uniqueProducts.length} products`);
-
-    // Transform Supabase products to match Product interface
-    return uniqueProducts.map((supabaseProduct) => ({
-      id: supabaseProduct.id,
-      name: supabaseProduct.name,
-      category: supabaseProduct.category as ProductCategory,
-      subCategory: supabaseProduct.sub_category,
-      description: supabaseProduct.short_description || supabaseProduct.long_description,
-      price: supabaseProduct.pricing?.base_price || 99.99,
-      image: getSafeImageUrl(supabaseProduct.images?.[0], selectedCategory),
-      thumbnail: getSafeImageUrl(supabaseProduct.images?.[0], selectedCategory),
-      sizes: [],
-      shapes: [],
-      materials: ['High Quality Material'],
-      features: ['Professional Grade', 'Custom Design'],
-      specifications: supabaseProduct.specifications || {
-        weight: 1,
-        material: 'Premium Material',
-        finish: 'Professional',
-        durability: '5+ Years',
-        installation: 'Professional Required',
-        warranty: '2 Years'
-      },
-      inStock: true,
-      rating: supabaseProduct.rating || 4.5,
-      reviewCount: supabaseProduct.review_count || 25,
-      tags: supabaseProduct.tags || [supabaseProduct.sub_category?.toLowerCase(), 'professional', 'custom'],
-      createdAt: new Date(supabaseProduct.created_at),
-      updatedAt: new Date(supabaseProduct.updated_at)
-    }));
-  }, [products, loading, error, selectedCategory]);
+    // Our static data already matches the Product interface, so just return it
+    return products;
+  }, [products, loading, error]);
 
   const filtered = useMemo(() => {
     let filteredItems = items;
@@ -272,6 +241,19 @@ export default function ProductsBrowsePage() {
             Discover our comprehensive range of professional signage solutions, 
             from custom banners to illuminated signs and everything in between.
           </p>
+          
+          {/* Test Enhanced Product Detail Page */}
+          <div className="mt-8">
+            <a 
+              href={ENHANCED_PRODUCT_TEST_LINK}
+              className="inline-flex items-center px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-colors font-medium shadow-lg"
+            >
+              🧪 Test Enhanced Product Detail Page
+            </a>
+            <p className="text-sm text-blue-200 mt-2">
+              Click to see the new dynamic pricing, customization options, and real-time calculations
+            </p>
+          </div>
         </div>
       </div>
 

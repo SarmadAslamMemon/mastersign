@@ -1,97 +1,47 @@
-import { createClient } from '@supabase/supabase-js'
+// Mock Supabase client for static deployment
+// This prevents environment variable errors while we migrate to static data
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables')
-}
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+export const supabase = {
   auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true
+    getSession: async () => ({ data: { session: null } }),
+    onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+    signInWithPassword: async () => ({ error: null }),
+    signUp: async () => ({ error: null }),
+    signOut: async () => ({ error: null })
+  },
+  from: () => ({
+    select: () => ({ eq: () => ({ order: () => ({ single: () => Promise.resolve({ data: null, error: null }) }) }) }),
+    insert: () => ({ select: () => Promise.resolve({ data: null, error: null }) }),
+    update: () => ({ eq: () => ({ select: () => Promise.resolve({ data: null, error: null }) }) })
+  }),
+  storage: {
+    from: () => ({
+      upload: () => Promise.resolve({ data: null, error: null }),
+      getPublicUrl: () => ({ data: { publicUrl: '' } }),
+      remove: () => Promise.resolve({ error: null })
+    })
   }
-})
+};
 
-// Database types
+// Mock database types
 export type Database = {
   public: {
     Tables: {
       quote_requests: {
-        Row: {
-          id: string
-          name: string
-          email: string
-          phone: string | null
-          company: string | null
-          service_type: string
-          timeline: string | null
-          budget: string | null
-          description: string | null
-          files: string[] | null
-          status: string
-          created_at: string
-        }
-        Insert: {
-          id?: string
-          name: string
-          email: string
-          phone?: string | null
-          company?: string | null
-          service_type: string
-          timeline?: string | null
-          budget?: string | null
-          description?: string | null
-          files?: string[] | null
-          status?: string
-          created_at?: string
-        }
-        Update: {
-          id?: string
-          name?: string
-          email?: string
-          phone?: string | null
-          company?: string | null
-          service_type?: string
-          timeline?: string | null
-          budget?: string | null
-          description?: string | null
-          files?: string[] | null
-          status?: string
-          created_at?: string
-        }
-      }
+        Row: any;
+        Insert: any;
+        Update: any;
+      };
       testimonials: {
-        Row: {
-          id: string
-          name: string
-          company: string
-          rating: string
-          content: string
-          avatar: string | null
-          featured: string
-        }
-        Insert: {
-          id?: string
-          name: string
-          company: string
-          rating: string
-          content: string
-          avatar?: string | null
-          featured?: string
-        }
-        Update: {
-          id?: string
-          name?: string
-          company?: string
-          rating?: string
-          content?: string
-          avatar?: string | null
-          featured?: string
-        }
-      }
-    }
-  }
-}
+        Row: any;
+        Insert: any;
+        Update: any;
+      };
+      products: {
+        Row: any;
+        Insert: any;
+        Update: any;
+      };
+    };
+  };
+};

@@ -70,18 +70,24 @@ export default function LoginPage() {
 
     setIsSubmitting(true);
     
-    // Simulate API call with potential error
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // Import Firebase auth function
+      const { loginUser } = await import('@/lib/firebase-auth');
       
-      // Simulate login failure for demo purposes
-      // In real app, you would check against your API
-      if (formData.email === "demo@example.com" && formData.password === "password123") {
+      const result = await loginUser(formData.email, formData.password);
+
+      if (result.success) {
         setIsSuccess(true);
+        // Store user data in localStorage or state management
+        localStorage.setItem('user', JSON.stringify(result.userData));
       } else {
-        setErrors({ general: "Invalid email or password. Please try again." });
+        setErrors({ general: result.error });
       }
-    }, 2000);
+    } catch (error: any) {
+      setErrors({ general: error.message || 'Login failed' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSuccess) {

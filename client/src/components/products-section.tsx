@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { ProductCategory, PRODUCT_SUBCATEGORIES } from "@/types/products";
 import { getImageUrl } from "@/lib/image-utils";
-import { useProducts } from "@/hooks/useSupabase";
+import { useStaticProducts } from "@/hooks/useStaticData";
 import { useEffect, useState } from "react";
 
 export default function ProductsSection() {
-  const { products, loading } = useProducts();
+  const { products, loading } = useStaticProducts();
   const [featuredProducts, setFeaturedProducts] = useState<any[]>([]);
 
   // All parent categories with their featured sub-categories
@@ -106,7 +106,7 @@ export default function ProductsSection() {
     }
   ];
 
-  // Get featured products from Supabase data
+  // Get featured products from static data
   useEffect(() => {
     if (products.length > 0) {
       // Get one featured product from each category
@@ -273,7 +273,7 @@ export default function ProductsSection() {
               Browse our complete product catalog or get in touch for custom solutions 
               tailored to your specific needs.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
               <Button 
                 size="lg" 
                 variant="secondary"
@@ -294,6 +294,22 @@ export default function ProductsSection() {
               >
                 Get Custom Quote
               </Button>
+            </div>
+            
+            {/* Start Designing CTA */}
+            <div className="border-t border-white/20 pt-6">
+              <p className="text-blue-100 mb-4">
+                Or create your own custom design with our professional tools
+              </p>
+              <a 
+                href="https://animated-cheesecake-a81f47.netlify.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-lg hover:bg-white/20 transition-colors font-semibold"
+              >
+                <span>🎨</span>
+                <span>Start Designing Your Own Template</span>
+              </a>
             </div>
           </div>
         </motion.div>

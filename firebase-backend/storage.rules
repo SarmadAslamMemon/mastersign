@@ -1,0 +1,36 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Product images - viewable by everyone, uploadable by admins
+    match /products/{imageId} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Template images - viewable by everyone, uploadable by admins
+    match /templates/{imageId} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // User design images - users can only access their own
+    match /userDesigns/{userId}/{imageId} {
+      allow read, write: if request.auth != null && 
+        request.auth.uid == userId;
+    }
+    
+    // User profile images - users can only access their own
+    match /userProfiles/{userId}/{imageId} {
+      allow read, write: if request.auth != null && 
+        request.auth.uid == userId;
+    }
+    
+    // Quote request attachments - users can only access their own
+    match /quoteRequests/{requestId}/{fileId} {
+      allow read, write: if request.auth != null && 
+        firestore.get(/databases/(default)/documents/quoteRequests/$(requestId)).data.email == request.auth.token.email;
+    }
+  }
+}

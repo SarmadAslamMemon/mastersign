@@ -141,7 +141,7 @@ export default function ServicesSection() {
                       className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-lg"
                       data-testid={`button-service-${index}`}
                     >
-                      <a href="/enhanced-editor">
+                      <a href="https://animated-cheesecake-a81f47.netlify.app/" target="_blank" rel="noopener noreferrer">
                         Start Designing
                       </a>
                     </Button>

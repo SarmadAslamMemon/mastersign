@@ -149,6 +149,33 @@ export default function TestimonialsSection() {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Start Designing CTA */}
+        <motion.div 
+          className="text-center mt-16"
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+        >
+          <div className="bg-gradient-to-r from-[var(--master-blue)] to-blue-600 rounded-3xl p-8 lg:p-12 text-white">
+            <h3 className="text-2xl lg:text-3xl font-bold mb-4">
+              Ready to Create Your Own Sign?
+            </h3>
+            <p className="text-blue-100 text-lg mb-6 max-w-2xl mx-auto">
+              Join hundreds of satisfied customers who have designed their perfect signage with our professional tools.
+            </p>
+            <a 
+              href="https://animated-cheesecake-a81f47.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 bg-white text-[var(--master-blue)] px-8 py-4 rounded-xl hover:bg-gray-100 transition-colors font-semibold text-lg shadow-lg"
+            >
+              <span>🎨</span>
+              <span>Start Designing Your Own Template</span>
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

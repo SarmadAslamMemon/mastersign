@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Quote, Send, Upload, X } from "lucide-react";
+import { Quote, Send, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { useQuoteRequests, useStorage } from "@/hooks/useSupabase";
+import { useStaticQuoteRequests } from "@/hooks/useStaticData";
 import { fadeInUp, staggerContainer, magneticHover } from "@/lib/animations";
 
 const formSchema = z.object({
@@ -28,11 +28,10 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 export default function QuoteForm() {
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+
   const [uploading, setUploading] = useState(false);
   const { toast } = useToast();
-  const { createQuoteRequest } = useQuoteRequests();
-  const { uploadFile, getPublicUrl } = useStorage();
+  const { createQuoteRequest } = useStaticQuoteRequests();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -52,40 +51,17 @@ export default function QuoteForm() {
     try {
       setUploading(true);
       
-      // Upload files to Supabase Storage
-      const fileUrls: string[] = [];
-      if (uploadedFiles.length > 0) {
-        for (const file of uploadedFiles) {
-          const fileName = `${Date.now()}-${file.name}`;
-          const { error: uploadError } = await uploadFile(
-            import.meta.env.VITE_SUPABASE_STORAGE_BUCKET || 'uploads',
-            `quote-requests/${fileName}`,
-            file
-          );
-          
-          if (uploadError) {
-            throw new Error(`Failed to upload ${file.name}: ${uploadError.message}`);
-          }
-          
-          const publicUrl = getPublicUrl(
-            import.meta.env.VITE_SUPABASE_STORAGE_BUCKET || 'uploads',
-            `quote-requests/${fileName}`
-          );
-          fileUrls.push(publicUrl);
-        }
-      }
-
-      // Create quote request with file URLs
+      // Create quote request
       const quoteData = {
         ...data,
-        files: fileUrls,
+        files: [],
         status: 'pending'
       };
 
       const { error } = await createQuoteRequest(quoteData);
       
       if (error) {
-        throw new Error(error.message);
+        throw new Error(error);
       }
 
       toast({
@@ -94,7 +70,7 @@ export default function QuoteForm() {
       });
       
       form.reset();
-      setUploadedFiles([]);
+
       
     } catch (error) {
       toast({
@@ -108,14 +84,7 @@ export default function QuoteForm() {
     }
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(event.target.files || []);
-    setUploadedFiles(prev => [...prev, ...files]);
-  };
 
-  const removeFile = (index: number) => {
-    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
-  };
 
   return (
     <section id="quote" className="py-24 bg-[var(--master-black)]">
@@ -349,50 +318,7 @@ export default function QuoteForm() {
                     )}
                   />
 
-                  {/* File Upload */}
-                  <div>
-                    <label className="block text-white font-semibold mb-2">Upload Files (Optional)</label>
-                    <div className="border-2 border-dashed border-white border-opacity-30 rounded-xl p-8 text-center hover:border-[var(--master-blue)] hover:border-opacity-50 transition-colors">
-                      <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                      <p className="text-white mb-2">Drag and drop files here or click to browse</p>
-                      <p className="text-gray-400 text-sm mb-4">Supported formats: JPG, PNG, PDF, AI, EPS (Max 10MB each)</p>
-                      <input 
-                        type="file" 
-                        multiple 
-                        accept=".jpg,.jpeg,.png,.pdf,.ai,.eps"
-                        onChange={handleFileUpload}
-                        className="hidden"
-                        id="file-upload"
-                        data-testid="input-file-upload"
-                      />
-                      <Button 
-                        type="button"
-                        variant="outline"
-                        onClick={() => document.getElementById('file-upload')?.click()}
-                        className="border-white border-opacity-30 text-black hover:bg-white hover:bg-opacity-10"
-                      >
-                        Choose Files
-                      </Button>
-                    </div>
-                    {uploadedFiles.length > 0 && (
-                      <div className="mt-4 space-y-2">
-                        {uploadedFiles.map((file, index) => (
-                          <div key={index} className="flex items-center justify-between bg-white bg-opacity-10 rounded-lg p-3">
-                            <span className="text-white text-sm">{file.name}</span>
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => removeFile(index)}
-                              className="text-red-400 hover:text-red-300"
-                            >
-                              Remove
-                            </Button>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+
 
                   {/* Submit Button */}
                   <div className="text-center pt-6">

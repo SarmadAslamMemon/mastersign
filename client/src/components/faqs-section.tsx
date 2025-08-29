@@ -144,13 +144,32 @@ export default function FAQsSection() {
             <p className="text-gray-600 mb-4">
               Still have questions? We're here to help!
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <button className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
                 Contact Us
               </button>
               <button className="inline-flex items-center px-6 py-3 border border-blue-600 text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors">
                 Request Quote
               </button>
+            </div>
+            
+            {/* Start Designing CTA */}
+            <div className="bg-gradient-to-r from-blue-600 to-[var(--master-blue)] rounded-2xl p-6 text-white">
+              <h3 className="text-xl font-bold mb-3">
+                Ready to Start Designing?
+              </h3>
+              <p className="text-blue-100 mb-4">
+                Create your own professional signage with our easy-to-use design tools
+              </p>
+              <a 
+                href="https://animated-cheesecake-a81f47.netlify.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-2 bg-white text-blue-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+              >
+                <span>🎨</span>
+                <span>Start Designing Your Own Template</span>
+              </a>
             </div>
           </motion.div>
         </motion.div>

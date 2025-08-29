@@ -15,27 +15,48 @@ export enum ProductCategory {
   ACCESSORIES = "ACCESSORIES"
 }
 
-// Product interfaces
+// Enhanced Product interfaces for dynamic pricing
 export interface Product {
   id: string;
   name: string;
   category: ProductCategory;
   subCategory: string;
   description: string;
+  longDescription: string;
   price: number;
   image: string;
   thumbnail: string;
+  images: ProductImage[];
   sizes: ProductSize[];
   shapes: ProductShape[];
   materials: string[];
   features: string[];
-  specifications: ProductSpecifications;
+  specifications: ProductSpecification[];
   inStock: boolean;
   rating: number;
   reviewCount: number;
+  questionCount: number;
   tags: string[];
+  featured: boolean;
   createdAt: Date;
   updatedAt: Date;
+  
+  // New dynamic pricing fields
+  pricing: ProductPricing;
+  sizeConstraints?: SizeConstraints;
+  customizableOptions?: CustomizableOption[];
+  quantityDiscounts?: QuantityDiscount[];
+  shippingOptions?: ShippingOption[];
+  turnaroundTime?: TurnaroundTime;
+  personalizationOptions?: PersonalizationOptions;
+  inventory?: InventoryInfo;
+}
+
+export interface ProductImage {
+  id: string;
+  url: string;
+  alt: string;
+  thumbnail?: string;
 }
 
 export interface ProductSize {
@@ -54,15 +75,144 @@ export interface ProductShape {
   icon: string;
 }
 
-export interface ProductSpecifications {
-  weight: number;
-  material: string;
-  finish: string;
-  durability: string;
-  installation: string;
-  warranty: string;
+export interface ProductSpecification {
+  id: string;
+  name: string;
+  type: 'text' | 'select' | 'number';
+  options?: string[];
+  min?: number;
+  max?: number;
+  step?: number;
+  unit?: string;
+  required?: boolean;
 }
 
+export interface ProductPricing {
+  basePrice: number;
+  discountPercentage?: number;
+  pricingModel: 'fixed' | 'per_sq_ft' | 'per_linear_ft' | 'per_letter' | 'custom';
+  pricePerSqFt?: number;
+  pricePerLinearFt?: number;
+  pricePerLetter?: number;
+  minPrice?: number;
+  maxPrice?: number;
+}
+
+export interface SizeConstraints {
+  allowCustomSize: boolean;
+  minWidth: number;
+  maxWidth: number;
+  minHeight: number;
+  maxHeight: number;
+  defaultWidth: number;
+  defaultHeight: number;
+  unit: string;
+  aspectRatio?: number;
+}
+
+export interface CustomizableOption {
+  id: string;
+  name: string;
+  type: 'select' | 'radio' | 'checkbox';
+  required: boolean;
+  values: OptionValue[];
+}
+
+export interface OptionValue {
+  value: string;
+  label: string;
+  priceImpact: number;
+  description?: string;
+}
+
+export interface QuantityDiscount {
+  minQuantity: number;
+  maxQuantity?: number;
+  discountPercentage?: number;
+  discountAmount?: number;
+  description?: string;
+}
+
+export interface ShippingOption {
+  id: string;
+  name: string;
+  description: string;
+  basePrice: number;
+  estimatedDays: number;
+  zipCodeRequired: boolean;
+  zipCodePricing?: ZipCodePricing;
+  weightBasedPricing?: WeightBasedPricing;
+  dimensionalWeightPricing?: DimensionalWeightPricing;
+}
+
+export interface ZipCodePricing {
+  ranges: ZipCodeRange[];
+}
+
+export interface ZipCodeRange {
+  start: string;
+  end: string;
+  additionalCost: number;
+}
+
+export interface WeightBasedPricing {
+  baseWeight: number;
+  weightIncrement: number;
+  costPerIncrement: number;
+}
+
+export interface DimensionalWeightPricing {
+  weightIncrement: number;
+  costPerIncrement: number;
+}
+
+export interface TurnaroundTime {
+  estimatedDays: number;
+  rushAvailable: boolean;
+  rushTurnaroundDays: number;
+  rushFeePercentage: number;
+  rushFeeMultiplier: number;
+  orderCutoffTime: string;
+  businessDaysOnly: boolean;
+}
+
+export interface PersonalizationOptions {
+  artworkUpload: boolean;
+  designNow: boolean;
+  designHelp: boolean;
+  maxFileSize: number;
+  supportedFormats: string[];
+  designServiceFee?: number;
+}
+
+export interface InventoryInfo {
+  stockQuantity: number;
+  inStock: boolean;
+  lowStockThreshold: number;
+  backorderAvailable: boolean;
+  supplierLeadTime: number;
+}
+
+// Enhanced ProductDetail interface for the detail page
+export interface ProductDetail extends Product {
+  reviews: ProductReview[];
+  relatedProducts: string[];
+  frequentlyBoughtWith: string[];
+}
+
+export interface ProductReview {
+  id: string;
+  userId: string;
+  userName: string;
+  rating: number;
+  title: string;
+  comment: string;
+  date: Date;
+  helpful: number;
+  verified: boolean;
+}
+
+// Category Data interfaces
 export interface CategoryData {
   id: ProductCategory;
   name: string;
@@ -246,4 +396,54 @@ export interface ProductFilter {
   popular?: boolean;
   featured?: boolean;
   search?: string;
+}
+
+// Cart and Order interfaces
+export interface CartItem {
+  id: string;
+  productId: string;
+  quantity: number;
+  size?: {
+    width: number;
+    height: number;
+    unit: string;
+  };
+  options?: Array<{
+    optionId: string;
+    value: string;
+  }>;
+  artworkFileUrl?: string;
+  designMode?: string;
+  calculatedPrice: number;
+}
+
+export interface Order {
+  id: string;
+  userId: string;
+  orderNumber: string;
+  items: CartItem[];
+  totalAmount: number;
+  status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+  shippingAddress: Address;
+  billingAddress: Address;
+  shippingMethod: string;
+  rushRequested: boolean;
+  specialInstructions?: string;
+  paymentStatus: 'pending' | 'paid' | 'failed' | 'refunded';
+  estimatedDeliveryDate?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Address {
+  firstName: string;
+  lastName: string;
+  company?: string;
+  address1: string;
+  address2?: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+  phone: string;
 } 
