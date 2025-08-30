@@ -1,0 +1,2832 @@
+{
+  "app-logo-sub.png": [
+    {
+      "fileName": "app-logo-sub.png",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/app-logo-sub.png gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/app-logo-sub.png"
+    }
+  ],
+  "app-logo.png": [
+    {
+      "fileName": "app-logo.png",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/app-logo.png gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/app-logo.png"
+    }
+  ],
+  "Banners": [
+    {
+      "fileName": "Banner (1) copy.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Banner (1) copy.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Banners/Banner (1) copy.jpg"
+    },
+    {
+      "fileName": "Banner (3).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Banner (3).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Banners/Banner (3).jpg"
+    },
+    {
+      "fileName": "Banner (4) copy.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Banner (4) copy.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Banners/Banner (4) copy.jpg"
+    },
+    {
+      "fileName": "Banner (6) copy.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Banner (6) copy.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Banners/Banner (6) copy.jpg"
+    },
+    {
+      "fileName": "Banner-Canyon Hills.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Banner-Canyon Hills.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Banners/Banner-Canyon Hills.jpg"
+    },
+    {
+      "fileName": "Banner (1).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Banner (1).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Banners/Duplicates/Banner (1).jpg"
+    },
+    {
+      "fileName": "Banner (2).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Banner (2).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Banners/Duplicates/Banner (2).jpg"
+    },
+    {
+      "fileName": "Banner (4).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Banner (4).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Banners/Duplicates/Banner (4).jpg"
+    },
+    {
+      "fileName": "Banner (5).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Banner (5).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Banners/Duplicates/Banner (5).jpg"
+    },
+    {
+      "fileName": "Banner (6).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Banner (6).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Banners/Duplicates/Banner (6).jpg"
+    },
+    {
+      "fileName": "MAIN - Banner.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/MAIN - Banner.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Banners/MAIN - Banner.jpg"
+    }
+  ],
+  "Business Signage": [
+    {
+      "fileName": "20160921_215751-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20160921_215751-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20160921_215751-edited.jpg"
+    },
+    {
+      "fileName": "20170605_125901-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20170605_125901-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20170605_125901-edited.jpg"
+    },
+    {
+      "fileName": "20170730_160417-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20170730_160417-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20170730_160417-edited.jpg"
+    },
+    {
+      "fileName": "20190501_163912.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190501_163912.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20190501_163912.jpg"
+    },
+    {
+      "fileName": "20190529_210403-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190529_210403-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20190529_210403-edited.jpg"
+    },
+    {
+      "fileName": "20190614_201518.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190614_201518.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20190614_201518.jpg"
+    },
+    {
+      "fileName": "20191007_220944.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191007_220944.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20191007_220944.jpg"
+    },
+    {
+      "fileName": "20191007_221000.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191007_221000.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20191007_221000.jpg"
+    },
+    {
+      "fileName": "20191010_113014.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191010_113014.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20191010_113014.jpg"
+    },
+    {
+      "fileName": "20200123_013022.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200123_013022.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20200123_013022.jpg"
+    },
+    {
+      "fileName": "20200201_162931.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200201_162931.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20200201_162931.jpg"
+    },
+    {
+      "fileName": "20200224_145545-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200224_145545-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20200224_145545-edited.jpg"
+    },
+    {
+      "fileName": "20201223_130521.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20201223_130521.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20201223_130521.jpg"
+    },
+    {
+      "fileName": "20201223_130527.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20201223_130527.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20201223_130527.jpg"
+    },
+    {
+      "fileName": "20201223_131118.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20201223_131118.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20201223_131118.jpg"
+    },
+    {
+      "fileName": "20210401_224553.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210401_224553.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20210401_224553.jpg"
+    },
+    {
+      "fileName": "20210826_085819.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210826_085819.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20210826_085819.jpg"
+    },
+    {
+      "fileName": "20210913_192336.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210913_192336.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20210913_192336.jpg"
+    },
+    {
+      "fileName": "20210913_192638.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210913_192638.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20210913_192638.jpg"
+    },
+    {
+      "fileName": "20211028_180629.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211028_180629.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20211028_180629.jpg"
+    },
+    {
+      "fileName": "20211119_162043.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211119_162043.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20211119_162043.jpg"
+    },
+    {
+      "fileName": "20211119_163155.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211119_163155.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20211119_163155.jpg"
+    },
+    {
+      "fileName": "20211119_165702.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211119_165702.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20211119_165702.jpg"
+    },
+    {
+      "fileName": "20211221_133410.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211221_133410.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20211221_133410.jpg"
+    },
+    {
+      "fileName": "20221013_190255.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221013_190255.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20221013_190255.jpg"
+    },
+    {
+      "fileName": "20221013_190313.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221013_190313.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20221013_190313.jpg"
+    },
+    {
+      "fileName": "20221118_171521.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221118_171521.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20221118_171521.jpg"
+    },
+    {
+      "fileName": "20221118_171536.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221118_171536.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20221118_171536.jpg"
+    },
+    {
+      "fileName": "20221118_171544.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221118_171544.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20221118_171544.jpg"
+    },
+    {
+      "fileName": "20221118_184333.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221118_184333.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20221118_184333.jpg"
+    },
+    {
+      "fileName": "20221223_144241.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221223_144241.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20221223_144241.jpg"
+    },
+    {
+      "fileName": "20230109_115736.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230109_115736.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20230109_115736.jpg"
+    },
+    {
+      "fileName": "20230207_105000.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230207_105000.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20230207_105000.jpg"
+    },
+    {
+      "fileName": "20230211_113609.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230211_113609.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20230211_113609.jpg"
+    },
+    {
+      "fileName": "20230221_111011.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230221_111011.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20230221_111011.jpg"
+    },
+    {
+      "fileName": "20230405_190144.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230405_190144.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20230405_190144.jpg"
+    },
+    {
+      "fileName": "20230419_162132.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230419_162132.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20230419_162132.jpg"
+    },
+    {
+      "fileName": "20230515_163211.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230515_163211.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20230515_163211.jpg"
+    },
+    {
+      "fileName": "20230616_154153.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230616_154153.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20230616_154153.jpg"
+    },
+    {
+      "fileName": "20230616_154436.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230616_154436.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20230616_154436.jpg"
+    },
+    {
+      "fileName": "20240118_150912.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240118_150912.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240118_150912.jpg"
+    },
+    {
+      "fileName": "20240118_151228.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240118_151228.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240118_151228.jpg"
+    },
+    {
+      "fileName": "20240118_151230.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240118_151230.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240118_151230.jpg"
+    },
+    {
+      "fileName": "20240120_091335.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_091335.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240120_091335.jpg"
+    },
+    {
+      "fileName": "20240120_091420.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_091420.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240120_091420.jpg"
+    },
+    {
+      "fileName": "20240201_091753.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240201_091753.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240201_091753.jpg"
+    },
+    {
+      "fileName": "20240201_091823.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240201_091823.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240201_091823.jpg"
+    },
+    {
+      "fileName": "20240308_182215.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240308_182215.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240308_182215.jpg"
+    },
+    {
+      "fileName": "20240308_183140.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240308_183140.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240308_183140.jpg"
+    },
+    {
+      "fileName": "20240308_183142.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240308_183142.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240308_183142.jpg"
+    },
+    {
+      "fileName": "20240308_183225.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240308_183225.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240308_183225.jpg"
+    },
+    {
+      "fileName": "20240308_183254.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240308_183254.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240308_183254.jpg"
+    },
+    {
+      "fileName": "20240308_183259.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240308_183259.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240308_183259.jpg"
+    },
+    {
+      "fileName": "20240308_183306.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240308_183306.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240308_183306.jpg"
+    },
+    {
+      "fileName": "20240520_150534.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240520_150534.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240520_150534.jpg"
+    },
+    {
+      "fileName": "20240531_133436.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240531_133436.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240531_133436.jpg"
+    },
+    {
+      "fileName": "20240605_123349.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240605_123349.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240605_123349.jpg"
+    },
+    {
+      "fileName": "20240605_144517.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240605_144517.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240605_144517.jpg"
+    },
+    {
+      "fileName": "20240731_175048.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240731_175048.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/20240731_175048.jpg"
+    },
+    {
+      "fileName": "Dancology.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Dancology.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/Dancology.jpg"
+    },
+    {
+      "fileName": "Day Violins.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Day Violins.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/Day Violins.JPG"
+    },
+    {
+      "fileName": "Direct_Source1.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Direct_Source1.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/Direct_Source1.JPG"
+    },
+    {
+      "fileName": "Flex.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Flex.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/Flex.jpg"
+    },
+    {
+      "fileName": "Hectors_Building.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Hectors_Building.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/Hectors_Building.jpg"
+    },
+    {
+      "fileName": "Hectors_Pole.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Hectors_Pole.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/Hectors_Pole.jpg"
+    },
+    {
+      "fileName": "Horse_Crazy.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Horse_Crazy.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/Horse_Crazy.jpg"
+    },
+    {
+      "fileName": "image000001.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/image000001.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/image000001.jpg"
+    },
+    {
+      "fileName": "IMG_4739.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_4739.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/IMG_4739.jpg"
+    },
+    {
+      "fileName": "Liberty.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Liberty.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/Liberty.JPG"
+    },
+    {
+      "fileName": "Performance.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Performance.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/Performance.jpg"
+    },
+    {
+      "fileName": "Plant_Jungle1.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Plant_Jungle1.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/Plant_Jungle1.JPG"
+    },
+    {
+      "fileName": "Precision_Tune.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Precision_Tune.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/Precision_Tune.jpg"
+    },
+    {
+      "fileName": "Screenshot_20220527-165643_Drive.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Screenshot_20220527-165643_Drive.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/Screenshot_20220527-165643_Drive.jpg"
+    },
+    {
+      "fileName": "Window Wear - touched up.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Window Wear - touched up.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Business Signage/Window Wear - touched up.jpg"
+    }
+  ],
+  "Channel Letters": [
+    {
+      "fileName": "20170526_191737-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20170526_191737-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/20170526_191737-edited.jpg"
+    },
+    {
+      "fileName": "20170711_114459-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20170711_114459-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/20170711_114459-edited.jpg"
+    },
+    {
+      "fileName": "20180104_230648.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180104_230648.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/20180104_230648.jpg"
+    },
+    {
+      "fileName": "20190508_114054.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190508_114054.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/20190508_114054.jpg"
+    },
+    {
+      "fileName": "20190508_114107-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190508_114107-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/20190508_114107-edited.jpg"
+    },
+    {
+      "fileName": "20220916_162150.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220916_162150.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/20220916_162150.jpg"
+    },
+    {
+      "fileName": "20241112_170827.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20241112_170827.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/20241112_170827.jpg"
+    },
+    {
+      "fileName": "20241112_170953.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20241112_170953.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/20241112_170953.jpg"
+    },
+    {
+      "fileName": "20241112_194652.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20241112_194652.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/20241112_194652.jpg"
+    },
+    {
+      "fileName": "20241112_194813.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20241112_194813.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/20241112_194813.jpg"
+    },
+    {
+      "fileName": "24330.jpeg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/24330.jpeg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/24330.jpeg"
+    },
+    {
+      "fileName": "IMG_20240829_214419.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20240829_214419.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/IMG_20240829_214419.jpg"
+    },
+    {
+      "fileName": "IMG_4739.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_4739.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/IMG_4739.jpg"
+    },
+    {
+      "fileName": "Resized952021102395110233(1).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized952021102395110233(1).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/Resized952021102395110233(1).jpg"
+    },
+    {
+      "fileName": "Salt Cycles (1).JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Salt Cycles (1).JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/Salt Cycles (1).JPG"
+    },
+    {
+      "fileName": "Salt Cycles (2) copy.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Salt Cycles (2) copy.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/Salt Cycles (2) copy.jpg"
+    },
+    {
+      "fileName": "Salt Cycles (2).JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Salt Cycles (2).JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Channel Letters/Salt Cycles (2).JPG"
+    }
+  ],
+  "Clothes": [
+    {
+      "fileName": "20241005_084127.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20241005_084127.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Clothes/20241005_084127.jpg"
+    },
+    {
+      "fileName": "20241005_084139.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20241005_084139.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Clothes/20241005_084139.jpg"
+    },
+    {
+      "fileName": "FullSizeR.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/FullSizeR.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Clothes/FullSizeR.jpg"
+    }
+  ],
+  "Directories & Plaques": [
+    {
+      "fileName": "20150127_094523-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20150127_094523-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20150127_094523-edited.jpg"
+    },
+    {
+      "fileName": "20160304_162021-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20160304_162021-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20160304_162021-edited.jpg"
+    },
+    {
+      "fileName": "20170113_162037-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20170113_162037-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20170113_162037-edited.jpg"
+    },
+    {
+      "fileName": "20170122_222425.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20170122_222425.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20170122_222425.jpg"
+    },
+    {
+      "fileName": "20171204_123016.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20171204_123016.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20171204_123016.jpg"
+    },
+    {
+      "fileName": "20171229_152749.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20171229_152749.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20171229_152749.jpg"
+    },
+    {
+      "fileName": "20180312_090459.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180312_090459.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20180312_090459.jpg"
+    },
+    {
+      "fileName": "20180312_090521.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180312_090521.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20180312_090521.jpg"
+    },
+    {
+      "fileName": "20180507_125359.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180507_125359.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20180507_125359.jpg"
+    },
+    {
+      "fileName": "20180512_160408.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180512_160408.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20180512_160408.jpg"
+    },
+    {
+      "fileName": "20190409_174446.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190409_174446.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20190409_174446.jpg"
+    },
+    {
+      "fileName": "20190531_151329-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190531_151329-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20190531_151329-edited.jpg"
+    },
+    {
+      "fileName": "20191022_225321.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191022_225321.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20191022_225321.jpg"
+    },
+    {
+      "fileName": "20191117_221634.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191117_221634.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20191117_221634.jpg"
+    },
+    {
+      "fileName": "20200211_144305.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200211_144305.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20200211_144305.jpg"
+    },
+    {
+      "fileName": "20200224_145203-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200224_145203-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20200224_145203-edited.jpg"
+    },
+    {
+      "fileName": "20200303_165945.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200303_165945.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20200303_165945.jpg"
+    },
+    {
+      "fileName": "20200616_135553.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200616_135553.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20200616_135553.jpg"
+    },
+    {
+      "fileName": "20200807_090147.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200807_090147.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20200807_090147.jpg"
+    },
+    {
+      "fileName": "20210504_140603.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210504_140603.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20210504_140603.jpg"
+    },
+    {
+      "fileName": "20210504_140614.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210504_140614.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20210504_140614.jpg"
+    },
+    {
+      "fileName": "20220113_093559.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220113_093559.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20220113_093559.jpg"
+    },
+    {
+      "fileName": "20220430_145305.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220430_145305.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20220430_145305.jpg"
+    },
+    {
+      "fileName": "20220810_200656.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220810_200656.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20220810_200656.jpg"
+    },
+    {
+      "fileName": "20220912_172856.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220912_172856.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20220912_172856.jpg"
+    },
+    {
+      "fileName": "20220929_152550.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220929_152550.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20220929_152550.jpg"
+    },
+    {
+      "fileName": "20230211_103117.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230211_103117.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230211_103117.jpg"
+    },
+    {
+      "fileName": "20230221_111020.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230221_111020.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230221_111020.jpg"
+    },
+    {
+      "fileName": "20230301_091928.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230301_091928.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230301_091928.jpg"
+    },
+    {
+      "fileName": "20230316_101101.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230316_101101.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230316_101101.jpg"
+    },
+    {
+      "fileName": "20230316_101106.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230316_101106.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230316_101106.jpg"
+    },
+    {
+      "fileName": "20230323_130652.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230323_130652.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230323_130652.jpg"
+    },
+    {
+      "fileName": "20230607_165958.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230607_165958.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230607_165958.jpg"
+    },
+    {
+      "fileName": "20230609_171229.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230609_171229.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230609_171229.jpg"
+    },
+    {
+      "fileName": "20230609_171231.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230609_171231.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230609_171231.jpg"
+    },
+    {
+      "fileName": "20230609_171239.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230609_171239.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230609_171239.jpg"
+    },
+    {
+      "fileName": "20230609_171245.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230609_171245.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230609_171245.jpg"
+    },
+    {
+      "fileName": "20230614_173441.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230614_173441.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230614_173441.jpg"
+    },
+    {
+      "fileName": "20230905_181814.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230905_181814.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230905_181814.jpg"
+    },
+    {
+      "fileName": "20230913_133110.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230913_133110.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230913_133110.jpg"
+    },
+    {
+      "fileName": "20230913_140941.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230913_140941.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230913_140941.jpg"
+    },
+    {
+      "fileName": "20230929_145504.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230929_145504.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20230929_145504.jpg"
+    },
+    {
+      "fileName": "20231013_151052.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231013_151052.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20231013_151052.jpg"
+    },
+    {
+      "fileName": "20231121_155143.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231121_155143.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20231121_155143.jpg"
+    },
+    {
+      "fileName": "20231121_162325.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231121_162325.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20231121_162325.jpg"
+    },
+    {
+      "fileName": "20231204_151904.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231204_151904.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20231204_151904.jpg"
+    },
+    {
+      "fileName": "20231204_151907.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231204_151907.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20231204_151907.jpg"
+    },
+    {
+      "fileName": "20231227_121827.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231227_121827.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20231227_121827.jpg"
+    },
+    {
+      "fileName": "20240118_112400.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240118_112400.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20240118_112400.jpg"
+    },
+    {
+      "fileName": "20240118_112407.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240118_112407.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20240118_112407.jpg"
+    },
+    {
+      "fileName": "20240118_151133.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240118_151133.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20240118_151133.jpg"
+    },
+    {
+      "fileName": "20240118_151140.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240118_151140.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20240118_151140.jpg"
+    },
+    {
+      "fileName": "20240118_151145.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240118_151145.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20240118_151145.jpg"
+    },
+    {
+      "fileName": "20240118_151343.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240118_151343.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20240118_151343.jpg"
+    },
+    {
+      "fileName": "20240123_171642.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240123_171642.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20240123_171642.jpg"
+    },
+    {
+      "fileName": "20240131_154916.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240131_154916.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20240131_154916.jpg"
+    },
+    {
+      "fileName": "20240131_154922.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240131_154922.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20240131_154922.jpg"
+    },
+    {
+      "fileName": "20240624_132341.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240624_132341.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20240624_132341.jpg"
+    },
+    {
+      "fileName": "20240718_180526.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240718_180526.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20240718_180526.jpg"
+    },
+    {
+      "fileName": "20240815_141750.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240815_141750.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20240815_141750.jpg"
+    },
+    {
+      "fileName": "20240815_141756.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240815_141756.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/20240815_141756.jpg"
+    },
+    {
+      "fileName": "Blaze_Display.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Blaze_Display.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/Blaze_Display.jpg"
+    },
+    {
+      "fileName": "Called_to_Serve.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Called_to_Serve.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/Called_to_Serve.jpg"
+    },
+    {
+      "fileName": "Changes Plaque.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Changes Plaque.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/Changes Plaque.jpg"
+    },
+    {
+      "fileName": "cool_braille_office_signs_gold.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/cool_braille_office_signs_gold.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/cool_braille_office_signs_gold.jpg"
+    },
+    {
+      "fileName": "Directory.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Directory.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/Directory.JPG"
+    },
+    {
+      "fileName": "IMG_2013.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_2013.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/IMG_2013.JPG"
+    },
+    {
+      "fileName": "IMG_2016.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_2016.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/IMG_2016.JPG"
+    },
+    {
+      "fileName": "PayPro.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/PayPro.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/PayPro.jpg"
+    },
+    {
+      "fileName": "Plaques1.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Plaques1.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/Plaques1.JPG"
+    },
+    {
+      "fileName": "Plaques2.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Plaques2.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/Plaques2.JPG"
+    },
+    {
+      "fileName": "Preferred_Accounting.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Preferred_Accounting.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/Preferred_Accounting.JPG"
+    },
+    {
+      "fileName": "Resized_20220526_133027(1).jpeg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized_20220526_133027(1).jpeg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/Resized_20220526_133027(1).jpeg"
+    },
+    {
+      "fileName": "Resized_20220526_133027.jpeg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized_20220526_133027.jpeg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/Resized_20220526_133027.jpeg"
+    },
+    {
+      "fileName": "Resized_20220610_150726.jpeg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized_20220610_150726.jpeg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/Resized_20220610_150726.jpeg"
+    },
+    {
+      "fileName": "Signs.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Signs.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/Signs.jpg"
+    },
+    {
+      "fileName": "silver.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/silver.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/silver.jpg"
+    },
+    {
+      "fileName": "Wall_Massage.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Wall_Massage.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Directories & Plaques/Wall_Massage.JPG"
+    }
+  ],
+  "Fabricated Signs": [
+    {
+      "fileName": "20131002_221651.jpeg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20131002_221651.jpeg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/20131002_221651.jpeg"
+    },
+    {
+      "fileName": "20210925_094433.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210925_094433.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/20210925_094433.jpg"
+    },
+    {
+      "fileName": "20210929_160849.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210929_160849.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/20210929_160849.jpg"
+    },
+    {
+      "fileName": "20230105_163240.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230105_163240.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/20230105_163240.jpg"
+    },
+    {
+      "fileName": "20230616_154312.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230616_154312.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/20230616_154312.jpg"
+    },
+    {
+      "fileName": "20230617_120117.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230617_120117.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/20230617_120117.jpg"
+    },
+    {
+      "fileName": "20231108_162108.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231108_162108.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/20231108_162108.jpg"
+    },
+    {
+      "fileName": "20231108_162116.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231108_162116.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/20231108_162116.jpg"
+    },
+    {
+      "fileName": "20231114_212838.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231114_212838.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/20231114_212838.jpg"
+    },
+    {
+      "fileName": "20231114_213007.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231114_213007.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/20231114_213007.jpg"
+    },
+    {
+      "fileName": "20240320_162411.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240320_162411.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/20240320_162411.jpg"
+    },
+    {
+      "fileName": "image000000(2).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/image000000(2).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/image000000(2).jpg"
+    },
+    {
+      "fileName": "image000000(3).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/image000000(3).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/image000000(3).jpg"
+    },
+    {
+      "fileName": "image000000.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/image000000.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/image000000.jpg"
+    },
+    {
+      "fileName": "image000000011.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/image000000011.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/image000000011.jpg"
+    },
+    {
+      "fileName": "IMG_20221223_152118(1).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20221223_152118(1).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/IMG_20221223_152118(1).jpg"
+    },
+    {
+      "fileName": "IMG_20221223_152118.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20221223_152118.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/IMG_20221223_152118.jpg"
+    },
+    {
+      "fileName": "Resized_20210901_171625.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized_20210901_171625.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Fabricated Signs/Resized_20210901_171625.jpg"
+    }
+  ],
+  "icons": [
+    {
+      "fileName": "camera.svg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/camera.svg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/icons/camera.svg"
+    },
+    {
+      "fileName": "icon-placeholder.svg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/icon-placeholder.svg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/icons/icon-placeholder.svg"
+    }
+  ],
+  "Indoor-Outdoor Displays": [
+    {
+      "fileName": "20120410_235111.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20120410_235111.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Indoor-Outdoor Displays/20120410_235111.jpg"
+    },
+    {
+      "fileName": "20121024_181546.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20121024_181546.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Indoor-Outdoor Displays/20121024_181546.jpg"
+    },
+    {
+      "fileName": "20180731_000545.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180731_000545.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Indoor-Outdoor Displays/20180731_000545.jpg"
+    },
+    {
+      "fileName": "20200707_100733.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200707_100733.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Indoor-Outdoor Displays/20200707_100733.jpg"
+    },
+    {
+      "fileName": "20200707_101430.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200707_101430.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Indoor-Outdoor Displays/20200707_101430.jpg"
+    },
+    {
+      "fileName": "20201127_203700.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20201127_203700.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Indoor-Outdoor Displays/20201127_203700.jpg"
+    },
+    {
+      "fileName": "20220728_164614.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220728_164614.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Indoor-Outdoor Displays/20220728_164614.jpg"
+    },
+    {
+      "fileName": "20220728_164619.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220728_164619.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Indoor-Outdoor Displays/20220728_164619.jpg"
+    },
+    {
+      "fileName": "20240520_150602.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240520_150602.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Indoor-Outdoor Displays/20240520_150602.jpg"
+    },
+    {
+      "fileName": "20240520_150702.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240520_150702.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Indoor-Outdoor Displays/20240520_150702.jpg"
+    },
+    {
+      "fileName": "Exterior Sign.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Exterior Sign.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Indoor-Outdoor Displays/Exterior Sign.jpg"
+    },
+    {
+      "fileName": "Foothill Fitness (3).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Foothill Fitness (3).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Indoor-Outdoor Displays/Foothill Fitness (3).jpg"
+    },
+    {
+      "fileName": "IMG_20230619_160331.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230619_160331.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Indoor-Outdoor Displays/IMG_20230619_160331.jpg"
+    },
+    {
+      "fileName": "IMG_20230621_000909.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230621_000909.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Indoor-Outdoor Displays/IMG_20230621_000909.jpg"
+    },
+    {
+      "fileName": "Plant_Jungle2.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Plant_Jungle2.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Indoor-Outdoor Displays/Plant_Jungle2.JPG"
+    }
+  ],
+  "Laser Engraving": [
+    {
+      "fileName": "fish.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/fish.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Laser Engraving/fish.jpg"
+    },
+    {
+      "fileName": "Lutetium (3).JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Lutetium (3).JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Laser Engraving/Lutetium (3).JPG"
+    }
+  ],
+  "Monument Signs": [
+    {
+      "fileName": "20190311_141326.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190311_141326.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/20190311_141326.jpg"
+    },
+    {
+      "fileName": "20191121_134106.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191121_134106.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/20191121_134106.jpg"
+    },
+    {
+      "fileName": "20210901_171625.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210901_171625.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/20210901_171625.jpg"
+    },
+    {
+      "fileName": "20220624_153058.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220624_153058.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/20220624_153058.jpg"
+    },
+    {
+      "fileName": "20220910_155602.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220910_155602.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/20220910_155602.jpg"
+    },
+    {
+      "fileName": "20220910_155613.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220910_155613.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/20220910_155613.jpg"
+    },
+    {
+      "fileName": "20220914_194040.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220914_194040.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/20220914_194040.jpg"
+    },
+    {
+      "fileName": "20220914_194101.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220914_194101.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/20220914_194101.jpg"
+    },
+    {
+      "fileName": "20230224_170824.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230224_170824.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/20230224_170824.jpg"
+    },
+    {
+      "fileName": "20230224_170833.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230224_170833.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/20230224_170833.jpg"
+    },
+    {
+      "fileName": "BK Monument.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/BK Monument.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/BK Monument.jpg"
+    },
+    {
+      "fileName": "cc 2 copy.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/cc 2 copy.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/cc 2 copy.jpg"
+    },
+    {
+      "fileName": "cc 2 copy2.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/cc 2 copy2.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/cc 2 copy2.jpg"
+    },
+    {
+      "fileName": "cc 2.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/cc 2.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/cc 2.jpg"
+    },
+    {
+      "fileName": "Changes Monument.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Changes Monument.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/Changes Monument.jpg"
+    },
+    {
+      "fileName": "Exterior Sign2.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Exterior Sign2.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/Exterior Sign2.jpg"
+    },
+    {
+      "fileName": "Ft Douglas (1).JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Ft Douglas (1).JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/Ft Douglas (1).JPG"
+    },
+    {
+      "fileName": "Ft Douglas (6).JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Ft Douglas (6).JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/Ft Douglas (6).JPG"
+    },
+    {
+      "fileName": "Monument Sign - First Class Rentals.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Monument Sign - First Class Rentals.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/Monument Sign - First Class Rentals.jpg"
+    },
+    {
+      "fileName": "Monument Sign.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Monument Sign.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/Monument Sign.JPG"
+    },
+    {
+      "fileName": "Monument Sign22.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Monument Sign22.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/Monument Sign22.jpg"
+    },
+    {
+      "fileName": "Resized_20210901_171625.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized_20210901_171625.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/Resized_20210901_171625.jpg"
+    },
+    {
+      "fileName": "Resized_20220910_155613.jpeg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized_20220910_155613.jpeg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Monument Signs/Resized_20220910_155613.jpeg"
+    }
+  ],
+  "Office Decor": [
+    {
+      "fileName": "20150127_095044-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20150127_095044-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20150127_095044-edited.jpg"
+    },
+    {
+      "fileName": "20150729_234311-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20150729_234311-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20150729_234311-edited.jpg"
+    },
+    {
+      "fileName": "20150821_105632-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20150821_105632-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20150821_105632-edited.jpg"
+    },
+    {
+      "fileName": "20160519_235030-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20160519_235030-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20160519_235030-edited.jpg"
+    },
+    {
+      "fileName": "20160521_140120-edited.jpeg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20160521_140120-edited.jpeg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20160521_140120-edited.jpeg"
+    },
+    {
+      "fileName": "20160521_140225-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20160521_140225-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20160521_140225-edited.jpg"
+    },
+    {
+      "fileName": "20160521_221831-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20160521_221831-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20160521_221831-edited.jpg"
+    },
+    {
+      "fileName": "20160522_054438-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20160522_054438-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20160522_054438-edited.jpg"
+    },
+    {
+      "fileName": "20160831_175621-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20160831_175621-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20160831_175621-edited.jpg"
+    },
+    {
+      "fileName": "20170125_182216-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20170125_182216-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20170125_182216-edited.jpg"
+    },
+    {
+      "fileName": "20180126_164818.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180126_164818.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20180126_164818.jpg"
+    },
+    {
+      "fileName": "20180619_143303-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180619_143303-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20180619_143303-edited.jpg"
+    },
+    {
+      "fileName": "20180803_203551.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180803_203551.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20180803_203551.jpg"
+    },
+    {
+      "fileName": "20190227_163621-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190227_163621-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20190227_163621-edited.jpg"
+    },
+    {
+      "fileName": "20190227_163621.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190227_163621.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20190227_163621.jpg"
+    },
+    {
+      "fileName": "20190313_175927.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190313_175927.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20190313_175927.jpg"
+    },
+    {
+      "fileName": "20190313_180245 (1).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190313_180245 (1).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20190313_180245 (1).jpg"
+    },
+    {
+      "fileName": "20190313_180245-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190313_180245-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20190313_180245-edited.jpg"
+    },
+    {
+      "fileName": "20200123_012332.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200123_012332.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20200123_012332.jpg"
+    },
+    {
+      "fileName": "20200123_012358.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200123_012358.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20200123_012358.jpg"
+    },
+    {
+      "fileName": "20200211_145002-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200211_145002-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20200211_145002-edited.jpg"
+    },
+    {
+      "fileName": "20200217_152803-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200217_152803-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20200217_152803-edited.jpg"
+    },
+    {
+      "fileName": "20220414_122450.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220414_122450.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20220414_122450.jpg"
+    },
+    {
+      "fileName": "20220603_163407.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220603_163407.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20220603_163407.jpg"
+    },
+    {
+      "fileName": "20220719_142408.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220719_142408.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20220719_142408.jpg"
+    },
+    {
+      "fileName": "20220719_142414.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220719_142414.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20220719_142414.jpg"
+    },
+    {
+      "fileName": "20230228_141341.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230228_141341.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230228_141341.jpg"
+    },
+    {
+      "fileName": "20230228_141845.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230228_141845.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230228_141845.jpg"
+    },
+    {
+      "fileName": "20230421_204752.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230421_204752.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230421_204752.jpg"
+    },
+    {
+      "fileName": "20230421_204830.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230421_204830.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230421_204830.jpg"
+    },
+    {
+      "fileName": "20230421_204915.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230421_204915.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230421_204915.jpg"
+    },
+    {
+      "fileName": "20230505_170422.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230505_170422.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230505_170422.jpg"
+    },
+    {
+      "fileName": "20230708_122722.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230708_122722.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230708_122722.jpg"
+    },
+    {
+      "fileName": "20230708_173637.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230708_173637.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230708_173637.jpg"
+    },
+    {
+      "fileName": "20230708_173649.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230708_173649.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230708_173649.jpg"
+    },
+    {
+      "fileName": "20230708_173658.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230708_173658.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230708_173658.jpg"
+    },
+    {
+      "fileName": "20230708_173705.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230708_173705.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230708_173705.jpg"
+    },
+    {
+      "fileName": "20230708_173716.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230708_173716.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230708_173716.jpg"
+    },
+    {
+      "fileName": "20230708_173745.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230708_173745.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230708_173745.jpg"
+    },
+    {
+      "fileName": "20230708_173755.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230708_173755.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230708_173755.jpg"
+    },
+    {
+      "fileName": "20230713_173009.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230713_173009.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230713_173009.jpg"
+    },
+    {
+      "fileName": "20230714_105657.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230714_105657.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230714_105657.jpg"
+    },
+    {
+      "fileName": "20230714_113403.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230714_113403.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230714_113403.jpg"
+    },
+    {
+      "fileName": "20230714_133624.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230714_133624.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230714_133624.jpg"
+    },
+    {
+      "fileName": "20230714_133630.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230714_133630.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230714_133630.jpg"
+    },
+    {
+      "fileName": "20230715_171924.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230715_171924.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230715_171924.jpg"
+    },
+    {
+      "fileName": "20230717_215644.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230717_215644.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230717_215644.jpg"
+    },
+    {
+      "fileName": "20230718_141556.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230718_141556.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230718_141556.jpg"
+    },
+    {
+      "fileName": "20230718_145932.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230718_145932.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230718_145932.jpg"
+    },
+    {
+      "fileName": "20230719_201531.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230719_201531.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230719_201531.jpg"
+    },
+    {
+      "fileName": "20230719_204027.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230719_204027.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230719_204027.jpg"
+    },
+    {
+      "fileName": "20230719_230301.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230719_230301.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230719_230301.jpg"
+    },
+    {
+      "fileName": "20230722_003647.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230722_003647.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230722_003647.jpg"
+    },
+    {
+      "fileName": "20230725_084326.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_084326.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_084326.jpg"
+    },
+    {
+      "fileName": "20230725_084528.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_084528.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_084528.jpg"
+    },
+    {
+      "fileName": "20230725_084536.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_084536.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_084536.jpg"
+    },
+    {
+      "fileName": "20230725_084550.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_084550.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_084550.jpg"
+    },
+    {
+      "fileName": "20230725_084951.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_084951.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_084951.jpg"
+    },
+    {
+      "fileName": "20230725_185049.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_185049.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_185049.jpg"
+    },
+    {
+      "fileName": "20230725_185213.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_185213.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_185213.jpg"
+    },
+    {
+      "fileName": "20230725_185722.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_185722.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_185722.jpg"
+    },
+    {
+      "fileName": "20230725_185728.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_185728.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_185728.jpg"
+    },
+    {
+      "fileName": "20230725_185734.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_185734.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_185734.jpg"
+    },
+    {
+      "fileName": "20230725_185858.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_185858.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_185858.jpg"
+    },
+    {
+      "fileName": "20230725_190624.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190624.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190624.jpg"
+    },
+    {
+      "fileName": "20230725_190635.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190635.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190635.jpg"
+    },
+    {
+      "fileName": "20230725_190637.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190637.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190637.jpg"
+    },
+    {
+      "fileName": "20230725_190640.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190640.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190640.jpg"
+    },
+    {
+      "fileName": "20230725_190642.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190642.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190642.jpg"
+    },
+    {
+      "fileName": "20230725_190645.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190645.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190645.jpg"
+    },
+    {
+      "fileName": "20230725_190650.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190650.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190650.jpg"
+    },
+    {
+      "fileName": "20230725_190654.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190654.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190654.jpg"
+    },
+    {
+      "fileName": "20230725_190705.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190705.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190705.jpg"
+    },
+    {
+      "fileName": "20230725_190707.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190707.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190707.jpg"
+    },
+    {
+      "fileName": "20230725_190712.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190712.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190712.jpg"
+    },
+    {
+      "fileName": "20230725_190718.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190718.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190718.jpg"
+    },
+    {
+      "fileName": "20230725_190731.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190731.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190731.jpg"
+    },
+    {
+      "fileName": "20230725_190746.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190746.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190746.jpg"
+    },
+    {
+      "fileName": "20230725_190752.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190752.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190752.jpg"
+    },
+    {
+      "fileName": "20230725_190801.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190801.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190801.jpg"
+    },
+    {
+      "fileName": "20230725_190810.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190810.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190810.jpg"
+    },
+    {
+      "fileName": "20230725_190817.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190817.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190817.jpg"
+    },
+    {
+      "fileName": "20230725_190822.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190822.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190822.jpg"
+    },
+    {
+      "fileName": "20230725_190827.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190827.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190827.jpg"
+    },
+    {
+      "fileName": "20230725_190832.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190832.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190832.jpg"
+    },
+    {
+      "fileName": "20230725_190833.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190833.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190833.jpg"
+    },
+    {
+      "fileName": "20230725_190837.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190837.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190837.jpg"
+    },
+    {
+      "fileName": "20230725_190843.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190843.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190843.jpg"
+    },
+    {
+      "fileName": "20230725_190908.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190908.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190908.jpg"
+    },
+    {
+      "fileName": "20230725_190911.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190911.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190911.jpg"
+    },
+    {
+      "fileName": "20230725_190929.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190929.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190929.jpg"
+    },
+    {
+      "fileName": "20230725_190931.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190931.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190931.jpg"
+    },
+    {
+      "fileName": "20230725_190939.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190939.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190939.jpg"
+    },
+    {
+      "fileName": "20230725_190950.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_190950.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_190950.jpg"
+    },
+    {
+      "fileName": "20230725_191009.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_191009.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_191009.jpg"
+    },
+    {
+      "fileName": "20230725_191024.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_191024.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_191024.jpg"
+    },
+    {
+      "fileName": "20230725_191037.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_191037.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230725_191037.jpg"
+    },
+    {
+      "fileName": "20230729_094544.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230729_094544.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230729_094544.jpg"
+    },
+    {
+      "fileName": "20230729_094642.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230729_094642.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230729_094642.jpg"
+    },
+    {
+      "fileName": "20230729_094647.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230729_094647.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20230729_094647.jpg"
+    },
+    {
+      "fileName": "20231207_150037.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231207_150037.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20231207_150037.jpg"
+    },
+    {
+      "fileName": "20231207_150040.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231207_150040.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20231207_150040.jpg"
+    },
+    {
+      "fileName": "20231207_150045.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231207_150045.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20231207_150045.jpg"
+    },
+    {
+      "fileName": "20240115_222236.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240115_222236.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240115_222236.jpg"
+    },
+    {
+      "fileName": "20240115_222238.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240115_222238.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240115_222238.jpg"
+    },
+    {
+      "fileName": "20240115_222244.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240115_222244.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240115_222244.jpg"
+    },
+    {
+      "fileName": "20240115_225556.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240115_225556.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240115_225556.jpg"
+    },
+    {
+      "fileName": "20240120_102038.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102038.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102038.jpg"
+    },
+    {
+      "fileName": "20240120_102046.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102046.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102046.jpg"
+    },
+    {
+      "fileName": "20240120_102052.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102052.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102052.jpg"
+    },
+    {
+      "fileName": "20240120_102123.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102123.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102123.jpg"
+    },
+    {
+      "fileName": "20240120_102128.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102128.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102128.jpg"
+    },
+    {
+      "fileName": "20240120_102444.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102444.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102444.jpg"
+    },
+    {
+      "fileName": "20240120_102449.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102449.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102449.jpg"
+    },
+    {
+      "fileName": "20240120_102455.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102455.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102455.jpg"
+    },
+    {
+      "fileName": "20240120_102459.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102459.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102459.jpg"
+    },
+    {
+      "fileName": "20240120_102502.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102502.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102502.jpg"
+    },
+    {
+      "fileName": "20240120_102517.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102517.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102517.jpg"
+    },
+    {
+      "fileName": "20240120_102524.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102524.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102524.jpg"
+    },
+    {
+      "fileName": "20240120_102527.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102527.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102527.jpg"
+    },
+    {
+      "fileName": "20240120_102544.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102544.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102544.jpg"
+    },
+    {
+      "fileName": "20240120_102608.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102608.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102608.jpg"
+    },
+    {
+      "fileName": "20240120_102618.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102618.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102618.jpg"
+    },
+    {
+      "fileName": "20240120_102706.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102706.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102706.jpg"
+    },
+    {
+      "fileName": "20240120_102723.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102723.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102723.jpg"
+    },
+    {
+      "fileName": "20240120_102737.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_102737.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/20240120_102737.jpg"
+    },
+    {
+      "fileName": "2c4a1b4c-871a-4375-b0e3-cb94d619deff.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/2c4a1b4c-871a-4375-b0e3-cb94d619deff.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/2c4a1b4c-871a-4375-b0e3-cb94d619deff.jpg"
+    },
+    {
+      "fileName": "image000000(4).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/image000000(4).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/image000000(4).jpg"
+    },
+    {
+      "fileName": "image000000(5).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/image000000(5).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/image000000(5).jpg"
+    },
+    {
+      "fileName": "IMG_20240829_214508.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20240829_214508.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/IMG_20240829_214508.jpg"
+    },
+    {
+      "fileName": "Resized_20220414_122450.jpeg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized_20220414_122450.jpeg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/Resized_20220414_122450.jpeg"
+    },
+    {
+      "fileName": "Resized_20220414_133850.jpeg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized_20220414_133850.jpeg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/Resized_20220414_133850.jpeg"
+    },
+    {
+      "fileName": "Resized_20220624_140017.jpeg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized_20220624_140017.jpeg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/Resized_20220624_140017.jpeg"
+    },
+    {
+      "fileName": "Resized_20220701_160811.jpeg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized_20220701_160811.jpeg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/Resized_20220701_160811.jpeg"
+    },
+    {
+      "fileName": "Resized_20220708_165512.jpeg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized_20220708_165512.jpeg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/Resized_20220708_165512.jpeg"
+    },
+    {
+      "fileName": "Resized_20221028_154956.jpeg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized_20221028_154956.jpeg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/Resized_20221028_154956.jpeg"
+    },
+    {
+      "fileName": "Summit Flooring.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Summit Flooring.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Decor/Summit Flooring.jpg"
+    }
+  ],
+  "Office Signage": [
+    {
+      "fileName": "20121024_181532.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20121024_181532.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20121024_181532.jpg"
+    },
+    {
+      "fileName": "20150127_100122-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20150127_100122-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20150127_100122-edited.jpg"
+    },
+    {
+      "fileName": "20150520_165413-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20150520_165413-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20150520_165413-edited.jpg"
+    },
+    {
+      "fileName": "20160309_180506-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20160309_180506-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20160309_180506-edited.jpg"
+    },
+    {
+      "fileName": "20160727_170422-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20160727_170422-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20160727_170422-edited.jpg"
+    },
+    {
+      "fileName": "20170505_135257-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20170505_135257-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20170505_135257-edited.jpg"
+    },
+    {
+      "fileName": "20170510_225319-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20170510_225319-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20170510_225319-edited.jpg"
+    },
+    {
+      "fileName": "20170523_121441-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20170523_121441-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20170523_121441-edited.jpg"
+    },
+    {
+      "fileName": "20171207_231242-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20171207_231242-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20171207_231242-edited.jpg"
+    },
+    {
+      "fileName": "20190125_163704-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190125_163704-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20190125_163704-edited.jpg"
+    },
+    {
+      "fileName": "20190313_180316-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190313_180316-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20190313_180316-edited.jpg"
+    },
+    {
+      "fileName": "20190313_180319.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190313_180319.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20190313_180319.jpg"
+    },
+    {
+      "fileName": "20190314_171937-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190314_171937-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20190314_171937-edited.jpg"
+    },
+    {
+      "fileName": "20190319_132157-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190319_132157-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20190319_132157-edited.jpg"
+    },
+    {
+      "fileName": "20190508_112734-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190508_112734-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20190508_112734-edited.jpg"
+    },
+    {
+      "fileName": "20191204_161149.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191204_161149.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20191204_161149.jpg"
+    },
+    {
+      "fileName": "20191227_124117-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191227_124117-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20191227_124117-edited.jpg"
+    },
+    {
+      "fileName": "20200120_205436.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200120_205436.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200120_205436.jpg"
+    },
+    {
+      "fileName": "20200120_211946-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200120_211946-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200120_211946-edited.jpg"
+    },
+    {
+      "fileName": "20200120_211946.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200120_211946.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200120_211946.jpg"
+    },
+    {
+      "fileName": "20200123_012309.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200123_012309.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200123_012309.jpg"
+    },
+    {
+      "fileName": "20200123_012319.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200123_012319.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200123_012319.jpg"
+    },
+    {
+      "fileName": "20200124_082142.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200124_082142.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200124_082142.jpg"
+    },
+    {
+      "fileName": "20200124_172055-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200124_172055-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200124_172055-edited.jpg"
+    },
+    {
+      "fileName": "20200129_155452.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200129_155452.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200129_155452.jpg"
+    },
+    {
+      "fileName": "20200222_203316.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200222_203316.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200222_203316.jpg"
+    },
+    {
+      "fileName": "20200616_133744.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200616_133744.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200616_133744.jpg"
+    },
+    {
+      "fileName": "20200616_140247.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200616_140247.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200616_140247.jpg"
+    },
+    {
+      "fileName": "20200805_221239.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200805_221239.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200805_221239.jpg"
+    },
+    {
+      "fileName": "20200805_221247.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200805_221247.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200805_221247.jpg"
+    },
+    {
+      "fileName": "20200805_221309.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200805_221309.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200805_221309.jpg"
+    },
+    {
+      "fileName": "20200805_221319.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200805_221319.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200805_221319.jpg"
+    },
+    {
+      "fileName": "20200807_085458.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200807_085458.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200807_085458.jpg"
+    },
+    {
+      "fileName": "20200902_170906.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200902_170906.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200902_170906.jpg"
+    },
+    {
+      "fileName": "20200930_150008.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200930_150008.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20200930_150008.jpg"
+    },
+    {
+      "fileName": "20201223_130609.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20201223_130609.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20201223_130609.jpg"
+    },
+    {
+      "fileName": "20220419_162220.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220419_162220.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20220419_162220.jpg"
+    },
+    {
+      "fileName": "20220502_122440.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220502_122440.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20220502_122440.jpg"
+    },
+    {
+      "fileName": "20220714_185724.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220714_185724.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20220714_185724.jpg"
+    },
+    {
+      "fileName": "20220817_153631.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220817_153631.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20220817_153631.jpg"
+    },
+    {
+      "fileName": "20221022_140419.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221022_140419.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20221022_140419.jpg"
+    },
+    {
+      "fileName": "20221118_183542.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221118_183542.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20221118_183542.jpg"
+    },
+    {
+      "fileName": "20221118_183830.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221118_183830.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20221118_183830.jpg"
+    },
+    {
+      "fileName": "20221221_145614.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221221_145614.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20221221_145614.jpg"
+    },
+    {
+      "fileName": "20221221_145620-01.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221221_145620-01.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20221221_145620-01.jpg"
+    },
+    {
+      "fileName": "20221221_145620-02.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221221_145620-02.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20221221_145620-02.jpg"
+    },
+    {
+      "fileName": "20221221_145620.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221221_145620.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20221221_145620.jpg"
+    },
+    {
+      "fileName": "20221221_152119.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221221_152119.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20221221_152119.jpg"
+    },
+    {
+      "fileName": "20230103_171702.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230103_171702.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230103_171702.jpg"
+    },
+    {
+      "fileName": "20230120_165332.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230120_165332.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230120_165332.jpg"
+    },
+    {
+      "fileName": "20230120_165654.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230120_165654.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230120_165654.jpg"
+    },
+    {
+      "fileName": "20230227_163706.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230227_163706.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230227_163706.jpg"
+    },
+    {
+      "fileName": "20230310_150726.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230310_150726.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230310_150726.jpg"
+    },
+    {
+      "fileName": "20230310_150731.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230310_150731.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230310_150731.jpg"
+    },
+    {
+      "fileName": "20230327_175455.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230327_175455.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230327_175455.jpg"
+    },
+    {
+      "fileName": "20230419_112513.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230419_112513.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230419_112513.jpg"
+    },
+    {
+      "fileName": "20230421_204803.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230421_204803.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230421_204803.jpg"
+    },
+    {
+      "fileName": "20230421_204810.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230421_204810.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230421_204810.jpg"
+    },
+    {
+      "fileName": "20230616_154139.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230616_154139.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230616_154139.jpg"
+    },
+    {
+      "fileName": "20230627_093632.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230627_093632.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230627_093632.jpg"
+    },
+    {
+      "fileName": "20230629_172723.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230629_172723.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230629_172723.jpg"
+    },
+    {
+      "fileName": "20230724_022108.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230724_022108.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230724_022108.jpg"
+    },
+    {
+      "fileName": "20230724_022136.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230724_022136.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230724_022136.jpg"
+    },
+    {
+      "fileName": "20230724_022918.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230724_022918.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230724_022918.jpg"
+    },
+    {
+      "fileName": "20230728_175044.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230728_175044.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230728_175044.jpg"
+    },
+    {
+      "fileName": "20230729_094610.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230729_094610.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230729_094610.jpg"
+    },
+    {
+      "fileName": "20230729_094612.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230729_094612.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230729_094612.jpg"
+    },
+    {
+      "fileName": "20230729_094623.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230729_094623.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230729_094623.jpg"
+    },
+    {
+      "fileName": "20230817_112516.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230817_112516.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230817_112516.jpg"
+    },
+    {
+      "fileName": "20230817_112550.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230817_112550.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230817_112550.jpg"
+    },
+    {
+      "fileName": "20230821_145607.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230821_145607.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230821_145607.jpg"
+    },
+    {
+      "fileName": "20230821_145612.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230821_145612.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230821_145612.jpg"
+    },
+    {
+      "fileName": "20230821_222454.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230821_222454.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230821_222454.jpg"
+    },
+    {
+      "fileName": "20230822_141222.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230822_141222.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230822_141222.jpg"
+    },
+    {
+      "fileName": "20230822_141251.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230822_141251.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230822_141251.jpg"
+    },
+    {
+      "fileName": "20230822_141253.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230822_141253.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230822_141253.jpg"
+    },
+    {
+      "fileName": "20230921_122916.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230921_122916.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230921_122916.jpg"
+    },
+    {
+      "fileName": "20230929_145447.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230929_145447.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230929_145447.jpg"
+    },
+    {
+      "fileName": "20230929_145556.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230929_145556.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20230929_145556.jpg"
+    },
+    {
+      "fileName": "20231005_182612.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231005_182612.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20231005_182612.jpg"
+    },
+    {
+      "fileName": "20231013_180923.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231013_180923.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20231013_180923.jpg"
+    },
+    {
+      "fileName": "20231013_180929.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231013_180929.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20231013_180929.jpg"
+    },
+    {
+      "fileName": "20231013_180937.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231013_180937.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20231013_180937.jpg"
+    },
+    {
+      "fileName": "20231013_180940.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231013_180940.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20231013_180940.jpg"
+    },
+    {
+      "fileName": "20231013_180944.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231013_180944.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20231013_180944.jpg"
+    },
+    {
+      "fileName": "20231025_120324.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231025_120324.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20231025_120324.jpg"
+    },
+    {
+      "fileName": "20231207_094933.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231207_094933.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20231207_094933.jpg"
+    },
+    {
+      "fileName": "20240115_134834.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240115_134834.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20240115_134834.jpg"
+    },
+    {
+      "fileName": "20240115_134840.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240115_134840.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20240115_134840.jpg"
+    },
+    {
+      "fileName": "20240115_134911.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240115_134911.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20240115_134911.jpg"
+    },
+    {
+      "fileName": "20240115_135213.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240115_135213.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20240115_135213.jpg"
+    },
+    {
+      "fileName": "20240117_164209.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240117_164209.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20240117_164209.jpg"
+    },
+    {
+      "fileName": "20240117_164213.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240117_164213.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20240117_164213.jpg"
+    },
+    {
+      "fileName": "20240117_164219.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240117_164219.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20240117_164219.jpg"
+    },
+    {
+      "fileName": "20240123_163910.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240123_163910.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20240123_163910.jpg"
+    },
+    {
+      "fileName": "20240123_163917.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240123_163917.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20240123_163917.jpg"
+    },
+    {
+      "fileName": "20240827_164038.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240827_164038.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20240827_164038.jpg"
+    },
+    {
+      "fileName": "20240827_164040.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240827_164040.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/20240827_164040.jpg"
+    },
+    {
+      "fileName": "635279032.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/635279032.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/635279032.jpg"
+    },
+    {
+      "fileName": "Canon.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Canon.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/Canon.JPG"
+    },
+    {
+      "fileName": "image000000010.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/image000000010.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/image000000010.jpg"
+    },
+    {
+      "fileName": "imagejpeg.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/imagejpeg.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/imagejpeg.jpg"
+    },
+    {
+      "fileName": "IMG_0327.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_0327.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/IMG_0327.JPG"
+    },
+    {
+      "fileName": "IMG_20230104_165747.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230104_165747.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/IMG_20230104_165747.jpg"
+    },
+    {
+      "fileName": "IMG_20230104_165810.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230104_165810.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/IMG_20230104_165810.jpg"
+    },
+    {
+      "fileName": "IMG_20230116_094045.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230116_094045.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/IMG_20230116_094045.jpg"
+    },
+    {
+      "fileName": "IMG_20230822_094924.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230822_094924.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/IMG_20230822_094924.jpg"
+    },
+    {
+      "fileName": "IMG_20230824_153822.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230824_153822.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/IMG_20230824_153822.jpg"
+    },
+    {
+      "fileName": "IMG_20230824_153829.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230824_153829.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/IMG_20230824_153829.jpg"
+    },
+    {
+      "fileName": "IMG_20231002_170645.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20231002_170645.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/IMG_20231002_170645.jpg"
+    },
+    {
+      "fileName": "IMG_20240111_191545_01.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20240111_191545_01.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/IMG_20240111_191545_01.jpg"
+    },
+    {
+      "fileName": "IMG_2702.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_2702.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/IMG_2702.jpg"
+    },
+    {
+      "fileName": "LHMBoard_Wall-option1.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/LHMBoard_Wall-option1.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/LHMBoard_Wall-option1.jpg"
+    },
+    {
+      "fileName": "Pure Health-01.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Pure Health-01.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/Pure Health-01.jpg"
+    },
+    {
+      "fileName": "Resized_20220714_185724.jpeg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized_20220714_185724.jpeg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/Resized_20220714_185724.jpeg"
+    },
+    {
+      "fileName": "Resized_20230405_160941.jpeg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized_20230405_160941.jpeg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/Resized_20230405_160941.jpeg"
+    },
+    {
+      "fileName": "Screenshot_20230327_175733_Acrobat for Samsung.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Screenshot_20230327_175733_Acrobat for Samsung.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/Screenshot_20230327_175733_Acrobat for Samsung.jpg"
+    },
+    {
+      "fileName": "Screenshot_20230422_202616_Gallery.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Screenshot_20230422_202616_Gallery.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/Screenshot_20230422_202616_Gallery.jpg"
+    },
+    {
+      "fileName": "Simply_Right.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Simply_Right.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Office Signage/Simply_Right.JPG"
+    }
+  ],
+  "Rigid Signs": [
+    {
+      "fileName": "20191002_131040-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191002_131040-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20191002_131040-edited.jpg"
+    },
+    {
+      "fileName": "20191002_131044-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191002_131044-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20191002_131044-edited.jpg"
+    },
+    {
+      "fileName": "20210602_161437.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210602_161437.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20210602_161437.jpg"
+    },
+    {
+      "fileName": "20230303_183829.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230303_183829.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20230303_183829.jpg"
+    },
+    {
+      "fileName": "20231019_130239.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231019_130239.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20231019_130239.jpg"
+    },
+    {
+      "fileName": "20231019_130247.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231019_130247.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20231019_130247.jpg"
+    },
+    {
+      "fileName": "20231107_143209.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231107_143209.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20231107_143209.jpg"
+    },
+    {
+      "fileName": "20240126_124933.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240126_124933.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20240126_124933.jpg"
+    },
+    {
+      "fileName": "20240126_124957.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240126_124957.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20240126_124957.jpg"
+    },
+    {
+      "fileName": "20240131_122449.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240131_122449.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20240131_122449.jpg"
+    },
+    {
+      "fileName": "20240131_122502.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240131_122502.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20240131_122502.jpg"
+    },
+    {
+      "fileName": "20240424_104117.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240424_104117.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20240424_104117.jpg"
+    },
+    {
+      "fileName": "20240424_105537.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240424_105537.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20240424_105537.jpg"
+    },
+    {
+      "fileName": "20240429_154422.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240429_154422.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20240429_154422.jpg"
+    },
+    {
+      "fileName": "20240429_154443.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240429_154443.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20240429_154443.jpg"
+    },
+    {
+      "fileName": "20240815_155611.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240815_155611.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Rigid Signs/20240815_155611.jpg"
+    }
+  ],
+  "Special Events": [
+    {
+      "fileName": "20210504_002729.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210504_002729.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/20210504_002729.jpg"
+    },
+    {
+      "fileName": "20210504_203343.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210504_203343.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/20210504_203343.jpg"
+    },
+    {
+      "fileName": "20211023_110004.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211023_110004.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/20211023_110004.jpg"
+    },
+    {
+      "fileName": "20211023_110233.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211023_110233.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/20211023_110233.jpg"
+    },
+    {
+      "fileName": "20220125_142752.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220125_142752.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/20220125_142752.jpg"
+    },
+    {
+      "fileName": "20220520_122600.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220520_122600.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/20220520_122600.jpg"
+    },
+    {
+      "fileName": "20220623_212434-01.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220623_212434-01.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/20220623_212434-01.jpg"
+    },
+    {
+      "fileName": "20220719_210639.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220719_210639.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/20220719_210639.jpg"
+    },
+    {
+      "fileName": "20230523_102739.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230523_102739.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/20230523_102739.jpg"
+    },
+    {
+      "fileName": "20230816_110146.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230816_110146.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/20230816_110146.jpg"
+    },
+    {
+      "fileName": "20240107_122846.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240107_122846.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/20240107_122846.jpg"
+    },
+    {
+      "fileName": "20240107_122854.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240107_122854.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/20240107_122854.jpg"
+    },
+    {
+      "fileName": "20240107_122856.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240107_122856.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/20240107_122856.jpg"
+    },
+    {
+      "fileName": "image000000007.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/image000000007.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/image000000007.jpg"
+    },
+    {
+      "fileName": "image000000008.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/image000000008.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/image000000008.jpg"
+    },
+    {
+      "fileName": "IMG_20230621_000750.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230621_000750.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/IMG_20230621_000750.jpg"
+    },
+    {
+      "fileName": "IMG_20230621_000753.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230621_000753.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/IMG_20230621_000753.jpg"
+    },
+    {
+      "fileName": "IMG_20230621_001034.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230621_001034.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/IMG_20230621_001034.jpg"
+    },
+    {
+      "fileName": "IMG_20230621_001146.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230621_001146.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/IMG_20230621_001146.jpg"
+    },
+    {
+      "fileName": "IMG_20230621_001150.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230621_001150.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Special Events/IMG_20230621_001150.jpg"
+    }
+  ],
+  "Step & Repeat": [
+    {
+      "fileName": "20200124_090039-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200124_090039-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Step & Repeat/20200124_090039-edited.jpg"
+    },
+    {
+      "fileName": "20240120_101812.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_101812.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Step & Repeat/20240120_101812.jpg"
+    },
+    {
+      "fileName": "20240120_101816.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240120_101816.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Step & Repeat/20240120_101816.jpg"
+    }
+  ],
+  "Tradeshows-Expos": [
+    {
+      "fileName": "20180510_190142.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180510_190142.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/20180510_190142.jpg"
+    },
+    {
+      "fileName": "20191109_112956.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191109_112956.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/20191109_112956.jpg"
+    },
+    {
+      "fileName": "20191109_113013.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191109_113013.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/20191109_113013.jpg"
+    },
+    {
+      "fileName": "20191121_114650.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191121_114650.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/20191121_114650.jpg"
+    },
+    {
+      "fileName": "20191121_120530.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191121_120530.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/20191121_120530.jpg"
+    },
+    {
+      "fileName": "20210205_203602.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210205_203602.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/20210205_203602.jpg"
+    },
+    {
+      "fileName": "20210205_203707.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210205_203707.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/20210205_203707.jpg"
+    },
+    {
+      "fileName": "20221105_121717.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221105_121717.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/20221105_121717.jpg"
+    },
+    {
+      "fileName": "20231028_123204.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231028_123204.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/20231028_123204.jpg"
+    },
+    {
+      "fileName": "IMG_20230621_001029.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230621_001029.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/IMG_20230621_001029.jpg"
+    },
+    {
+      "fileName": "IMG_8561.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_8561.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/IMG_8561.jpg"
+    },
+    {
+      "fileName": "IMG_8561_1740240387128.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_8561_1740240387128.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/IMG_8561_1740240387128.jpg"
+    },
+    {
+      "fileName": "Pop-up Banners.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Pop-up Banners.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/Pop-up Banners.jpg"
+    },
+    {
+      "fileName": "popup1.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/popup1.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/popup1.jpg"
+    },
+    {
+      "fileName": "Popup2.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Popup2.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/Popup2.jpg"
+    },
+    {
+      "fileName": "Popup3.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Popup3.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/Popup3.jpg"
+    },
+    {
+      "fileName": "popup4.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/popup4.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/popup4.jpg"
+    },
+    {
+      "fileName": "Resized952021102395110233(1).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Resized952021102395110233(1).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Tradeshows-Expos/Resized952021102395110233(1).jpg"
+    }
+  ],
+  "Vehicle Graphics": [
+    {
+      "fileName": "1.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/1.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/1.JPG"
+    },
+    {
+      "fileName": "2.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/2.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/2.JPG"
+    },
+    {
+      "fileName": "20171017_230530.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20171017_230530.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20171017_230530.jpg"
+    },
+    {
+      "fileName": "20180201_222729.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180201_222729.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20180201_222729.jpg"
+    },
+    {
+      "fileName": "20180323_171959.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180323_171959.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20180323_171959.jpg"
+    },
+    {
+      "fileName": "20180323_172023.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180323_172023.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20180323_172023.jpg"
+    },
+    {
+      "fileName": "20180520_054612.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180520_054612.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20180520_054612.jpg"
+    },
+    {
+      "fileName": "20180520_054643.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180520_054643.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20180520_054643.jpg"
+    },
+    {
+      "fileName": "20191011_144433.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191011_144433.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20191011_144433.jpg"
+    },
+    {
+      "fileName": "20210203_220909.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210203_220909.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20210203_220909.jpg"
+    },
+    {
+      "fileName": "20210203_220951.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210203_220951.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20210203_220951.jpg"
+    },
+    {
+      "fileName": "20211007_105407.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211007_105407.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20211007_105407.jpg"
+    },
+    {
+      "fileName": "20211230_122615.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211230_122615.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20211230_122615.jpg"
+    },
+    {
+      "fileName": "20211230_122727.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211230_122727.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20211230_122727.jpg"
+    },
+    {
+      "fileName": "20211230_122738.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211230_122738.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20211230_122738.jpg"
+    },
+    {
+      "fileName": "20211230_122747.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211230_122747.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20211230_122747.jpg"
+    },
+    {
+      "fileName": "20220204_125946.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220204_125946.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20220204_125946.jpg"
+    },
+    {
+      "fileName": "20220713_183444.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220713_183444.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20220713_183444.jpg"
+    },
+    {
+      "fileName": "20220713_191241.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220713_191241.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20220713_191241.jpg"
+    },
+    {
+      "fileName": "20220713_191255.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220713_191255.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20220713_191255.jpg"
+    },
+    {
+      "fileName": "20220713_191441.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220713_191441.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20220713_191441.jpg"
+    },
+    {
+      "fileName": "20221012_163250.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221012_163250.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20221012_163250.jpg"
+    },
+    {
+      "fileName": "20230301_170352.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230301_170352.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230301_170352.jpg"
+    },
+    {
+      "fileName": "20230301_170358.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230301_170358.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230301_170358.jpg"
+    },
+    {
+      "fileName": "20230303_115411.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230303_115411.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230303_115411.jpg"
+    },
+    {
+      "fileName": "20230303_115416.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230303_115416.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230303_115416.jpg"
+    },
+    {
+      "fileName": "20230303_115429.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230303_115429.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230303_115429.jpg"
+    },
+    {
+      "fileName": "20230303_115443.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230303_115443.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230303_115443.jpg"
+    },
+    {
+      "fileName": "20230303_115447.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230303_115447.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230303_115447.jpg"
+    },
+    {
+      "fileName": "20230303_115506.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230303_115506.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230303_115506.jpg"
+    },
+    {
+      "fileName": "20230303_115514.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230303_115514.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230303_115514.jpg"
+    },
+    {
+      "fileName": "20230306_115005.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230306_115005.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230306_115005.jpg"
+    },
+    {
+      "fileName": "20230306_115010.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230306_115010.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230306_115010.jpg"
+    },
+    {
+      "fileName": "20230306_115015.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230306_115015.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230306_115015.jpg"
+    },
+    {
+      "fileName": "20230306_115854.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230306_115854.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230306_115854.jpg"
+    },
+    {
+      "fileName": "20230306_115903.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230306_115903.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230306_115903.jpg"
+    },
+    {
+      "fileName": "20230306_115916.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230306_115916.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230306_115916.jpg"
+    },
+    {
+      "fileName": "20230410_173046.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230410_173046.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230410_173046.jpg"
+    },
+    {
+      "fileName": "20230410_173103.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230410_173103.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230410_173103.jpg"
+    },
+    {
+      "fileName": "20230430_073347.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230430_073347.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20230430_073347.jpg"
+    },
+    {
+      "fileName": "20240110_131653.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240110_131653.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20240110_131653.jpg"
+    },
+    {
+      "fileName": "20240309_133039.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240309_133039.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20240309_133039.jpg"
+    },
+    {
+      "fileName": "20240309_133150.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240309_133150.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20240309_133150.jpg"
+    },
+    {
+      "fileName": "20240413_131916.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240413_131916.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20240413_131916.jpg"
+    },
+    {
+      "fileName": "20240413_131931.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240413_131931.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/20240413_131931.jpg"
+    },
+    {
+      "fileName": "87.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/87.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/87.jpg"
+    },
+    {
+      "fileName": "Clean Green.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Clean Green.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/Clean Green.jpg"
+    },
+    {
+      "fileName": "decipher.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/decipher.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/decipher.jpg"
+    },
+    {
+      "fileName": "IMG_5366.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_5366.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/IMG_5366.jpg"
+    },
+    {
+      "fileName": "IMG_5367.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_5367.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/IMG_5367.jpg"
+    },
+    {
+      "fileName": "Trucks.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Trucks.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vehicle Graphics/Trucks.jpg"
+    }
+  ],
+  "Vinyl": [
+    {
+      "fileName": "20140310_185915.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20140310_185915.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20140310_185915.jpg"
+    },
+    {
+      "fileName": "20180123_171104.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180123_171104.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20180123_171104.jpg"
+    },
+    {
+      "fileName": "20180629_171443-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180629_171443-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20180629_171443-edited.jpg"
+    },
+    {
+      "fileName": "20190603_172606-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190603_172606-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20190603_172606-edited.jpg"
+    },
+    {
+      "fileName": "20191103_212507.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20191103_212507.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20191103_212507.jpg"
+    },
+    {
+      "fileName": "20200116_175137.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200116_175137.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20200116_175137.jpg"
+    },
+    {
+      "fileName": "20200116_175143.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200116_175143.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20200116_175143.jpg"
+    },
+    {
+      "fileName": "20200116_175206.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200116_175206.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20200116_175206.jpg"
+    },
+    {
+      "fileName": "20200123_012323.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200123_012323.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20200123_012323.jpg"
+    },
+    {
+      "fileName": "20200505_141147.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20200505_141147.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20200505_141147.jpg"
+    },
+    {
+      "fileName": "20210203_223849.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210203_223849.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20210203_223849.jpg"
+    },
+    {
+      "fileName": "20210430_174310.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210430_174310.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20210430_174310.jpg"
+    },
+    {
+      "fileName": "20210505_203013.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210505_203013.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20210505_203013.jpg"
+    },
+    {
+      "fileName": "20210601_085924.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20210601_085924.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20210601_085924.jpg"
+    },
+    {
+      "fileName": "20211028_175235.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211028_175235.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20211028_175235.jpg"
+    },
+    {
+      "fileName": "20211105_192924.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211105_192924.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20211105_192924.jpg"
+    },
+    {
+      "fileName": "20211117_152930.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211117_152930.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20211117_152930.jpg"
+    },
+    {
+      "fileName": "20211207_161016.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211207_161016.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20211207_161016.jpg"
+    },
+    {
+      "fileName": "20211211_180203.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20211211_180203.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20211211_180203.jpg"
+    },
+    {
+      "fileName": "20220331_144747.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220331_144747.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20220331_144747.jpg"
+    },
+    {
+      "fileName": "20220705_151954.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220705_151954.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20220705_151954.jpg"
+    },
+    {
+      "fileName": "20220705_152347.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220705_152347.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20220705_152347.jpg"
+    },
+    {
+      "fileName": "20220708_165512.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220708_165512.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20220708_165512.jpg"
+    },
+    {
+      "fileName": "20220714_131908.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220714_131908.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20220714_131908.jpg"
+    },
+    {
+      "fileName": "20220714_135146.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220714_135146.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20220714_135146.jpg"
+    },
+    {
+      "fileName": "20220728_161017.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220728_161017.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20220728_161017.jpg"
+    },
+    {
+      "fileName": "20220813_090906.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220813_090906.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20220813_090906.jpg"
+    },
+    {
+      "fileName": "20220813_090919.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220813_090919.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20220813_090919.jpg"
+    },
+    {
+      "fileName": "20220922_023300.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220922_023300.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20220922_023300.jpg"
+    },
+    {
+      "fileName": "20220922_023320.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20220922_023320.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20220922_023320.jpg"
+    },
+    {
+      "fileName": "20221011_181027.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221011_181027.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20221011_181027.jpg"
+    },
+    {
+      "fileName": "20221122_193558.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221122_193558.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20221122_193558.jpg"
+    },
+    {
+      "fileName": "20221122_193743.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20221122_193743.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20221122_193743.jpg"
+    },
+    {
+      "fileName": "20230105_163259.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230105_163259.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20230105_163259.jpg"
+    },
+    {
+      "fileName": "20230105_163302.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230105_163302.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20230105_163302.jpg"
+    },
+    {
+      "fileName": "20230125_153150.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230125_153150.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20230125_153150.jpg"
+    },
+    {
+      "fileName": "20230224_171601.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230224_171601.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20230224_171601.jpg"
+    },
+    {
+      "fileName": "20230515_162849.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230515_162849.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20230515_162849.jpg"
+    },
+    {
+      "fileName": "20230515_162934.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230515_162934.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20230515_162934.jpg"
+    },
+    {
+      "fileName": "20230710_211349.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230710_211349.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20230710_211349.jpg"
+    },
+    {
+      "fileName": "20230725_191118.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230725_191118.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20230725_191118.jpg"
+    },
+    {
+      "fileName": "20230825_145857.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230825_145857.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20230825_145857.jpg"
+    },
+    {
+      "fileName": "20230828_201743.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230828_201743.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20230828_201743.jpg"
+    },
+    {
+      "fileName": "20230830_124016.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230830_124016.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20230830_124016.jpg"
+    },
+    {
+      "fileName": "20230830_124020.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230830_124020.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20230830_124020.jpg"
+    },
+    {
+      "fileName": "20230830_130619.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230830_130619.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20230830_130619.jpg"
+    },
+    {
+      "fileName": "20230830_130623.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230830_130623.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20230830_130623.jpg"
+    },
+    {
+      "fileName": "20231108_152836.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231108_152836.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20231108_152836.jpg"
+    },
+    {
+      "fileName": "20231204_153142.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231204_153142.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20231204_153142.jpg"
+    },
+    {
+      "fileName": "20231229_192935.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20231229_192935.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20231229_192935.jpg"
+    },
+    {
+      "fileName": "20240101_131644.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240101_131644.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20240101_131644.jpg"
+    },
+    {
+      "fileName": "20240101_135752.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240101_135752.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20240101_135752.jpg"
+    },
+    {
+      "fileName": "20240123_105847.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240123_105847.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20240123_105847.jpg"
+    },
+    {
+      "fileName": "20240228_145330.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240228_145330.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20240228_145330.jpg"
+    },
+    {
+      "fileName": "20240327_224745.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240327_224745.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20240327_224745.jpg"
+    },
+    {
+      "fileName": "20240520_150630.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240520_150630.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20240520_150630.jpg"
+    },
+    {
+      "fileName": "20240731_142803.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240731_142803.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/20240731_142803.jpg"
+    },
+    {
+      "fileName": "95 STATE FITNESS CENTER.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/95 STATE FITNESS CENTER.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/95 STATE FITNESS CENTER.jpg"
+    },
+    {
+      "fileName": "Direct_Source2.JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Direct_Source2.JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/Direct_Source2.JPG"
+    },
+    {
+      "fileName": "IMG_0315.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_0315.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/IMG_0315.jpg"
+    },
+    {
+      "fileName": "IMG_20230503_200206_01.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230503_200206_01.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/IMG_20230503_200206_01.jpg"
+    },
+    {
+      "fileName": "IMG_20230705_195254_01.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20230705_195254_01.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/IMG_20230705_195254_01.jpg"
+    },
+    {
+      "fileName": "IMG_20240829_214617.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/IMG_20240829_214617.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/IMG_20240829_214617.jpg"
+    },
+    {
+      "fileName": "Lagoon1.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Lagoon1.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/Lagoon1.jpg"
+    },
+    {
+      "fileName": "Maternity Massage.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Maternity Massage.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/Maternity Massage.jpg"
+    },
+    {
+      "fileName": "New Door  (3).jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/New Door  (3).jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/New Door  (3).jpg"
+    },
+    {
+      "fileName": "Salt Cycles (11).JPG",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/Salt Cycles (11).JPG gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Vinyl/Salt Cycles (11).JPG"
+    }
+  ],
+  "Window Tint & Frost": [
+    {
+      "fileName": "20160304_162030-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20160304_162030-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20160304_162030-edited.jpg"
+    },
+    {
+      "fileName": "20180123_154619.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20180123_154619.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20180123_154619.jpg"
+    },
+    {
+      "fileName": "20181204_140416-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20181204_140416-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20181204_140416-edited.jpg"
+    },
+    {
+      "fileName": "20181217_141655-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20181217_141655-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20181217_141655-edited.jpg"
+    },
+    {
+      "fileName": "20181217_172651-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20181217_172651-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20181217_172651-edited.jpg"
+    },
+    {
+      "fileName": "20181219_170634-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20181219_170634-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20181219_170634-edited.jpg"
+    },
+    {
+      "fileName": "20190418_115722.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190418_115722.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20190418_115722.jpg"
+    },
+    {
+      "fileName": "20190603_175415-edited.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190603_175415-edited.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20190603_175415-edited.jpg"
+    },
+    {
+      "fileName": "20190603_175415.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190603_175415.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20190603_175415.jpg"
+    },
+    {
+      "fileName": "20190709_175726.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20190709_175726.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20190709_175726.jpg"
+    },
+    {
+      "fileName": "20230327_175322.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230327_175322.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20230327_175322.jpg"
+    },
+    {
+      "fileName": "20230609_155729.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230609_155729.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20230609_155729.jpg"
+    },
+    {
+      "fileName": "20230703_154707.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230703_154707.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20230703_154707.jpg"
+    },
+    {
+      "fileName": "20230703_154730.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230703_154730.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20230703_154730.jpg"
+    },
+    {
+      "fileName": "20230703_195325.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230703_195325.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20230703_195325.jpg"
+    },
+    {
+      "fileName": "20230705_142845.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230705_142845.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20230705_142845.jpg"
+    },
+    {
+      "fileName": "20230705_155422.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230705_155422.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20230705_155422.jpg"
+    },
+    {
+      "fileName": "20230705_155425.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230705_155425.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20230705_155425.jpg"
+    },
+    {
+      "fileName": "20230723_160944.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230723_160944.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20230723_160944.jpg"
+    },
+    {
+      "fileName": "20230723_160951.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20230723_160951.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20230723_160951.jpg"
+    },
+    {
+      "fileName": "20240123_163901.jpg",
+      "command": "gsutil mv gs://mastersign-d8396.firebasestorage.app/20240123_163901.jpg gs://mastersign-d8396.firebasestorage.app/Master%20Sign/assets/Window Tint & Frost/20240123_163901.jpg"
+    }
+  ]
+}

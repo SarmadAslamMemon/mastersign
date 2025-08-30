@@ -7,15 +7,14 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 // Your Firebase configuration object
-// Replace these values with your actual Firebase project credentials
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY", // Get this from Firebase Console
+  apiKey: "AIzaSyDQk6eD1PWv5UxwWzjHivW4l4EapSpxO2Y",
   authDomain: "mastersign-d8396.firebaseapp.com",
   projectId: "mastersign-d8396",
-  storageBucket: "mastersign-d8396.appspot.com",
+  storageBucket: "mastersign-d8396.firebasestorage.app",
   messagingSenderId: "688784364899",
-  appId: "YOUR_APP_ID", // Get this from Firebase Console
-  measurementId: "YOUR_MEASUREMENT_ID" // Optional
+  appId: "1:688784364899:web:b27c29f9d3a4e1f398ef56",
+  measurementId: "G-3YV9XHP9PJ"
 };
 
 // Initialize Firebase

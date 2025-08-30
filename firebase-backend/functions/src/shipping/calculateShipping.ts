@@ -58,7 +58,7 @@ export const calculateShippingCost = async (
     const shippingOptions = product.shippingOptions || [];
 
     // Find the selected shipping method
-    const selectedMethod = shippingOptions.find(option => option.id === data.shippingMethod);
+    const selectedMethod = shippingOptions.find((option: any) => option.id === data.shippingMethod);
     if (!selectedMethod) {
       return {
         success: false,

@@ -108,7 +108,7 @@ export const calculateProductPrice = async (
 
     // Calculate size-based pricing
     if (data.size && sizeConstraints.allowCustomSize) {
-      const { width, height, unit } = data.size;
+      const { width, height } = data.size;
       
       switch (pricing.pricingModel) {
         case 'per_sq_ft':
@@ -136,9 +136,9 @@ export const calculateProductPrice = async (
     let optionsPrice = 0;
     if (data.options && data.options.length > 0) {
       for (const selectedOption of data.options) {
-        const option = customizableOptions.find(opt => opt.id === selectedOption.optionId);
+        const option = customizableOptions.find((opt: any) => opt.id === selectedOption.optionId);
         if (option) {
-          const optionValue = option.values.find(val => val.value === selectedOption.value);
+                      const optionValue = option.values.find((val: any) => val.value === selectedOption.value);
           if (optionValue && optionValue.priceImpact) {
             optionsPrice += optionValue.priceImpact;
           }

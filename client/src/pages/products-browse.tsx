@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { Star, ShoppingCart, Eye } from "lucide-react";
-import { useStaticProducts } from "@/hooks/useStaticData";
+import { useFirebaseProducts, useFirebaseCategories } from "@/hooks/useFirebaseData";
 
 // Category fallback images mapping
 const categoryFallbackImage: Record<ProductCategory, string> = {
@@ -144,14 +144,15 @@ export default function ProductsBrowsePage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('');
 
-  // Fetch products from static data
-  const { products, loading, error, fetchProductsByCategory } = useStaticProducts();
+  // Fetch products and categories from Firebase
+  const { products, loading, error, fetchProducts } = useFirebaseProducts();
+  const { categories: firebaseCategories, loading: categoriesLoading } = useFirebaseCategories();
 
   useEffect(() => {
-    // Fetch products for the selected category
-    console.log('🔄 Category changed to:', selectedCategory);
-    fetchProductsByCategory(selectedCategory);
-  }, [selectedCategory, fetchProductsByCategory]);
+    // Fetch all products from Firebase (we'll filter client-side)
+    console.log('🔄 Fetching all products from Firebase');
+    fetchProducts();
+  }, [fetchProducts]);
 
   const subCategories = PRODUCT_SUBCATEGORIES[selectedCategory] || [];
 
@@ -159,12 +160,41 @@ export default function ProductsBrowsePage() {
     if (loading) return [];
     if (error) return [];
 
-    console.log(`🔄 Using ${products.length} static products`);
+    console.log(`🔄 Using ${products.length} Firebase products`);
     console.log('📊 Product categories found:', [...new Set(products.map(p => p.category))]);
 
-    // Our static data already matches the Product interface, so just return it
-    return products;
-  }, [products, loading, error]);
+    // Filter products by selected category
+    let filteredProducts = products;
+    
+    if (selectedCategory && firebaseCategories.length > 0) {
+      // Create dynamic mapping from Firebase categories
+      const categoryMapping: Record<string, string> = {};
+      firebaseCategories.forEach(cat => {
+        if (cat.categoryId) {
+          categoryMapping[cat.categoryId] = cat.id; // Map categoryId to Firebase document ID
+        }
+      });
+      
+      console.log('🗂️ Category mapping:', categoryMapping);
+      console.log('🎯 Selected category:', selectedCategory);
+      
+      // Find the Firebase document ID for the selected category
+      const targetCategoryId = categoryMapping[selectedCategory];
+      
+      if (targetCategoryId) {
+        console.log(`🎯 Filtering for category: ${selectedCategory} -> Firebase ID: ${targetCategoryId}`);
+        console.log(`📊 Available product categories:`, [...new Set(products.map(p => p.category))]);
+        
+        filteredProducts = products.filter(p => p.category === targetCategoryId);
+        console.log(`✅ Found ${filteredProducts.length} products for category ${selectedCategory}`);
+      } else {
+        console.warn(`⚠️ No Firebase category found for: ${selectedCategory}`);
+        console.log('Available category mappings:', Object.keys(categoryMapping));
+      }
+    }
+
+    return filteredProducts;
+  }, [products, loading, error, selectedCategory]);
 
   const filtered = useMemo(() => {
     let filteredItems = items;
@@ -172,7 +202,7 @@ export default function ProductsBrowsePage() {
     // Filter by sub-category
     if (selectedSubCategory && selectedSubCategory !== "all") {
       filteredItems = filteredItems.filter(item => 
-        item.subCategory === selectedSubCategory
+        item.subcategory === selectedSubCategory
       );
     }
 
@@ -181,7 +211,7 @@ export default function ProductsBrowsePage() {
       filteredItems = filteredItems.filter(item =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.subCategory.toLowerCase().includes(searchTerm.toLowerCase())
+        (item.subcategory && item.subcategory.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     }
 
@@ -328,14 +358,14 @@ export default function ProductsBrowsePage() {
                 <Card className="h-full overflow-hidden hover:shadow-lg transition-all duration-300">
                   <div className="relative overflow-hidden">
                     <img 
-                      src={product.image} 
+                      src={product.images && product.images.length > 0 ? product.images[0] : '/images/placeholder-product.jpg'} 
                       alt={product.name}
                       className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                       onError={(e) => {
-                        // Fallback to category image if product image fails
+                        // Fallback to placeholder if product image fails
                         const target = e.target as HTMLImageElement;
-                        console.log(`🖼️ Image failed to load: ${product.image}, using fallback for category: ${product.category}`);
-                        target.src = categoryFallbackImage[product.category];
+                        console.log(`🖼️ Image failed to load, using placeholder for: ${product.name}`);
+                        target.src = '/images/placeholder-product.jpg';
                         // Prevent infinite error loop
                         target.onerror = null;
                       }}
@@ -346,12 +376,12 @@ export default function ProductsBrowsePage() {
                   <div className="p-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm text-blue-600 font-medium">
-                        {product.subCategory}
+                        {product.subcategory}
                       </span>
                       <div className="flex items-center">
                         <Star className="h-4 w-4 text-yellow-400 fill-current" />
                         <span className="text-sm text-gray-600 ml-1">
-                          {product.rating}
+                          {product.rating || 4.5}
                         </span>
                       </div>
                     </div>
@@ -366,7 +396,7 @@ export default function ProductsBrowsePage() {
                     
                     <div className="flex items-center justify-between">
                       <span className="text-xl font-bold text-blue-600">
-                        ${product.price}
+                        ${product.pricing?.basePrice || 99.99}
                       </span>
                       <div className="flex gap-2">
                         <button className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">

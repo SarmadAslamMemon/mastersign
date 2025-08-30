@@ -1,0 +1,31 @@
+{
+  "name": "firebase-image-migration",
+  "version": "1.0.0",
+  "description": "Smart Firebase Image Migration System with Supabase Mapping",
+  "type": "module",
+  "main": "firebase-image-migration.js",
+  "scripts": {
+    "analyze": "node firebase-image-migration.js",
+    "run": "node run-migration.js",
+    "test": "node --version && gsutil --version"
+  },
+  "keywords": [
+    "firebase",
+    "storage",
+    "migration",
+    "supabase",
+    "gsutil",
+    "image-mapping"
+  ],
+  "author": "SignFlow Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/signflow"
+  }
+}
